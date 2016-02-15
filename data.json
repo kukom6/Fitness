@@ -1,0 +1,11 @@
+{
+  "meals":[
+    {"id":"1","name":"salat","protein":"15","carbohydrate":"14","fat":"18","kcal":"58"},
+    {"id":"2","name":"jogurt","protein":"5","carbohydrate":"30","fat":"20","kcal":"210"}
+
+  ],
+  "exercises":[
+    {"id":"1","name":"beh","kcal":"30"},
+    {"id":"2","name":"joga","kcal":"20"}
+  ]
+}

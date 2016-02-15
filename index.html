@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fitness</title>
+    <script src="exercise.js"></script>
+    <script src="exercisesManager.js"></script>
+    <script src="meal.js"></script>
+    <script src="mealsManager.js"></script>
+    <script src="localDB.js"></script>
+
+</head>
+<body>
+<button id="loadButton" onclick="localDB()"> LoadDB  </button>
+<button id="showButton" onclick="this.disabled=true; showAllDB()"> ShowDB  </button>
+<button onclick="saveDB()"> Save  </button>
+<br>
+<button onclick="managerM.sortByIdAscending();refreshShowDB()"> Sort Meals by ID (Vzestupne) </button>
+<button onclick="managerM.sortByIdDescending();refreshShowDB()"> Sort Meals by ID (Zestupne) </button>
+<button onclick="managerE.sortByIdAscending();refreshShowDB()"> Sort Exercises by ID (Vzestupne) </button>
+<button onclick="managerE.sortByIdDescending();refreshShowDB()"> Sort Exercises by ID (Zestupne) </button>
+
+<FORM NAME="addMeal" ACTION="" METHOD="GET">
+    Enter meal: <BR>
+    <INPUT TYPE="text" NAME="id" VALUE=""/>
+    <INPUT TYPE="text" NAME="nameMeal" VALUE=""/>
+    <INPUT TYPE="text" NAME="protein" VALUE=""/>
+    <INPUT TYPE="text" NAME="carbohydrate" VALUE=""/>
+    <INPUT TYPE="text" NAME="fat" VALUE=""/>
+    <INPUT TYPE="text" NAME="kcal" VALUE=""/>
+    <INPUT id="addMealsButton" TYPE="button" NAME="button" Value="Odoslat" onClick="this.disabled=true ; addDB(this.form)"/>
+</FORM>
+
+<FORM NAME="addExercise" ACTION="" METHOD="GET">
+    Enter exercise: <BR>
+    <INPUT TYPE="text" NAME="id" VALUE=""/>
+    <INPUT TYPE="text" NAME="nameExercise" VALUE=""/>
+    <INPUT TYPE="text" NAME="kcal" VALUE=""/>
+    <INPUT id="addExerciseButton" TYPE="button" NAME="button" Value="Click" onClick="this.disabled=true; addDB(this.form)"/>
+</FORM>
+
+<table style="width:100%" border="2">
+    <caption>Meals</caption>
+    <tbody id="meals">
+        <tr id="headMe">
+            <th>Id</th>
+            <th>Name</th>
+            <th>Protein</th>
+            <th>carbohydrate</th>
+            <th>fat</th>
+            <th>kcal</th>
+        </tr>
+    </tbody>
+</table>
+<br>
+<table style="width:100%" border="2">
+    <caption>Exercises</caption>
+    <tbody id="exercises">
+        <tr id="headEx">
+            <th>Id</th>
+            <th>Name</th>
+            <th>kcal</th>
+        </tr>
+    </tbody>
+</table>
+
+<div id="showDB"></div>
+</body>
+</html>
