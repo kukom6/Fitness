@@ -11,30 +11,40 @@ function loadDB(){  //temp function
         }
         showAllDB();
     }else {
-        alert("local storage not found"); //TODO
+        alert("local storage is not supported, please update your browser."); //TODO
     }
 }
-
-function loadLocal(){
-    var data = localStorage.getItem('jsonData');
-    var tempArr = JSON.parse(data);
-    for(var i=0;i<tempArr["meals"].length;i++){
-        meals.push(new meal(tempArr["meals"][i].id,
-            tempArr["meals"][i].name,
-            tempArr["meals"][i].protein,
-            tempArr["meals"][i].carbohydrate,
-            tempArr["meals"][i].fat,
-            tempArr["meals"][i].kcal));
-    }
-    for(i=0;i<tempArr["exercises"].length;i++){
-        exercises.push(new exercise(tempArr["exercises"][i].id,
-            tempArr["exercises"][i].name,
-            tempArr["exercises"][i].kcal));
-    }
-    alert("Load DB Successful from local DB");
-    document.getElementById("loadButton").disabled=true;
+/**
+ * load DB from upload file, next time data will be on the local storage
+ * @param jsonFiles
+ */
+function loadJSONasFile(jsonFiles){
+    //TODO test na validitu suboru jsonFils[0]
+    var reader = new FileReader();
+    reader.onload = function(event) {
+        var tempArr = JSON.parse(event.target.result);
+        for(var i=0;i<tempArr["meals"].length;i++){
+            meals.push(new meal(tempArr["meals"][i].id,
+                tempArr["meals"][i].name,
+                tempArr["meals"][i].protein,
+                tempArr["meals"][i].carbohydrate,
+                tempArr["meals"][i].fat,
+                tempArr["meals"][i].kcal));
+        }
+        for(i=0;i<tempArr["exercises"].length;i++){
+            exercises.push(new exercise(tempArr["exercises"][i].id,
+                tempArr["exercises"][i].name,
+                tempArr["exercises"][i].kcal));
+        }
+        alert("Load DB Successful from DB file");
+        document.getElementById("input").disabled=true;
+        saveLocal();
+    };
+    reader.readAsText(jsonFiles[0]);
 }
-
+/**
+ * load define DB after first start with XMLHttpRequest
+ */
 function loadJSON(url) { //TODO refactoring
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function () {
@@ -62,7 +72,42 @@ function loadJSON(url) { //TODO refactoring
     xmlhttp.send();
 }
 
+/**
+ * Load from local storage
+ */
+function loadLocal(){
+    var data = localStorage.getItem('jsonData');
+    var tempArr = JSON.parse(data);
+    for(var i=0;i<tempArr["meals"].length;i++){
+        meals.push(new meal(tempArr["meals"][i].id,
+            tempArr["meals"][i].name,
+            tempArr["meals"][i].protein,
+            tempArr["meals"][i].carbohydrate,
+            tempArr["meals"][i].fat,
+            tempArr["meals"][i].kcal));
+    }
+    for(i=0;i<tempArr["exercises"].length;i++){
+        exercises.push(new exercise(tempArr["exercises"][i].id,
+            tempArr["exercises"][i].name,
+            tempArr["exercises"][i].kcal));
+    }
+    alert("Load DB Successful from local DB");
+    if(this.meals.length==0&&this.exercises.length==0){ //DB in local storage was been empty
+        alert("DB is empty!");
+        document.getElementById("loadButton").disabled=false;
+        return;
+    }
+    document.getElementById("loadButton").disabled=true;
+}
+
+/**
+ * Save DB(changed) to local storage
+ */
 function saveLocal(){
+    if(this.meals.length==0&&this.exercises.length==0){
+        alert("DB is empty! DB wil not save");
+        return;
+    }
     var saveJSON = {
         meals : this.meals,
         exercises : this.exercises
@@ -74,27 +119,36 @@ function saveLocal(){
 
 }
 
-function saveJSON(){ //TODO download file
+/**
+ * Export DB to JSON file
+ */
+function saveJSON(){ //TODO download file, right way ?
     var saveJSON = {
         meals : this.meals,
         exercises : this.exercises
         };
-    var data = JSON.stringify(saveJSON);
-    var url = 'data:text/json;charser=utf8,'+ encodeURIComponent(data);  //TODO ukladanie
-    window.open(url, '_blank');
-    window.focus();
+    var data = 'data:text/json;charser=utf8,'+ encodeURIComponent(JSON.stringify(saveJSON));  //TODO ukladanie
+    var a = document.createElement('a');
+    a.href = data;
+    a.download = 'data.json';
+    a.click();
 }
 
+/**
+ * delete DB in the local storage
+ */
 function deleteLocal(){
     if (confirm("Delete local storage! Make sure that you download DB!") == true) {
         alert("Local storage was deleted. App will be reload");
         localStorage.clear();
         location.reload();
-    } else {
-        return;
     }
 }
 
+/**
+ * add value to DB with form
+ * @param mode - type of value
+ */
 function addDB(mode){  //TODO way of forms ???
     if(mode=="meal"){
         meals.push(new meal(
@@ -121,9 +175,12 @@ function addDB(mode){  //TODO way of forms ???
     saveLocal();
 }
 
+/**
+ * show all db as table
+ */
 function showAllDB(){
     if(meals.length==0 && exercises.length==0){
-        alert("DB is empty");
+        alert("DB is empty, nothing to show");
         return;
     }
     /*
@@ -178,6 +235,10 @@ function showAllDB(){
     }
 }
 
+/**
+ * refresh table.
+ * (remove table elements and call showAllDB function
+ */
 function refreshShowDB(){  // TODO right? delete and show ?
     var tabMeals = document.getElementById("headMe");
     var temp=tabMeals.nextSibling;
@@ -193,6 +254,9 @@ function refreshShowDB(){  // TODO right? delete and show ?
     document.getElementById("refreshButton").disabled=false;
 }
 
+/**
+ * test if web browser supported local storage
+ */
 function storageAvailable(type) {
     try {
         var storage = window[type],
@@ -206,6 +270,10 @@ function storageAvailable(type) {
     }
 }
 
+/**
+ * Test how many items will fit into the local storage
+ * (don't forget to delete the database after test!)
+ */
 function storageTest(){
     var data = null;
     var count = 0;
@@ -221,7 +289,5 @@ function storageTest(){
     }
     if (confirm("Clear storage?") == true) {
         localStorage.clear();
-    } else {
-        return;
     }
 }

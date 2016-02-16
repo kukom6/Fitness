@@ -16,16 +16,18 @@
 
 </head>
 <body>
-<button id="loadButton" onclick="loadDB()"> LoadDB  </button>
+LOAD DB : <button id="loadButton" onclick="loadDB()"> LoadDB  </button> <input type="file" id="input" onchange="loadJSONasFile(this.files)">
 <button id="refreshButton" onclick="this.disabled=true; refreshShowDB()"> RefreshDB  </button>
+<br>
 <button onclick="saveLocal()"> Save  </button>
-<button onclick="saveJSON()"> DownloadDB  </button>
+<button id="saveButton" onclick="saveJSON()"> DownloadDB  </button>
+<br>
+!TEST FUNCTION!
 <button onclick="deleteLocal()" style="color:red"> Delete localStorage  </button>
 <button onclick="loadDB()" style="color:red"> Load Storage Again  </button>
 <button onclick="storageTest()" style="color:red"> Max value in local storage (Wipe all DB!)  </button>
 
-
-<br>
+<br><hr><br>
 <button onclick="managerM.sortByIdAscending();refreshShowDB()"> Sort Meals by ID (Vzestupne) </button>
 <button onclick="managerM.sortByIdDescending();refreshShowDB()"> Sort Meals by ID (Zestupne) </button>
 <button onclick="managerE.sortByIdAscending();refreshShowDB()"> Sort Exercises by ID (Vzestupne) </button>
@@ -40,7 +42,7 @@
     <input type="text" placeholder="carbohydrate" name="carbohydrate" />
     <input type="text" placeholder="" name="fat"/>
     <input type="text" placeholder="kcal" name="kcal"/>
-    <input type="submit" value="STLAC!"/>
+    <input type="submit" value="Submit"/>
     <!--   <INPUT id="addMealsButton" TYPE="button" NAME="button" Value="Odoslat" onClick="this.disabled=true ; addDB(this.form)"/> -->
    </form>
 
