@@ -3,6 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Fitness</title>
+<!--    <script>
+        document.addEventListener("DOMContentLoaded", function(event) {
+            localDB();
+        });
+    </script> -->
     <script src="exercise.js"></script>
     <script src="exercisesManager.js"></script>
     <script src="meal.js"></script>
@@ -11,59 +16,66 @@
 
 </head>
 <body>
-<button id="loadButton" onclick="localDB()"> LoadDB  </button>
-<button id="showButton" onclick="this.disabled=true; showAllDB()"> ShowDB  </button>
-<button onclick="saveDB()"> Save  </button>
+<button id="loadButton" onclick="loadDB()"> LoadDB  </button>
+<button id="refreshButton" onclick="this.disabled=true; refreshShowDB()"> RefreshDB  </button>
+<button onclick="saveLocal()"> Save  </button>
+<button onclick="saveJSON()"> DownloadDB  </button>
+<button onclick="deleteLocal()" style="color:red"> Delete localStorage  </button>
+<button onclick="loadDB()" style="color:red"> Load Storage Again  </button>
+
 <br>
 <button onclick="managerM.sortByIdAscending();refreshShowDB()"> Sort Meals by ID (Vzestupne) </button>
 <button onclick="managerM.sortByIdDescending();refreshShowDB()"> Sort Meals by ID (Zestupne) </button>
 <button onclick="managerE.sortByIdAscending();refreshShowDB()"> Sort Exercises by ID (Vzestupne) </button>
 <button onclick="managerE.sortByIdDescending();refreshShowDB()"> Sort Exercises by ID (Zestupne) </button>
+<p><label>Date (not implemented yet): <input type="date" value="2014-07-21"></label></p>  <!--TODO not implemented yet-->
 
-<FORM NAME="addMeal" ACTION="" METHOD="GET">
-    Enter meal: <BR>
-    <INPUT TYPE="text" NAME="id" VALUE=""/>
-    <INPUT TYPE="text" NAME="nameMeal" VALUE=""/>
-    <INPUT TYPE="text" NAME="protein" VALUE=""/>
-    <INPUT TYPE="text" NAME="carbohydrate" VALUE=""/>
-    <INPUT TYPE="text" NAME="fat" VALUE=""/>
-    <INPUT TYPE="text" NAME="kcal" VALUE=""/>
-    <INPUT id="addMealsButton" TYPE="button" NAME="button" Value="Odoslat" onClick="this.disabled=true ; addDB(this.form)"/>
-</FORM>
+<form name="addMeal" onsubmit="addDB('meal');return false" method="post"> <!--TODO way of forms ??? -->
+    Enter meal: <br>
+    <input type="text" placeholder="id" name="id" required/>
+    <input type="text" placeholder="Name" name="name" required/>
+    <input type="text" placeholder="protein" name="protein" />
+    <input type="text" placeholder="carbohydrate" name="carbohydrate" />
+    <input type="text" placeholder="" name="fat"/>
+    <input type="text" placeholder="kcal" name="kcal"/>
+    <input type="submit" value="STLAC!"/>
+    <!--   <INPUT id="addMealsButton" TYPE="button" NAME="button" Value="Odoslat" onClick="this.disabled=true ; addDB(this.form)"/> -->
+   </form>
 
-<FORM NAME="addExercise" ACTION="" METHOD="GET">
-    Enter exercise: <BR>
-    <INPUT TYPE="text" NAME="id" VALUE=""/>
-    <INPUT TYPE="text" NAME="nameExercise" VALUE=""/>
-    <INPUT TYPE="text" NAME="kcal" VALUE=""/>
-    <INPUT id="addExerciseButton" TYPE="button" NAME="button" Value="Click" onClick="this.disabled=true; addDB(this.form)"/>
-</FORM>
+   <form name="addExercise" onsubmit="addDB('exercise');return false" method="post"> <!--TODO way of forms ??? -->
+    Enter exercise: <br>
+    <input type="text" placeholder="id" name="id" required/>
+    <input type="text" placeholder="Name" name="name" required/>
+    <input type="text" placeholder="kcal" name="kcal" />
+    <input type="submit" value="Submit"/>
+    <!--    <INPUT id="addExerciseButton" TYPE="button" NAME="button" Value="Click" onClick="this.disabled=true; addDB(this.form)"/> -->
+    </form>
 
-<table style="width:100%" border="2">
-    <caption>Meals</caption>
-    <tbody id="meals">
-        <tr id="headMe">
-            <th>Id</th>
-            <th>Name</th>
-            <th>Protein</th>
-            <th>carbohydrate</th>
-            <th>fat</th>
-            <th>kcal</th>
-        </tr>
-    </tbody>
-</table>
-<br>
-<table style="width:100%" border="2">
-    <caption>Exercises</caption>
-    <tbody id="exercises">
-        <tr id="headEx">
-            <th>Id</th>
-            <th>Name</th>
-            <th>kcal</th>
-        </tr>
-    </tbody>
-</table>
+      <table style="width:100%" border="2">
+          <caption>Meals</caption>
+          <tbody id="meals">
+              <tr id="headMe">
+                  <th>Id</th>
+                  <th>Name</th>
+                  <th>Protein</th>
+                  <th>carbohydrate</th>
+                  <th>fat</th>
+                  <th>kcal</th>
+              </tr>
+          </tbody>
+      </table>
+      <br>
+      <table style="width:100%" border="2">
+          <caption>Exercises</caption>
+          <tbody id="exercises">
+              <tr id="headEx">
+                  <th>Id</th>
+                  <th>Name</th>
+                  <th>kcal</th>
+              </tr>
+          </tbody>
+      </table>
 
-<div id="showDB"></div>
-</body>
-</html>
+      <div id="showDB"></div>
+      </body>
+      </html>
