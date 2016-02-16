@@ -131,6 +131,7 @@ function saveJSON(){ //TODO download file, right way ?
     var a = document.createElement('a');
     a.href = data;
     a.download = 'data.json';
+    document.getElementById("downloadVisible").appendChild(a); //TODO chrome vs. the others
     a.click();
 }
 
