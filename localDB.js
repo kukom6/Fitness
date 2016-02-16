@@ -205,3 +205,23 @@ function storageAvailable(type) {
         return false;
     }
 }
+
+function storageTest(){
+    var data = null;
+    var count = 0;
+    while(true) {
+        try {
+            data = new meal(100,"meso tesco classic",100,100,100,1000);
+            localStorage.setItem('TEST'+count,data);
+            count++;
+        } catch (e) {
+            alert("Plna pamet! Pocet zaznamov: " +count+"\n (meal(100,\"meso tesco classic\",100,100,100,1000))");
+            break;
+        }
+    }
+    if (confirm("Clear storage?") == true) {
+        localStorage.clear();
+    } else {
+        return;
+    }
+}
