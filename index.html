@@ -1,61 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Fitness</title>
-<!--    <script>
-        document.addEventListener("DOMContentLoaded", function(event) {
-            localDB();
-        });
-    </script> -->
-    <script src="exercise.js"></script>
-    <script src="exercisesManager.js"></script>
-    <script src="meal.js"></script>
-    <script src="mealsManager.js"></script>
-    <script src="localDB.js"></script>
+    <head>
+        <meta charset="UTF-8">
+        <title>Fitness</title>
+    <!--    <script>
+            document.addEventListener("DOMContentLoaded", function(event) {
+                localDB();
+            });
+        </script> -->
+        <script src="exercise.js"></script>
+        <script src="exercisesManager.js"></script>
+        <script src="meal.js"></script>
+        <script src="mealsManager.js"></script>
+        <script src="day.js"></script>
+        <script src="daysManager.js"></script>
+        <script src="localDB.js"></script>
 
-</head>
-<body>
-LOAD DB : <button id="loadButton" onclick="loadDB()"> LoadDB  </button> <input type="file" id="input" onchange="loadJSONasFile(this.files)">
-<button id="refreshButton" onclick="this.disabled=true; refreshShowDB()"> RefreshDB  </button>
-<br>
-<button onclick="saveLocal()"> Save  </button>
-<button id="saveButton" onclick="saveJSON()"> DownloadDB  </button>
-<br>
-!TEST FUNCTION!
-<button onclick="deleteLocal()" style="color:red"> Delete localStorage  </button>
-<button onclick="loadDB()" style="color:red"> Load Storage Again  </button>
-<button onclick="storageTest()" style="color:red"> Max value in local storage (Wipe all DB!)  </button>
-<div id="downloadVisible"/>
-<br><hr><br>
-<button onclick="managerM.sortByIdAscending();refreshShowDB()"> Sort Meals by ID (Vzestupne) </button>
-<button onclick="managerM.sortByIdDescending();refreshShowDB()"> Sort Meals by ID (Zestupne) </button>
-<button onclick="managerE.sortByIdAscending();refreshShowDB()"> Sort Exercises by ID (Vzestupne) </button>
-<button onclick="managerE.sortByIdDescending();refreshShowDB()"> Sort Exercises by ID (Zestupne) </button>
-<p><label>Date (not implemented yet): <input type="date" value="2014-07-21"></label></p>  <!--TODO not implemented yet-->
+    </head>
+    <body>
+        LOAD DB : <button id="loadButton" onclick="loadDB()"> LoadDB  </button> <input type="file" id="input" onchange="loadJSONasFile(this.files)">
+        <button id="refreshButton" onclick="this.disabled=true; refreshShowDB()"> RefreshDB  </button>
+        <br>
+        <button onclick="saveLocal()"> Save  </button>
+        <button id="saveButton" onclick="saveJSON()"> DownloadDB  </button>
+        <br>
+        !TEST FUNCTION!
+        <button onclick="deleteLocal()" style="color:red"> Delete localStorage  </button>
+        <button onclick="loadDB()" style="color:red"> Load Storage Again  </button>
+        <button onclick="storageTest()" style="color:red"> Max value in local storage (Wipe all DB!)  </button>
+        <div id="downloadVisible"/>
+        <br><hr><br>
+        <button onclick="managerM.sortByIdAscending();refreshShowDB()"> Sort Meals by ID (Vzestupne) </button>
+        <button onclick="managerM.sortByIdDescending();refreshShowDB()"> Sort Meals by ID (Zestupne) </button>
+        <button onclick="managerE.sortByIdAscending();refreshShowDB()"> Sort Exercises by ID (Vzestupne) </button>
+        <button onclick="managerE.sortByIdDescending();refreshShowDB()"> Sort Exercises by ID (Zestupne) </button>
+        <p><label>Date (not implemented yet): <input type="date" value="2014-07-21"></label></p>  <!--TODO not implemented yet-->
 
-<form name="addMeal" onsubmit="addDB('meal');return false" method="post"> <!--TODO way of forms ??? -->
-    Enter meal: <br>
-    <input type="text" placeholder="id" name="id" required/>
-    <input type="text" placeholder="Name" name="name" required/>
-    <input type="text" placeholder="protein" name="protein" />
-    <input type="text" placeholder="carbohydrate" name="carbohydrate" />
-    <input type="text" placeholder="" name="fat"/>
-    <input type="text" placeholder="kcal" name="kcal"/>
-    <input type="submit" value="Submit"/>
-    <!--   <INPUT id="addMealsButton" TYPE="button" NAME="button" Value="Odoslat" onClick="this.disabled=true ; addDB(this.form)"/> -->
-   </form>
+        <form name="addMeal" onsubmit="addDB('meal');return false" method="post"> <!--TODO way of forms ??? -->
+            Enter meal: <br>
+            <input type="text" placeholder="id" name="id" required/>
+            <input type="text" placeholder="Name" name="name" required/>
+            <input type="text" placeholder="protein" name="protein" />
+            <input type="text" placeholder="carbohydrate" name="carbohydrate" />
+            <input type="text" placeholder="" name="fat"/>
+            <input type="text" placeholder="kcal" name="kcal"/>
+            <input type="submit" value="Submit"/>
+            <!--   <INPUT id="addMealsButton" TYPE="button" NAME="button" Value="Odoslat" onClick="this.disabled=true ; addDB(this.form)"/> -->
+        </form>
 
-   <form name="addExercise" onsubmit="addDB('exercise');return false" method="post"> <!--TODO way of forms ??? -->
-    Enter exercise: <br>
-    <input type="text" placeholder="id" name="id" required/>
-    <input type="text" placeholder="Name" name="name" required/>
-    <input type="text" placeholder="kcal" name="kcal" />
-    <input type="submit" value="Submit"/>
-    <!--    <INPUT id="addExerciseButton" TYPE="button" NAME="button" Value="Click" onClick="this.disabled=true; addDB(this.form)"/> -->
-    </form>
+        <form name="addExercise" onsubmit="addDB('exercise');return false" method="post"> <!--TODO way of forms ??? -->
+            Enter exercise: <br>
+            <input type="text" placeholder="id" name="id" required/>
+            <input type="text" placeholder="Name" name="name" required/>
+            <input type="text" placeholder="kcal" name="kcal" />
+            <input type="submit" value="Submit"/>
+            <!--    <INPUT id="addExerciseButton" TYPE="button" NAME="button" Value="Click" onClick="this.disabled=true; addDB(this.form)"/> -->
+        </form>
 
-      <table style="width:100%" border="2">
+        <table style="width:100%" border="2">
           <caption>Meals</caption>
           <tbody id="meals">
               <tr id="headMe">
@@ -67,9 +69,9 @@ LOAD DB : <button id="loadButton" onclick="loadDB()"> LoadDB  </button> <input t
                   <th>kcal</th>
               </tr>
           </tbody>
-      </table>
-      <br>
-      <table style="width:100%" border="2">
+        </table>
+        <br>
+        <table style="width:100%" border="2">
           <caption>Exercises</caption>
           <tbody id="exercises">
               <tr id="headEx">
@@ -78,8 +80,8 @@ LOAD DB : <button id="loadButton" onclick="loadDB()"> LoadDB  </button> <input t
                   <th>kcal</th>
               </tr>
           </tbody>
-      </table>
-
-      <div id="showDB"></div>
-      </body>
-      </html>
+        </table>
+        <button onclick="testDays()" > Test days value  </button>
+        <div id="showDB"></div>
+    </body>
+</html>

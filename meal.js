@@ -14,7 +14,7 @@ function meal(id,name,protein,carbohydrate,fat,kcal){
     this.kcal=kcal;
 
     this.toString = function () {
-        return "Jedlo " + this.id + " ma: "+ this.protein + "g proteinov," +
+        return "Jedlo " + this.name + " ma: "+ this.protein + "g proteinov," +
             " " + this.carbohydrate + "g sacharidov, " + this.fat + "g tukov a " + this.kcal + "kcal na 100g."
     }
 }

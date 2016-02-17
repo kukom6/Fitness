@@ -37,6 +37,7 @@ function loadJSONasFile(jsonFiles){
                 tempArr["exercises"][i].kcal));
         }
         alert("Load DB Successful from DB file");
+        document.getElementById("loadButton").disabled=true;
         document.getElementById("input").disabled=true;
         saveLocal();
     };
@@ -65,6 +66,7 @@ function loadJSON(url) { //TODO refactoring
             }
             alert("Load DB Successful from JSON");
             document.getElementById("loadButton").disabled=true;
+            document.getElementById("input").disabled=true;
             saveLocal();
         }
     };
@@ -98,6 +100,7 @@ function loadLocal(){
         return;
     }
     document.getElementById("loadButton").disabled=true;
+    document.getElementById("input").disabled=true;
 }
 
 /**
@@ -284,7 +287,9 @@ function storageTest(){
             localStorage.setItem('TEST'+count,data);
             count++;
         } catch (e) {
-            alert("Plna pamet! Pocet zaznamov: " +count+"\n (meal(100,\"meso tesco classic\",100,100,100,1000))");
+            alert("Plna pamet! Pocet zaznamov: " +count+"\n " +
+                "(meal(100,\"meso tesco classic\",100,100,100,1000)) \n" +
+                "pocet dni v DB pri 100 miestnej databaze cvikov a jedal s priemerom 15 jedal na den: " + ((count/15) - 100) + " dni.");
             break;
         }
     }
