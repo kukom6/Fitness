@@ -16,22 +16,6 @@ function daysManager(){
 var daysM = new daysManager(); //TODO move to init()
 
 /**
- * test temp function
- */
-function testDays(){
-    var temp = null;
-    for(var i=0;i<3;i++){
-        temp = new day(new Date(1994,3,i));
-        for(var j=0;j<1+i;j++){
-            temp.addMeal(new meal(1+j,"meso tesco classic"+j,100+j,100+j,100+j,1000+j));
-            temp.addExercise(new exercise(3+1,"beh",150+j*i));
-        }
-        this.days.push(temp);
-    }
-    showDays();
-}
-
-/**
  * test temp function,
  */
 function showDays(){

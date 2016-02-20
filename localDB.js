@@ -2,7 +2,7 @@
  * Created by mkralik on 2/13/16.
  */
 
-function loadDB(){  //temp function
+function loadDB(){  //TODO temp function
     if (storageAvailable('localStorage')) {
         if(localStorage.getItem('isInLocal')){
             loadLocal();
@@ -23,20 +23,11 @@ function loadJSONasFile(jsonFiles){
     var reader = new FileReader();
     reader.onload = function(event) {
         var tempArr = JSON.parse(event.target.result);
-        for(var i=0;i<tempArr["meals"].length;i++){
-            meals.push(new meal(tempArr["meals"][i].id,
-                tempArr["meals"][i].name,
-                tempArr["meals"][i].protein,
-                tempArr["meals"][i].carbohydrate,
-                tempArr["meals"][i].fat,
-                tempArr["meals"][i].kcal));
+        if(!parseJSONtoLocal(tempArr)){
+            alert("DB unsuccessfully load from uploaded file");
+            return; //TODO exception?
         }
-        for(i=0;i<tempArr["exercises"].length;i++){
-            exercises.push(new exercise(tempArr["exercises"][i].id,
-                tempArr["exercises"][i].name,
-                tempArr["exercises"][i].kcal));
-        }
-        alert("Load DB Successful from DB file");
+        alert("DB was successfully loaded from uploaded file");
         document.getElementById("loadButton").disabled=true;
         document.getElementById("input").disabled=true;
         saveLocal();
@@ -46,25 +37,16 @@ function loadJSONasFile(jsonFiles){
 /**
  * load define DB after first start with XMLHttpRequest
  */
-function loadJSON(url) { //TODO refactoring
+function loadJSON(url) { //TODO refactoring, temp function, will delete from aplication
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function () {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
             var tempArr = JSON.parse(xmlhttp.responseText);
-            for(var i=0;i<tempArr["meals"].length;i++){
-                meals.push(new meal(tempArr["meals"][i].id,
-                                    tempArr["meals"][i].name,
-                                    tempArr["meals"][i].protein,
-                                    tempArr["meals"][i].carbohydrate,
-                                    tempArr["meals"][i].fat,
-                                    tempArr["meals"][i].kcal));
+            if(!parseJSONtoLocal(tempArr)){
+                alert("DB unsuccessfully load from JSON");
+                return; //TODO exception?
             }
-            for(i=0;i<tempArr["exercises"].length;i++){
-                exercises.push(new exercise(tempArr["exercises"][i].id,
-                                        tempArr["exercises"][i].name,
-                                        tempArr["exercises"][i].kcal));
-            }
-            alert("Load DB Successful from JSON");
+            alert("DB was successfully loaded from JSON");
             document.getElementById("loadButton").disabled=true;
             document.getElementById("input").disabled=true;
             saveLocal();
@@ -80,21 +62,12 @@ function loadJSON(url) { //TODO refactoring
 function loadLocal(){
     var data = localStorage.getItem('jsonData');
     var tempArr = JSON.parse(data);
-    for(var i=0;i<tempArr["meals"].length;i++){
-        meals.push(new meal(tempArr["meals"][i].id,
-            tempArr["meals"][i].name,
-            tempArr["meals"][i].protein,
-            tempArr["meals"][i].carbohydrate,
-            tempArr["meals"][i].fat,
-            tempArr["meals"][i].kcal));
+    if(!parseJSONtoLocal(tempArr)){
+        alert("DB unsuccessfully loaded from local DB");
+        return; //TODO exception?
     }
-    for(i=0;i<tempArr["exercises"].length;i++){
-        exercises.push(new exercise(tempArr["exercises"][i].id,
-            tempArr["exercises"][i].name,
-            tempArr["exercises"][i].kcal));
-    }
-    alert("Load DB Successful from local DB");
-    if(this.meals.length==0&&this.exercises.length==0){ //DB in local storage was been empty
+    alert("DB was successfully loaded from local DB");
+    if(this.meals.length==0&&this.exercises.length==0&&this.days.length==0){ //DB in local storage was been empty
         alert("DB is empty!");
         document.getElementById("loadButton").disabled=false;
         return;
@@ -113,13 +86,13 @@ function saveLocal(){
     }
     var saveJSON = {
         meals : this.meals,
-        exercises : this.exercises
+        exercises : this.exercises,
+        days : this.days
     };
-    var data = JSON.stringify(saveJSON);
+    var data = JSON.stringify(saveJSON);   //TODO save as only one a JSON type or each of them as a separated JSON type (meals,exercises,days)?
     localStorage.setItem('jsonData',data);
     localStorage.setItem('isInLocal',true);
     alert("DB was saved");
-
 }
 
 /**
@@ -128,7 +101,8 @@ function saveLocal(){
 function saveJSON(){ //TODO download file, right way ?
     var saveJSON = {
         meals : this.meals,
-        exercises : this.exercises
+        exercises : this.exercises,
+        days : this.days
         };
     var data = 'data:text/json;charser=utf8,'+ encodeURIComponent(JSON.stringify(saveJSON));  //TODO ukladanie
     var a = document.createElement('a');
@@ -296,4 +270,49 @@ function storageTest(){
     if (confirm("Clear storage?") == true) {
         localStorage.clear();
     }
+}
+
+/**
+ * Parsing JSON to the local objects
+ * @param tempArr - parse JSON
+ * @returns {boolean}
+ */
+function parseJSONtoLocal(tempArr){
+    if(tempArr == null){
+        return false;
+    }
+    for(var i=0;i<tempArr["meals"].length;i++){ //load meals
+        meals.push(new meal(tempArr["meals"][i].id,
+            tempArr["meals"][i].name,
+            tempArr["meals"][i].protein,
+            tempArr["meals"][i].carbohydrate,
+            tempArr["meals"][i].fat,
+            tempArr["meals"][i].kcal));
+    }
+    for(i=0;i<tempArr["exercises"].length;i++){ //load exercises
+        exercises.push(new exercise(tempArr["exercises"][i].id,
+            tempArr["exercises"][i].name,
+            tempArr["exercises"][i].kcal));
+    }
+    var saveDay = [];
+    var specificDay = []; // helpful variable
+    for(i=0;i<tempArr["days"].length;i++){  //load days with days and exercises
+        specificDay = tempArr["days"][i]; // clarifications code
+        saveDay = new day(specificDay["date"]);
+        for(var j=0;j<specificDay["dayMeals"].length;j++){
+            saveDay.addMeal(new meal(specificDay["dayMeals"][j].id,
+                specificDay["dayMeals"][j].name,
+                specificDay["dayMeals"][j].protein,
+                specificDay["dayMeals"][j].carbohydrate,
+                specificDay["dayMeals"][j].fat,
+                specificDay["dayMeals"][j].kcal));
+        }
+        for(j=0;j<specificDay["dayExercises"].length;j++){
+            saveDay.addExercise(new exercise(specificDay["dayExercises"][j].id,
+                specificDay["dayExercises"][j].name,
+                specificDay["dayExercises"][j].kcal));
+        }
+        days.push(saveDay);
+    }
+    return true;
 }

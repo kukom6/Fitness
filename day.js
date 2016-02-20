@@ -9,9 +9,9 @@ function day(date){
 
     this.addMeal = function(addM){
         this.dayMeals.push(addM);
-    }
+    };
 
     this.addExercise = function(addE){
         this.dayExercises.push(addE);
-    }
+    };
 }
