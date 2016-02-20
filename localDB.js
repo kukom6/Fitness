@@ -31,6 +31,7 @@ function loadJSONasFile(jsonFiles){
         document.getElementById("loadButton").disabled=true;
         document.getElementById("input").disabled=true;
         saveLocal();
+        refreshShowDB();
     };
     reader.readAsText(jsonFiles[0]);
 }
@@ -124,36 +125,6 @@ function deleteLocal(){
 }
 
 /**
- * add value to DB with form
- * @param mode - type of value
- */
-function addDB(mode){  //TODO way of forms ???
-    if(mode=="meal"){
-        meals.push(new meal(
-            document.forms["addMeal"][0].value,
-            document.forms["addMeal"][1].value,
-            document.forms["addMeal"][2].value,
-            document.forms["addMeal"][3].value,
-            document.forms["addMeal"][4].value,
-            document.forms["addMeal"][5].value
-    ));
-        document.getElementById("addMealsButton").disabled=false;  //TODO 2.button 2.way
-    }else if(mode=="exercise"){
-        exercises.push(new exercise(
-            document.forms[0]["id"].value,
-            document.forms[1]["nameExercise"].value,
-            document.forms[2]["kcal"].value
-        ));
-        document.getElementById("addExerciseButton").disabled=false; //TODO 2.button 2.way
-    }else{
-        alert("Unknown input");
-        return;
-    }
-    refreshShowDB();
-    saveLocal();
-}
-
-/**
  * Parsing JSON to the local objects
  * @param tempArr - parse JSON
  * @returns {boolean}
@@ -179,7 +150,7 @@ function parseJSONtoLocal(tempArr){
     var specificDay = []; // helpful variable
     for(i=0;i<tempArr["days"].length;i++){  //load days with days and exercises
         specificDay = tempArr["days"][i]; // clarifications code
-        saveDay = new day(specificDay["date"]);
+        saveDay = new day(new Date(specificDay["date"]));
         for(var j=0;j<specificDay["dayMeals"].length;j++){
             saveDay.addMeal(new meal(specificDay["dayMeals"][j].id,
                 specificDay["dayMeals"][j].name,
@@ -236,4 +207,87 @@ function storageTest(){
     if (confirm("Clear storage?") == true) {
         localStorage.clear();
     }
+}
+
+/**
+ * add value to current date
+ * @param form
+ */
+function addDB(form){
+    if(form["addToDB"].checked){ //save to db
+        if(form.name=="addMeal"){
+            addtoDB("meal",form);
+        }else{
+            addtoDB("exercise",form);
+        }
+    }
+    if(form["addToDay"].checked){ //save to date
+        if(form.name=="addMeal"){
+            addtoDay("meal",form);
+        }else{
+            addtoDay("exercise",form);
+        }
+    }
+    form.reset();
+}
+
+/**
+ * add value to DB with form
+ * @param mode - type of value
+ */
+function addtoDB(mode,form){  //TODO way of forms ???
+    if(mode=="meal"){
+        meals.push(new meal(
+            form[0].value,
+            form[1].value,
+            form[2].value,
+            form[3].value,
+            form[4].value,
+            form[5].value
+        ));
+    }else if(mode=="exercise"){
+        exercises.push(new exercise(
+            form[0].value,
+            form[1].value,
+            form[2].value
+        ));
+    }
+    refreshShowDB();
+    saveLocal();
+}
+
+/** TODO do it
+ * add new meal or exercise to the new or exist day
+ * @param mode
+ */
+function addtoDay(mode,form){
+    //TODO if current date or setted day
+    var dateElement=document.getElementById("setDate");
+    var date=dateElement.value;
+    if(date==""){
+        alert("Set date!");
+        return;
+    }
+    var tmp = new Date(date);
+    //TODO get day by date , if it not exist create new
+    var newDay = new day(tmp);
+    if(mode=="meal"){
+        newDay.addMeal(new meal(
+            form[0].value,
+            form[1].value,
+            form[2].value,
+            form[3].value,
+            form[4].value,
+            form[5].value
+        ));
+    }else if(mode=="exercise"){
+        newDay.addExercise(new exercise(
+            form[0].value,
+            form[1].value,
+            form[2].value
+        ));
+    }
+    days.push(newDay);
+    refreshShowDB();
+    saveLocal();
 }

@@ -29,33 +29,35 @@
         <button onclick="deleteLocal()" style="color:red"> Delete localStorage  </button>
         <button onclick="loadDB()" style="color:red"> Load Storage Again  </button>
         <button onclick="storageTest()" style="color:red"> Max value in local storage (Wipe all DB!)  </button>
-        <div id="downloadVisible"/>
+        <div id="downloadVisible"></div>
         <br><hr><br>
         <button onclick="managerM.sortByIdAscending();refreshShowDB()"> Sort Meals by ID (Vzestupne) </button>
         <button onclick="managerM.sortByIdDescending();refreshShowDB()"> Sort Meals by ID (Zestupne) </button>
         <button onclick="managerE.sortByIdAscending();refreshShowDB()"> Sort Exercises by ID (Vzestupne) </button>
         <button onclick="managerE.sortByIdDescending();refreshShowDB()"> Sort Exercises by ID (Zestupne) </button>
-        <p><label>Date (not implemented yet): <input type="date" value="2014-07-21"></label></p>  <!--TODO not implemented yet-->
+        <p><label>Date (not implemented yet): <input id="setDate" type="date" value="2000-05-05"></label></p>
 
-        <form name="addMeal" onsubmit="addDB('meal');return false" method="post"> <!--TODO way of forms ??? -->
+        <form name="addMeal" onsubmit="addDB(this);return false" method="post"> <!--TODO way of forms ??? -->
             Enter meal: <br>
             <input type="text" placeholder="id" name="id" required/>
-            <input type="text" placeholder="Name" name="name" required/>
+            <input type="text" placeholder="Name" name="nameM" required/>
             <input type="text" placeholder="protein" name="protein" />
             <input type="text" placeholder="carbohydrate" name="carbohydrate" />
-            <input type="text" placeholder="" name="fat"/>
+            <input type="text" placeholder="fat" name="fat"/>
             <input type="text" placeholder="kcal" name="kcal"/>
             <input type="submit" value="Submit"/>
-            <!--   <INPUT id="addMealsButton" TYPE="button" NAME="button" Value="Odoslat" onClick="this.disabled=true ; addDB(this.form)"/> -->
+            Save to DB<input type="checkbox" name="addToDB" value="saveDB" checked>
+            Save to day<input type="checkbox" name="addToDay" value="saveDB" checked>
         </form>
 
-        <form name="addExercise" onsubmit="addDB('exercise');return false" method="post"> <!--TODO way of forms ??? -->
+        <form name="addExercise" onsubmit="addDB(this);return false" method="post"> <!--TODO way of forms ??? -->
             Enter exercise: <br>
             <input type="text" placeholder="id" name="id" required/>
-            <input type="text" placeholder="Name" name="name" required/>
+            <input type="text" placeholder="Name" name="nameE" required/>
             <input type="text" placeholder="kcal" name="kcal" />
             <input type="submit" value="Submit"/>
-            <!--    <INPUT id="addExerciseButton" TYPE="button" NAME="button" Value="Click" onClick="this.disabled=true; addDB(this.form)"/> -->
+            Save to DB<input type="checkbox" name="addToDB" value="saveDB" checked>
+            Save to day<input type="checkbox" name="addToDay" value="saveDB" checked>
         </form>
 
 

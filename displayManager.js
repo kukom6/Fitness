@@ -165,7 +165,7 @@ function createDaysTable(array){
         tabDay.style.width = "100%";
         tabDay.id = array[i].date;
         caption = document.createElement("caption");
-        caption.appendChild(document.createTextNode("Day: "+array[i].date));
+        caption.appendChild(document.createTextNode("Day: "+array[i].date.toLocaleString()));
         caption.style.fontWeight = "bold";
         tabDay.appendChild(caption);
         tabDay.appendChild(createMealsTab(array[i].dayMeals));

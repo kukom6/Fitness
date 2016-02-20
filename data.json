@@ -6,7 +6,7 @@
     {"id":"1","name":"beh","kcal":"30"},{"id":"2","name":"joga","kcal":"20"}
   ],
   "days":[
-    {"date":"1994-03-30T22:00:00.000Z",
+    {"date":"1994-03-30 22:00",
       "dayMeals":[
         {"id":1,"name":"meso tesco classic0","protein":100,"carbohydrate":100,"fat":100,"kcal":1000}
       ],
@@ -14,7 +14,7 @@
         {"id":4,"name":"beh","kcal":150}
       ]
     },
-    {"date":"1994-03-31T22:00:00.000Z",
+    {"date":"1994-03-30 22:00",
       "dayMeals":[
         {"id":1,"name":"meso tesco classic0","protein":100,"carbohydrate":100,"fat":100,"kcal":1000},
         {"id":2,"name":"meso tesco classic1","protein":101,"carbohydrate":101,"fat":101,"kcal":1001}
@@ -24,7 +24,7 @@
         {"id":4,"name":"beh","kcal":151}
       ]
     },
-    {"date":"1994-04-01T22:00:00.000Z",
+    {"date":"1994-03-30 22:00",
       "dayMeals":[
         {"id":1,"name":"meso tesco classic0","protein":100,"carbohydrate":100,"fat":100,"kcal":1000},
         {"id":2,"name":"meso tesco classic1","protein":101,"carbohydrate":101,"fat":101,"kcal":1001},
