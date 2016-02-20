@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
     <head>
         <meta charset="UTF-8">
         <title>Fitness</title>
@@ -14,6 +14,7 @@
         <script src="mealsManager.js"></script>
         <script src="day.js"></script>
         <script src="daysManager.js"></script>
+        <script src="displayManager.js"></script>
         <script src="localDB.js"></script>
 
     </head>
@@ -57,31 +58,13 @@
             <!--    <INPUT id="addExerciseButton" TYPE="button" NAME="button" Value="Click" onClick="this.disabled=true; addDB(this.form)"/> -->
         </form>
 
-        <table style="width:100%" border="2">
-          <caption>Meals</caption>
-          <tbody id="meals">
-              <tr id="headMe">
-                  <th>Id</th>
-                  <th>Name</th>
-                  <th>Protein</th>
-                  <th>carbohydrate</th>
-                  <th>fat</th>
-                  <th>kcal</th>
-              </tr>
-          </tbody>
-        </table>
+
         <br>
-        <table style="width:100%" border="2">
-          <caption>Exercises</caption>
-          <tbody id="exercises">
-              <tr id="headEx">
-                  <th>Id</th>
-                  <th>Name</th>
-                  <th>kcal</th>
-              </tr>
-          </tbody>
-        </table>
-        <button onclick="showDays()" > Test days value  </button>
+        <div id="mealsTable"></div>
+        <div id="exercisesTable"></div>
+        <div id="daysTable"></div>
+
+        <button onclick="showDays()" > Shows days as string:  </button>
         <div id="showDB"></div>
     </body>
 </html>

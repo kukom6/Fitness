@@ -154,125 +154,6 @@ function addDB(mode){  //TODO way of forms ???
 }
 
 /**
- * show all db as table
- */
-function showAllDB(){
-    if(meals.length==0 && exercises.length==0){
-        alert("DB is empty, nothing to show");
-        return;
-    }
-    /*
-    var results = "";
-    results+="<h1>MEALS</h1>";
-    for(var i=0;i<meals.length;i++){
-        results +=meals[i] + "<br>";
-    }
-
-    results+="<h1>EXERCISES</h1>";
-    for(i=0;i<exercises.length;i++){
-        results +=exercises[i] + "<br>";
-    }
-    document.getElementById("showDB").innerHTML = results;*/
-    var tabMeals = document.getElementById("meals");
-    var tr,node;
-    for(var i=0;i<meals.length;i++){
-        tr = document.createElement("tr");
-        tabMeals.appendChild(tr);
-        node = document.createElement("td");
-        node.appendChild(document.createTextNode(meals[i].id));
-        tr.appendChild(node);
-        node = document.createElement("td");
-        node.appendChild(document.createTextNode(meals[i].name));
-        tr.appendChild(node);
-        node = document.createElement("td");
-        node.appendChild(document.createTextNode(meals[i].protein));
-        tr.appendChild(node);
-        node = document.createElement("td");
-        node.appendChild(document.createTextNode(meals[i].carbohydrate));
-        tr.appendChild(node);
-        node = document.createElement("td");
-        node.appendChild(document.createTextNode(meals[i].fat));
-        tr.appendChild(node);
-        node = document.createElement("td");
-        node.appendChild(document.createTextNode(meals[i].kcal));
-        tr.appendChild(node);
-    }
-    var tabExercises = document.getElementById("exercises");
-    for(i=0;i<exercises.length;i++){
-        tr = document.createElement("tr");
-        tabExercises.appendChild(tr);
-        node = document.createElement("td");
-        node.appendChild(document.createTextNode(exercises[i].id));
-        tr.appendChild(node);
-        node = document.createElement("td");
-        node.appendChild(document.createTextNode(exercises[i].name));
-        tr.appendChild(node);
-        node = document.createElement("td");
-        node.appendChild(document.createTextNode(exercises[i].kcal));
-        tr.appendChild(node);
-    }
-}
-
-/**
- * refresh table.
- * (remove table elements and call showAllDB function
- */
-function refreshShowDB(){  // TODO right? delete and show ?
-    var tabMeals = document.getElementById("headMe");
-    var temp=tabMeals.nextSibling;
-    for(;temp!=null;temp=tabMeals.nextSibling){
-        temp.remove();
-    }
-    var tabExercises = document.getElementById("headEx");
-    temp=tabExercises.nextSibling;
-    for(;temp!=null;temp=tabExercises.nextSibling){
-        temp.remove();
-    }
-    showAllDB();
-    document.getElementById("refreshButton").disabled=false;
-}
-
-/**
- * test if web browser supported local storage
- */
-function storageAvailable(type) {
-    try {
-        var storage = window[type],
-            x = '__storage_test__';
-        storage.setItem(x, x);
-        storage.removeItem(x);
-        return true;
-    }
-    catch(e) {
-        return false;
-    }
-}
-
-/**
- * Test how many items will fit into the local storage
- * (don't forget to delete the database after test!)
- */
-function storageTest(){
-    var data = null;
-    var count = 0;
-    while(true) {
-        try {
-            data = new meal(100,"meso tesco classic",100,100,100,1000);
-            localStorage.setItem('TEST'+count,data);
-            count++;
-        } catch (e) {
-            alert("Plna pamet! Pocet zaznamov: " +count+"\n " +
-                "(meal(100,\"meso tesco classic\",100,100,100,1000)) \n" +
-                "pocet dni v DB pri 100 miestnej databaze cvikov a jedal s priemerom 15 jedal na den: " + ((count/15) - 100) + " dni.");
-            break;
-        }
-    }
-    if (confirm("Clear storage?") == true) {
-        localStorage.clear();
-    }
-}
-
-/**
  * Parsing JSON to the local objects
  * @param tempArr - parse JSON
  * @returns {boolean}
@@ -315,4 +196,44 @@ function parseJSONtoLocal(tempArr){
         days.push(saveDay);
     }
     return true;
+}
+
+/**
+ * test if web browser supported local storage
+ */
+function storageAvailable(type) {
+    try {
+        var storage = window[type],
+            x = '__storage_test__';
+        storage.setItem(x, x);
+        storage.removeItem(x);
+        return true;
+    }
+    catch(e) {
+        return false;
+    }
+}
+
+/**
+ * Test how many items will fit into the local storage
+ * (don't forget to delete the database after test!)
+ */
+function storageTest(){
+    var data = null;
+    var count = 0;
+    while(true) {
+        try {
+            data = new meal(100,"meso tesco classic",100,100,100,1000);
+            localStorage.setItem('TEST'+count,data);
+            count++;
+        } catch (e) {
+            alert("Plna pamet! Pocet zaznamov: " +count+"\n " +
+                "(meal(100,\"meso tesco classic\",100,100,100,1000)) \n" +
+                "pocet dni v DB pri 100 miestnej databaze cvikov a jedal s priemerom 15 jedal na den: " + ((count/15) - 100) + " dni.");
+            break;
+        }
+    }
+    if (confirm("Clear storage?") == true) {
+        localStorage.clear();
+    }
 }
