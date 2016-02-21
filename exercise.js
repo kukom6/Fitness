@@ -5,7 +5,7 @@
 /**
  * type exercise
  */
-function exercise(id,name,kcal){
+function Exercise(id,name,kcal){
     this.id=id;
     this.name=name;
     this.kcal=kcal;

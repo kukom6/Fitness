@@ -2,8 +2,9 @@
  * Created by mkralik on 2/17/16.
  */
 var days = [];
+var daysM = new DaysManager(); //TODO move to init()
 
-function daysManager(){
+function DaysManager(){
 
     this.sortByDataDescending = function(){
         //TODO not implemented yet
@@ -13,7 +14,6 @@ function daysManager(){
         //TODO not implemented yet
     }
 }
-var daysM = new daysManager(); //TODO move to init()
 
 /**
  * test temp function,

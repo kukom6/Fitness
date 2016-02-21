@@ -134,7 +134,7 @@ function parseJSONtoLocal(tempArr){
         return false;
     }
     for(var i=0;i<tempArr["meals"].length;i++){ //load meals
-        meals.push(new meal(tempArr["meals"][i].id,
+        meals.push(new Meal(tempArr["meals"][i].id,
             tempArr["meals"][i].name,
             tempArr["meals"][i].protein,
             tempArr["meals"][i].carbohydrate,
@@ -142,7 +142,7 @@ function parseJSONtoLocal(tempArr){
             tempArr["meals"][i].kcal));
     }
     for(i=0;i<tempArr["exercises"].length;i++){ //load exercises
-        exercises.push(new exercise(tempArr["exercises"][i].id,
+        exercises.push(new Exercise(tempArr["exercises"][i].id,
             tempArr["exercises"][i].name,
             tempArr["exercises"][i].kcal));
     }
@@ -150,9 +150,9 @@ function parseJSONtoLocal(tempArr){
     var specificDay = []; // helpful variable
     for(i=0;i<tempArr["days"].length;i++){  //load days with days and exercises
         specificDay = tempArr["days"][i]; // clarifications code
-        saveDay = new day(new Date(specificDay["date"]));
+        saveDay = new Day(new Date(specificDay["date"]));
         for(var j=0;j<specificDay["dayMeals"].length;j++){
-            saveDay.addMeal(new meal(specificDay["dayMeals"][j].id,
+            saveDay.addMeal(new Meal(specificDay["dayMeals"][j].id,
                 specificDay["dayMeals"][j].name,
                 specificDay["dayMeals"][j].protein,
                 specificDay["dayMeals"][j].carbohydrate,
@@ -160,7 +160,7 @@ function parseJSONtoLocal(tempArr){
                 specificDay["dayMeals"][j].kcal));
         }
         for(j=0;j<specificDay["dayExercises"].length;j++){
-            saveDay.addExercise(new exercise(specificDay["dayExercises"][j].id,
+            saveDay.addExercise(new Exercise(specificDay["dayExercises"][j].id,
                 specificDay["dayExercises"][j].name,
                 specificDay["dayExercises"][j].kcal));
         }
@@ -194,7 +194,7 @@ function storageTest(){
     var count = 0;
     while(true) {
         try {
-            data = new meal(100,"meso tesco classic",100,100,100,1000);
+            data = new Meal(100,"meso tesco classic",100,100,100,1000);
             localStorage.setItem('TEST'+count,data);
             count++;
         } catch (e) {
@@ -216,16 +216,16 @@ function storageTest(){
 function addDB(form){
     if(form["addToDB"].checked){ //save to db
         if(form.name=="addMeal"){
-            addtoDB("meal",form);
+            addToDB("meal",form);
         }else{
-            addtoDB("exercise",form);
+            addToDB("exercise",form);
         }
     }
     if(form["addToDay"].checked){ //save to date
         if(form.name=="addMeal"){
-            addtoDay("meal",form);
+            addToDay("meal",form);
         }else{
-            addtoDay("exercise",form);
+            addToDay("exercise",form);
         }
     }
     form.reset();
@@ -234,10 +234,11 @@ function addDB(form){
 /**
  * add value to DB with form
  * @param mode - type of value
+ * @param form - form from html
  */
-function addtoDB(mode,form){  //TODO way of forms ???
+function addToDB(mode,form){  //TODO way of forms ???
     if(mode=="meal"){
-        meals.push(new meal(
+        meals.push(new Meal(
             form[0].value,
             form[1].value,
             form[2].value,
@@ -246,7 +247,7 @@ function addtoDB(mode,form){  //TODO way of forms ???
             form[5].value
         ));
     }else if(mode=="exercise"){
-        exercises.push(new exercise(
+        exercises.push(new Exercise(
             form[0].value,
             form[1].value,
             form[2].value
@@ -258,9 +259,10 @@ function addtoDB(mode,form){  //TODO way of forms ???
 
 /** TODO do it
  * add new meal or exercise to the new or exist day
- * @param mode
+ * @param mode - type of value
+ * @param form - form from html
  */
-function addtoDay(mode,form){
+function addToDay(mode,form){
     //TODO if current date or setted day
     var dateElement=document.getElementById("setDate");
     var date=dateElement.value;
@@ -270,9 +272,9 @@ function addtoDay(mode,form){
     }
     var tmp = new Date(date);
     //TODO get day by date , if it not exist create new
-    var newDay = new day(tmp);
+    var newDay = new Day(tmp);
     if(mode=="meal"){
-        newDay.addMeal(new meal(
+        newDay.addMeal(new Meal(
             form[0].value,
             form[1].value,
             form[2].value,
@@ -281,7 +283,7 @@ function addtoDay(mode,form){
             form[5].value
         ));
     }else if(mode=="exercise"){
-        newDay.addExercise(new exercise(
+        newDay.addExercise(new Exercise(
             form[0].value,
             form[1].value,
             form[2].value

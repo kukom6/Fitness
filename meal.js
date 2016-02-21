@@ -5,7 +5,7 @@
 /**
  * type meal
  */
-function meal(id,name,protein,carbohydrate,fat,kcal){
+function Meal(id,name,protein,carbohydrate,fat,kcal){
     this.id=id;
     this.name=name;
     this.protein=protein;

@@ -2,8 +2,9 @@
  * Created by mkralik on 2/14/16.
  */
 var exercises = [];
+var managerE = new ExercisesManager(); //TODO move to init()
 
-function exercisesManager(){
+function ExercisesManager(){
     this.sortByIdDescending = function(){
         exercises.sort(function(exercise1, exercise2) {
             return exercise1.id - exercise2.id;
@@ -17,4 +18,3 @@ function exercisesManager(){
     }
 }
 
-var managerE = new exercisesManager(); //TODO move to init()

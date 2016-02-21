@@ -2,7 +2,7 @@
  * Created by mkralik on 2/17/16.
  */
 
-function day(date){
+function Day(date){
     this.date=date;
     this.dayMeals = [];
     this.dayExercises = [];
