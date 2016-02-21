@@ -1,6 +1,6 @@
 {
   "meals":[
-    {"id":"1","name":"salat","protein":"15","carbohydrate":"14","fat":"18","kcal":"58"},{"id":"2","name":"jogurt","protein":"5","carbohydrate":"30","fat":"20","kcal":"210"}
+    {"id":"1","name":"salat","protein":"15","carbohydrate":"14","fat":"18","kcal":"58","method":"one piece"},{"id":"2","name":"jogurt","protein":"5","carbohydrate":"30","fat":"20","kcal":"210","method":"100g"}
   ],
   "exercises":[
     {"id":"1","name":"beh","kcal":"30"},{"id":"2","name":"joga","kcal":"20"}
@@ -8,27 +8,27 @@
   "days":[
     {"date":"1994-03-30 22:00",
       "dayMeals":[
-        {"id":1,"name":"meso tesco classic0","protein":100,"carbohydrate":100,"fat":100,"kcal":1000}
+        {"id":1,"name":"meso tesco classic0","protein":100,"carbohydrate":100,"fat":100,"kcal":1000,"method":"100g"}
       ],
       "dayExercises":[
         {"id":4,"name":"beh","kcal":150}
       ]
     },
-    {"date":"1994-03-30 22:00",
+    {"date":"1994-03-20 22:00",
       "dayMeals":[
-        {"id":1,"name":"meso tesco classic0","protein":100,"carbohydrate":100,"fat":100,"kcal":1000},
-        {"id":2,"name":"meso tesco classic1","protein":101,"carbohydrate":101,"fat":101,"kcal":1001}
+        {"id":1,"name":"meso tesco classic0","protein":100,"carbohydrate":100,"fat":100,"kcal":1000,"method":"100g"},
+        {"id":2,"name":"meso tesco classic1","protein":101,"carbohydrate":101,"fat":101,"kcal":1001,"method":"one piece"}
       ],
       "dayExercises":[
         {"id":4,"name":"beh","kcal":150},
         {"id":4,"name":"beh","kcal":151}
       ]
     },
-    {"date":"1994-03-30 22:00",
+    {"date":"1994-03-25 22:00",
       "dayMeals":[
-        {"id":1,"name":"meso tesco classic0","protein":100,"carbohydrate":100,"fat":100,"kcal":1000},
-        {"id":2,"name":"meso tesco classic1","protein":101,"carbohydrate":101,"fat":101,"kcal":1001},
-        {"id":3,"name":"meso tesco classic2","protein":102,"carbohydrate":102,"fat":102,"kcal":1002}
+        {"id":1,"name":"meso tesco classic0","protein":100,"carbohydrate":100,"fat":100,"kcal":1000,"method":"100g"},
+        {"id":2,"name":"meso tesco classic1","protein":101,"carbohydrate":101,"fat":101,"kcal":1001,"method":"one piece"},
+        {"id":3,"name":"meso tesco classic2","protein":102,"carbohydrate":102,"fat":102,"kcal":1002,"method":"one piece"}
       ],
       "dayExercises":[
         {"id":4,"name":"beh","kcal":150},

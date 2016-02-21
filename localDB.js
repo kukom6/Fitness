@@ -139,7 +139,9 @@ function parseJSONtoLocal(tempArr){
             tempArr["meals"][i].protein,
             tempArr["meals"][i].carbohydrate,
             tempArr["meals"][i].fat,
-            tempArr["meals"][i].kcal));
+            tempArr["meals"][i].kcal,
+            tempArr["meals"][i].method
+        ));
     }
     for(i=0;i<tempArr["exercises"].length;i++){ //load exercises
         exercises.push(new Exercise(tempArr["exercises"][i].id,
@@ -157,7 +159,9 @@ function parseJSONtoLocal(tempArr){
                 specificDay["dayMeals"][j].protein,
                 specificDay["dayMeals"][j].carbohydrate,
                 specificDay["dayMeals"][j].fat,
-                specificDay["dayMeals"][j].kcal));
+                specificDay["dayMeals"][j].kcal,
+                specificDay["dayMeals"][j].method
+            ));
         }
         for(j=0;j<specificDay["dayExercises"].length;j++){
             saveDay.addExercise(new Exercise(specificDay["dayExercises"][j].id,

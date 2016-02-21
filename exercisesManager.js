@@ -15,6 +15,26 @@ function ExercisesManager(){
         exercises.sort(function(exercise1, exercise2) {
             return exercise2.id - exercise1.id;
         });
-    }
+    };
+    this.sortByNameFromA = function(){
+        exercises.sort(function(exercise1, exercise2) {
+            return exercise1.name.localeCompare(exercise2.name);
+        });
+    };
+    this.sortByNameFromZ = function(){
+        exercises.sort(function(exercise1, exercise2) {
+            return exercise2.name.localeCompare(exercise1.name);
+        });
+    };
+    this.sortByKcalDescending = function(){
+        exercises.sort(function(exercise1, exercise2) {
+            return exercise1.kcal - exercise2.kcal;
+        });
+    };
+    this.sortByKcalAscending = function(){
+        exercises.sort(function(exercise1, exercise2) {
+            return exercise2.kcal - exercise1.kcal;
+        });
+    };
 }
 

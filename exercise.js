@@ -3,7 +3,11 @@
  */
 
 /**
- * type exercise
+ * Type of exercise
+ * @param id
+ * @param name - name of exercise
+ * @param kcal - count of exercise
+ * @constructor
  */
 function Exercise(id,name,kcal){
     this.id=id;

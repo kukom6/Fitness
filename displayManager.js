@@ -57,9 +57,14 @@ function createMealsTab(array){
     tr.appendChild(node);
     node = document.createElement("td");
     node.appendChild(document.createTextNode("Kcal"));
-    tr.appendChild(node);
     node.style.fontWeight = "bold";
     node.align = "middle";
+    tr.appendChild(node);
+    node = document.createElement("td");
+    node.appendChild(document.createTextNode("Method"));
+    node.style.fontWeight = "bold";
+    node.align = "middle";
+    tr.appendChild(node);
     tabMeals.appendChild(tr);
 
     for(var j=0;j<array.length;j++){  //show all meals in the day
@@ -86,6 +91,10 @@ function createMealsTab(array){
         tr.appendChild(node);
         node = document.createElement("td");
         node.appendChild(document.createTextNode(array[j].kcal));
+        node.align = "middle";
+        tr.appendChild(node);
+        node = document.createElement("td");
+        node.appendChild(document.createTextNode(array[j].method));
         node.align = "middle";
         tr.appendChild(node);
         tabMeals.appendChild(tr);

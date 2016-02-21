@@ -31,10 +31,6 @@
         <button onclick="storageTest()" style="color:red"> Max value in local storage (Wipe all DB!)  </button>
         <div id="downloadVisible"></div>
         <br><hr><br>
-        <button onclick="managerM.sortByIdAscending();refreshShowDB()"> Sort Meals by ID (Vzestupne) </button>
-        <button onclick="managerM.sortByIdDescending();refreshShowDB()"> Sort Meals by ID (Zestupne) </button>
-        <button onclick="managerE.sortByIdAscending();refreshShowDB()"> Sort Exercises by ID (Vzestupne) </button>
-        <button onclick="managerE.sortByIdDescending();refreshShowDB()"> Sort Exercises by ID (Zestupne) </button>
         <p><label>Date (not implemented yet): <input id="setDate" type="date" value="2000-05-05"></label></p>
 
         <form name="addMeal" onsubmit="addDB(this);return false" method="post"> <!--TODO way of forms ??? -->
@@ -62,10 +58,34 @@
 
 
         <br>
+        <button onclick="managerM.sortByIdAscending();refreshShowDB()"> Sort Meals by ID (Vzestupne) </button>
+        <button onclick="managerM.sortByIdDescending();refreshShowDB()"> Sort Meals by ID (Zestupne) </button>
+        <button onclick="managerM.sortByNameFromA();refreshShowDB()"> Sort Meals by Name (from A) </button>
+        <button onclick="managerM.sortByNameFromZ();refreshShowDB()"> Sort Meals by Name (from Z) </button>
+        <button onclick="managerM.sortByProteinAscending();refreshShowDB()"> Sort Meals by Protein (Vzestupne) </button>
+        <button onclick="managerM.sortByProteinDescending();refreshShowDB()"> Sort Meals by Protein (Zestupne) </button>
+        <button onclick="managerM.sortByCarbohydrateAscending();refreshShowDB()"> Sort Meals by Carbohydrate (Vzestupne) </button>
+        <button onclick="managerM.sortByCarbohydrateDescending();refreshShowDB()"> Sort Meals by Carbohydrate (Zestupne) </button>
+        <button onclick="managerM.sortByFatAscending();refreshShowDB()"> Sort Meals by Fat (Vzestupne) </button>
+        <button onclick="managerM.sortByFatDescending();refreshShowDB()"> Sort Meals by Fat (Zestupne) </button>
+        <button onclick="managerM.sortByKcalAscending();refreshShowDB()"> Sort Meals by Kcal (Vzestupne) </button>
+        <button onclick="managerM.sortByKcalDescending();refreshShowDB()"> Sort Meals by Kcal (Zestupne) </button>
+        <button onclick="managerM.sortByMethodFromA();refreshShowDB()"> Sort Meals by Method (from A) </button>
+        <button onclick="managerM.sortByMethodFromZ();refreshShowDB()"> Sort Meals by Method (from Z) </button>
         <div id="mealsTable"></div>
+        <br><hr><br>
+        <button onclick="managerE.sortByIdAscending();refreshShowDB()"> Sort Exercises by ID (Vzestupne) </button>
+        <button onclick="managerE.sortByIdDescending();refreshShowDB()"> Sort Exercises by ID (Zestupne) </button>
+        <button onclick="managerE.sortByNameFromA();refreshShowDB()"> Sort Exercises by Name (from A) </button>
+        <button onclick="managerE.sortByNameFromZ();refreshShowDB()"> Sort Exercises by Name (from Z) </button>
+        <button onclick="managerE.sortByKcalAscending();refreshShowDB()"> Sort Exercises by Kcal (Vzestupne) </button>
+        <button onclick="managerE.sortByKcalDescending();refreshShowDB()"> Sort Exercises by Kcal (Zestupne) </button>
         <div id="exercisesTable"></div>
+        <br><hr><br>
         <div id="daysTable"></div>
-
+        <button onclick="managerD.sortByDataAscending();refreshShowDB()"> Sort Day (Vzestupne) </button>
+        <button onclick="managerD.sortByDataDescending();refreshShowDB()"> Sort Day (Zestupne) </button>
+        <br><hr><br>
         <button onclick="showDays()" > Shows days as string:  </button>
         <div id="showDB"></div>
     </body>

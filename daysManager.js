@@ -2,16 +2,20 @@
  * Created by mkralik on 2/17/16.
  */
 var days = [];
-var daysM = new DaysManager(); //TODO move to init()
+var managerD = new DaysManager(); //TODO move to init()
 
 function DaysManager(){
 
     this.sortByDataDescending = function(){
-        //TODO not implemented yet
-    }
+        days.sort(function(day1, day2) {
+            return day1.date - day2.date;
+        });
+    };
 
     this.sortByDataAscending = function(){
-        //TODO not implemented yet
+        days.sort(function(day1, day2) {
+            return day2.date - day1.date;      //TODO new Date(day2.date) - new Date(day1.date); ? equals ?
+        });
     }
 }
 
