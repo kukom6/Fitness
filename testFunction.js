@@ -5,7 +5,7 @@ var testFactory = new TestFunction();
 
 
 /**
- * Class for test function
+ * Class for test function , temp file
  * @constructor
  */
 function TestFunction(){

@@ -6,7 +6,7 @@ var managerE = new ExercisesManager(); //TODO move to init()
 function ExercisesManager(){
     var exercises = [];
 
-    this.getExercisesByID = function(id){
+    this.getExerciseByID = function(id){
         var result = this.indexExerciseInArrayById(id);
         if(result == -1){
             alert("Meal with " + id + " id is not in the DB");
@@ -22,6 +22,7 @@ function ExercisesManager(){
     this.addExercise = function(exercise){
         //TODO test validation
         exercises.push(exercise); //TODO unsafe!!
+        saveLocal();
     };
 
     this.updateExercise = function(exercise){
@@ -38,7 +39,7 @@ function ExercisesManager(){
             return; //TODO throw ?
         }
         exercises.splice(index,1);
-        alert("Exercise was deleted from DB");
+        console.log("Exercise was deleted from DB");
         saveLocal();
     };
     /**

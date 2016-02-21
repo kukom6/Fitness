@@ -22,6 +22,7 @@ function MealsManager(){
     this.addMeal = function(meal){
         //TODO test validation
         meals.push(meal); //TODO unsafe!!
+        saveLocal();
     };
 
     this.updateMeal = function(meal){
@@ -38,7 +39,7 @@ function MealsManager(){
             return; //TODO throw ?
         }
         meals.splice(index,1);
-        alert("Meal was deleted from DB");
+        console.log("Meal was deleted from DB");
         saveLocal();
     };
     /**

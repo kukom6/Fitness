@@ -81,10 +81,6 @@ function loadLocal(){
  * Save DB(changed) to local storage
  */
 function saveLocal(){
-    if(managerM.isEmpty() && managerM.isEmpty()){
-        alert("DB is empty! DB wil not save");
-        return;
-    }
     var saveJSON = {
         meals : managerM.getAllMeals(),
         exercises : managerE.getAllExercises(),
@@ -93,7 +89,7 @@ function saveLocal(){
     var data = JSON.stringify(saveJSON);   //TODO save as only one a JSON type or each of them as a separated JSON type (meals,exercises,days)?
     localStorage.setItem('jsonData',data);
     localStorage.setItem('isInLocal',true);
-    alert("DB was saved");
+    console.log("DB was saved");
 }
 
 /**
