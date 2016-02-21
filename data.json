@@ -21,7 +21,7 @@
       ],
       "dayExercises":[
         {"id":4,"name":"beh","kcal":150},
-        {"id":4,"name":"beh","kcal":151}
+        {"id":3,"name":"beh","kcal":151}
       ]
     },
     {"date":"1994-03-25 22:00",
@@ -32,8 +32,8 @@
       ],
       "dayExercises":[
         {"id":4,"name":"beh","kcal":150},
-        {"id":4,"name":"beh","kcal":152},
-        {"id":4,"name":"beh","kcal":154}
+        {"id":5,"name":"beh","kcal":152},
+        {"id":6,"name":"beh","kcal":154}
       ]
     }
   ]

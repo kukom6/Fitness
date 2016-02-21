@@ -1,10 +1,85 @@
 /**
  * Created by mkralik on 2/14/16.
  */
-var meals = [];
 var managerM = new MealsManager(); //TODO move to init()
 
 function MealsManager(){
+    var meals = [];
+
+    this.getMealByID = function(id){
+        var result = this.indexMealInArrayById(id);
+        if(result == -1){
+            alert("Meal with " + id + " id is not in the DB");
+            return; //TODO throw ?
+        }
+        return meals[result]; //TODO unsafe !!
+    };
+
+    this.getAllMeals = function(){ //todo copy meals ?
+        return meals; //TODO unsafe !!
+    };
+
+    this.addMeal = function(meal){
+        //TODO test validation
+        meals.push(meal); //TODO unsafe!!
+    };
+
+    this.updateMeal = function(meal){
+
+    };
+    /**
+     * Delete meal from DB
+     * @param id - meal id
+     */
+    this.deleteMealByID = function(id){
+        var index= this.indexMealInArrayById(id);
+        if(index == -1){
+            alert("Meal with " + id + " id is not in the DB");
+            return; //TODO throw ?
+        }
+        meals.splice(index,1);
+        alert("Meal was deleted from DB");
+        saveLocal();
+    };
+    /**
+     * Next free ID for new meal
+     * @returns {number} - free ID
+     */
+    this.nextMealId = function(){
+        this.sortByIdAscending();
+        try{
+            var id = parseInt(meals[0].id);
+        }catch(ex){
+            return 0;
+        }
+        return id + 1;
+    };
+
+    /**
+     * If meal is in the DB
+     * @param id - meal id
+     * @returns {boolean}
+     */
+    this.isIdInDB = function(id){
+        return this.indexMealInArrayById(id) != -1 ;
+    };
+
+    /**
+     * @returns {boolean} - if meals array is empty
+     */
+    this.isEmpty = function(){
+        return meals.length==0;
+    };
+
+    /**
+     * @param id - meal id
+     * @return index meal in the array
+     */
+    this.indexMealInArrayById = function(id){
+        return meals.findIndex(function(meal){
+            return id==meal.id;
+        });
+    };
 
     this.sortByIdDescending = function(){
         meals.sort(function(meal1, meal2) {

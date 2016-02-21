@@ -5,12 +5,12 @@
  * show all db as table
  */
 function showAllDB(){
-    if(meals.length==0 && exercises.length==0 && days.length == 0){
+    if(managerM.isEmpty() && managerM.isEmpty() && days.length == 0){
         alert("DB is empty, nothing to show");
         return;
     }
-    document.getElementById("mealsTable").appendChild(createMealsTab(meals));
-    document.getElementById("exercisesTable").appendChild(createExercisesTab(exercises));
+    document.getElementById("mealsTable").appendChild(createMealsTab(managerM.getAllMeals()));
+    document.getElementById("exercisesTable").appendChild(createExercisesTab(managerE.getAllExercises()));
     document.getElementById("daysTable").appendChild(createDaysTable(days));
 }
 /**
@@ -27,10 +27,9 @@ function createMealsTab(array){
     caption.style.fontWeight = "bold";
     caption.style.color = "red";
     tabMeals.appendChild(caption);
-    var tr,node = null;
     //create head table
-    tr = document.createElement("tr");
-    node = document.createElement("td");
+    var tr = document.createElement("tr");
+    var node = document.createElement("td");
     node.appendChild(document.createTextNode("Id"));
     node.style.fontWeight = "bold";
     node.align = "middle";

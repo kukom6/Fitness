@@ -68,8 +68,8 @@ function loadLocal(){
         return; //TODO exception?
     }
     alert("DB was successfully loaded from local DB");
-    if(this.meals.length==0&&this.exercises.length==0&&this.days.length==0){ //DB in local storage was been empty
-        alert("DB is empty!");
+    if(managerM.isEmpty() && managerM.isEmpty() && this.days.length==0){ //DB in local storage was been empty
+        alert("DB in the local storage is empty!");
         document.getElementById("loadButton").disabled=false;
         return;
     }
@@ -81,13 +81,13 @@ function loadLocal(){
  * Save DB(changed) to local storage
  */
 function saveLocal(){
-    if(this.meals.length==0&&this.exercises.length==0){
+    if(managerM.isEmpty() && managerM.isEmpty()){
         alert("DB is empty! DB wil not save");
         return;
     }
     var saveJSON = {
-        meals : this.meals,
-        exercises : this.exercises,
+        meals : managerM.getAllMeals(),
+        exercises : managerE.getAllExercises(),
         days : this.days
     };
     var data = JSON.stringify(saveJSON);   //TODO save as only one a JSON type or each of them as a separated JSON type (meals,exercises,days)?
@@ -101,8 +101,8 @@ function saveLocal(){
  */
 function saveJSON(){ //TODO download file, right way ?
     var saveJSON = {
-        meals : this.meals,
-        exercises : this.exercises,
+        meals : managerM.getAllMeals(),
+        exercises : managerE.getAllExercises(),
         days : this.days
         };
     var data = 'data:text/json;charser=utf8,'+ encodeURIComponent(JSON.stringify(saveJSON));  //TODO ukladanie
@@ -134,7 +134,7 @@ function parseJSONtoLocal(tempArr){
         return false;
     }
     for(var i=0;i<tempArr["meals"].length;i++){ //load meals
-        meals.push(new Meal(tempArr["meals"][i].id,
+        managerM.addMeal(new Meal(tempArr["meals"][i].id,
             tempArr["meals"][i].name,
             tempArr["meals"][i].protein,
             tempArr["meals"][i].carbohydrate,
@@ -144,7 +144,7 @@ function parseJSONtoLocal(tempArr){
         ));
     }
     for(i=0;i<tempArr["exercises"].length;i++){ //load exercises
-        exercises.push(new Exercise(tempArr["exercises"][i].id,
+        managerE.addExercise(new Exercise(tempArr["exercises"][i].id,
             tempArr["exercises"][i].name,
             tempArr["exercises"][i].kcal));
     }
@@ -242,7 +242,7 @@ function addDB(form){
  */
 function addToDB(mode,form){  //TODO way of forms ???
     if(mode=="meal"){
-        meals.push(new Meal(
+        managerM.addMeal(new Meal(
             form[0].value,
             form[1].value,
             form[2].value,
@@ -251,7 +251,7 @@ function addToDB(mode,form){  //TODO way of forms ???
             form[5].value
         ));
     }else if(mode=="exercise"){
-        exercises.push(new Exercise(
+        managerE.addExercise(new Exercise(
             form[0].value,
             form[1].value,
             form[2].value

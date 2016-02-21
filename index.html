@@ -16,6 +16,7 @@
         <script src="daysManager.js"></script>
         <script src="displayManager.js"></script>
         <script src="localDB.js"></script>
+        <script src="testFunction.js"></script>
 
     </head>
     <body>
@@ -88,5 +89,31 @@
         <br><hr><br>
         <button onclick="showDays()" > Shows days as string:  </button>
         <div id="showDB"></div>
+        <h1>Test functions</h1>
+
+        <button onclick="testFactory.nextMealId()"> Next free id meal:  </button> <p id="nextFreeIdMeal"></p>
+        <button onclick="testFactory.nextExerciseId()" > Next free id exercise:  </button> <p id="nextFreeIdExercise"></p>
+
+        <form name="isMealIdInDB" onsubmit="testFactory.isMealIdInDB(this);return false" method="post">
+            <input type="text" placeholder="id" name="idM" required/>
+            <input type="submit" value="Submit"/>
+        </form>
+        Is ID is in DB<p id="freeIdMeal"></p>
+        <form name="isExerciseIdInDB" onsubmit="testFactory.isExerciseIdInDB(this);return false" method="post">
+            <input type="text" placeholder="id" name="idE" required/>
+            <input type="submit" value="Submit"/>
+        </form>
+        Is ID is in DB? <p id="freeIdExercise"></p>
+        <br>
+        <form name="isMealIdInDB" onsubmit="testFactory.deleteMeal(this);return false" method="post">
+            <input type="text" placeholder="id" required/>
+            <input type="submit" value="Submit"/>
+        </form>
+        <form name="isMealIdInDB" onsubmit="testFactory.deleteExercise(this);return false" method="post">
+            <input type="text" placeholder="id" required/>
+            <input type="submit" value="Submit"/>
+        </form>
+
+
     </body>
 </html>
