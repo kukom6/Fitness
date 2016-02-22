@@ -9,7 +9,7 @@ function ExercisesManager(){
     this.getExerciseByID = function(id){
         var result = this.indexExerciseInArrayById(id);
         if(result == -1){
-            alert("Meal with " + id + " id is not in the DB");
+            alert("Exercise with " + id + " id is not in the DB");
             return; //TODO throw ?
         }
         return exercises[result]; //TODO unsafe !!

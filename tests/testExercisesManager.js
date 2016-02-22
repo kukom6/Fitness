@@ -1,3 +1,8 @@
+QUnit.test( "before test ", function( assert ) {
+    localStorage.clear();
+    assert.ok( true, "storage was deleted" );
+});
+
 QUnit.test( "add exercise to DB", function( assert ) {
     managerE.addExercise(new Exercise(1,"beh",800));
     assert.notOk( managerE.isEmpty() , "Add to db was OK!, DB is not empty" );
@@ -17,10 +22,19 @@ QUnit.test( "get exercise by id", function( assert ) {
     assert.equal(1,testExercise.id,"Id is equals");
     assert.equal("beh",testExercise.name,"name is equals");
     assert.equal(800,testExercise.kcal,"kcal is equals");
+    testExercise.kcal = 700;
+    testExercise = managerE.getExerciseByID(1);
+    assert.notEqual(700,testExercise.kcal,"kcal is not equals but external object will be influence object in the DB");
 });
 QUnit.test( "delete exercises", function( assert ) {
     managerE.deleteExerciseByID(1);
     managerE.deleteExerciseByID(2);
     assert.ok( managerE.isEmpty() , "DB is empty" );
     assert.ok( managerE.nextExerciseId()==0 , "Passed! next free Id after delete" );
+});
+
+
+QUnit.test( "after test , delete storage after exercises", function( assert ) {
+    localStorage.clear();
+    assert.ok( true, "storage was deleted" );
 });
