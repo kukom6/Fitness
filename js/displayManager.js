@@ -187,7 +187,7 @@ function createDaysTable(array){
  * refresh table.
  * (remove table elements and call showAllDB function)
  */
-function refreshShowDB(){  // TODO right? delete and show ?
+function refreshShowDB(){  // TODO remove up element
     var table = document.getElementById("mealsTable");
     while (table.firstChild) {
         table.removeChild(table.firstChild);

@@ -18,19 +18,23 @@ function TestFunction(){
     this.isMealIdInDB = function(form){
         var id = form[0].value;
         document.getElementById("freeIdMeal").innerHTML = managerM.isIdInDB(id);
+        form.reset();
     };
     this.isExerciseIdInDB = function(form){
         var id = form[0].value;
         document.getElementById("freeIdExercise").innerHTML = managerE.isIdInDB(id);
+        form.reset();
     };
     this.deleteMeal = function(form){
         var id = form[0].value;
         managerM.deleteMealByID(id);
         refreshShowDB();
+        form.reset();
     };
     this.deleteExercise = function(form){
         var id = form[0].value;
         managerE.deleteExerciseByID(id);
         refreshShowDB();
+        form.reset();
     };
 }

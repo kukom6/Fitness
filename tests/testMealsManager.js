@@ -44,7 +44,7 @@ QUnit.test( "next free meal id", function( assert ) {
 });
 QUnit.test( "is meal with ID in DB", function( assert ) {
     assert.ok( managerM.isIdInDB(1) , "Meal with ID 1 is in the DB" );
-    assert.notOk( managerM.isIdInDB(7) , "Meal with ID 1 is in the DB" );
+    assert.notOk( managerM.isIdInDB(7) , "Meal with ID 7 is not in the DB" );
 });
 QUnit.test( "is meal with ID in DB with incorrect parameter", function( assert ) {
     assert.throws(function() {managerM.isIdInDB("");},"throws, isIdInDB with id (\"\")");

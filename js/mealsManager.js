@@ -55,7 +55,7 @@ function MealsManager(){
      */
     this.updateMeal = function(meal){
         console.log("updateMeal" + meal);
-        if(!this.correctArgument(meal)){ //TODO correct if id is not incorrect 
+        if(!this.correctArgument(meal)){ //TODO correct if id is not incorrect
             throw "invalid argument exception";
         }
         this.addMissingValue(meal);
