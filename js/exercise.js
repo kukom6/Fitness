@@ -9,8 +9,8 @@
  * @param kcal - count of exercise
  * @constructor
  */
-function Exercise(id,name,kcal){
-    this.id=id;
+function Exercise(name,kcal){
+    this.id=null;
     this.name=name;
     this.kcal=kcal;
 

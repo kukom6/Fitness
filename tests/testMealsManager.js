@@ -3,13 +3,7 @@ QUnit.test( "add meal to DB", function( assert ) {
     assert.notOk( globalMealsManager.isEmpty() , "Add to db was OK!, DB is not empty" );
 });
 QUnit.test( "add incorrect meal to DB", function( assert ) {
-    var newMeal = new Meal(3,"steak2",20,0,20,800,"100g");
-    newMeal.id="";
-    assert.throws(function() {managerM.addMeal(newMeal);},"throws, meal with incorrect id (empty string)");
-    newMeal.id=null;
-    assert.throws(function() {managerM.addMeal(newMeal);},"throws, meal with incorrect id (null)");
-    newMeal.id=2;
-    assert.throws(function() {managerM.addMeal(newMeal);},"throws, meal with incorrect id(id is in the db)");
+    var newMeal = new Meal("steak2",20,0,20,800,"100g");
     newMeal.name="";
     assert.throws(function() {globalMealsManager.addMeal(newMeal);},"throws, meal with incorrect name (empty string)");
     newMeal.name=null;

@@ -23,8 +23,9 @@ function ExercisesManager(){
         }
         var originalExercise = exercises[result];
         console.log("Exercise : \n" + originalExercise + "\n was been gotten from DB");
-        return new Exercise(originalExercise.id,originalExercise.name,originalExercise.kcal);
-        //       return exercises[result]; //unsafe ?? !!
+        var returnExercise = new Exercise(originalExercise.name,originalExercise.kcal);
+        returnExercise.id = id;
+        return returnExercise;
     };
     /**
      * Get all exercises from DB
@@ -43,8 +44,8 @@ function ExercisesManager(){
         if(!this.correctArgument(exercise)){
             throw "invalid argument exception";
         }
-        exercise.setId(nextExerciseId());
-        var pushExercise = new Exercise(exercise.id,exercise.name,exercise.kcal); //safe ?
+        var pushExercise = new Exercise(exercise.name,exercise.kcal); //safe ?
+        pushExercise.id = this.nextExerciseId();
         exercises.push(pushExercise);
         saveLocal();
         console.log("Exercise : \n" + exercise + "\n was been added to DB");
@@ -128,10 +129,6 @@ function ExercisesManager(){
      * @returns {boolean}
      */
     this.correctArgument = function(exercise){
-        if(exercise.id==null||exercise.id==""){
-            console.log("Invalid ID: "+exercise.id);
-            return false;
-        }
         if(exercise.name==null||exercise.name==""){
             console.log("Invalid name: "+exercise.name);
             return false;

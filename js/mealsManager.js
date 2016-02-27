@@ -96,13 +96,6 @@ function MealsManager(){
      * @returns {number} - free ID
      */
     this.nextMealId = function(){
-      /*  this.sortByIdAscending();
-        try{
-            var id = parseInt(meals[0].id);
-        }catch(ex){
-            return 0;
-        }
-        return id + 1;*/ //TODO or ?
         for(var i=0;i<=meals.length;i++){
             if(!this.isIdInDB(i+1)){
                 return i+1;

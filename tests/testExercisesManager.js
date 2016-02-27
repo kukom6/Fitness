@@ -1,16 +1,9 @@
 QUnit.test( "add exercise to DB", function( assert ) {
-    globalExercisesManager.addExercise(new Exercise(2,"run2",800));
+    globalExercisesManager.addExercise(new Exercise("run1",800));
     assert.notOk( globalExercisesManager.isEmpty() , "Add to db was OK!, DB is not empty" );
 });
 QUnit.test( "add incorrect exercise to DB", function( assert ) {
-    var newExercise = new Exercise(3,"run3",700);
-    newExercise.id="";
-    assert.throws(function() {globalExercisesManager.addExercise(newExercise);},"throws, exercise with incorrect id (empty string)");
-    newExercise.id=null;
-    assert.throws(function() {globalExercisesManager.addExercise(newExercise);},"throws, exercise with incorrect id (null)");
-    newExercise.id=2;
-    assert.throws(function() {globalExercisesManager.addExercise(newExercise);},"throws, exercise with incorrect id(id is in the db)");
-    newExercise.id=3;
+    var newExercise = new Exercise("run3",700);
     newExercise.name="";
     assert.throws(function() {globalExercisesManager.addExercise(newExercise);},"throws, exercise with incorrect name (empty string)");
     newExercise.name=null;
@@ -26,8 +19,8 @@ QUnit.test( "add incorrect exercise to DB", function( assert ) {
     assert.throws(function() {globalExercisesManager.addExercise(newExercise);},"throws, exercise with incorrect kcal (\"\")");
 });
 QUnit.test( "next free exercise id", function( assert ) {
-    assert.ok( globalExercisesManager.nextExerciseId()==1 , "Next free ID (1) is OK" );
-    globalExercisesManager.addExercise(new Exercise(1,"run1",600));
+    assert.ok( globalExercisesManager.nextExerciseId()==2 , "Next free ID (2) is OK" );
+    globalExercisesManager.addExercise(new Exercise("run2",600));
     assert.ok( globalExercisesManager.nextExerciseId()==3 , "Next free ID (3) is OK" );
 });
 QUnit.test( "is exercise with ID in DB", function( assert ) {
@@ -42,9 +35,10 @@ QUnit.test( "get all exercises", function( assert ) {
     assert.equal(2,globalExercisesManager.getAllExercises().length,"All exercises are in the returned DB");
 });
 QUnit.test( "get exercise by id", function( assert ) {
-    var originalExercise=new Exercise(3,"run3",900);
+    var originalExercise=new Exercise("run3",900);
     globalExercisesManager.addExercise(originalExercise);
     var exerciseFromDb = globalExercisesManager.getExerciseByID(3);
+    originalExercise.id = 3;
     assert.deepEqual(originalExercise, exerciseFromDb , "exercises are equal" );
     originalExercise.kcal=400;
     exerciseFromDb = globalExercisesManager.getExerciseByID(3);
@@ -86,7 +80,7 @@ QUnit.test( "update exercise with incorrect parameter", function( assert ) {
     updateExercise.name="run2";
 });
 QUnit.test( "test number function", function( assert ) {
-    assert.equal(1900,globalExercisesManager.sumKcal(),"sum of kcal");
+    assert.equal(2100,globalExercisesManager.sumKcal(),"sum of kcal");
 });
 QUnit.test( "delete exercises", function( assert ) {
     for(var i=1;i<=3;i++){
