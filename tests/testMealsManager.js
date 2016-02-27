@@ -126,6 +126,11 @@ QUnit.test( "delete meals", function( assert ) {
     assert.ok( managerM.isEmpty() , "DB is empty" );
     assert.ok( managerM.nextMealId()==1 , "Passed! next free Id after delete" );
 });
+QUnit.test( "delete meal with incorrect parameter", function( assert ) {
+    assert.throws(function() {managerM.deleteMeal("");},"throws, delete meal with id (\"\")");
+    assert.throws(function() {managerM.deleteMeal(null);},"throws, delete meal with id (null)");
+    assert.throws(function() {managerM.deleteMeal(10);},"throws, delete meal with wrong id");
+});
 QUnit.test( "delete storage", function( assert ) {
     localStorage.clear();
     managerM.getAllMeals().length=0;

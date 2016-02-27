@@ -88,13 +88,6 @@ function ExercisesManager(){
      * @returns {number} - free ID
      */
     this.nextExerciseId = function(){
-        /*  this.sortByIdAscending();
-         try{
-         var id = parseInt(exercises[0].id);
-         }catch(ex){
-         return 0;
-         }
-         return id + 1;*/ //TODO or ?
         for(var i=0;i<=exercises.length;i++){
             if(!this.isIdInDB(i+1)){
                 return i+1;

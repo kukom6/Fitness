@@ -92,6 +92,11 @@ QUnit.test( "delete exercises", function( assert ) {
     assert.ok( managerE.isEmpty() , "DB is empty" );
     assert.ok( managerE.nextExerciseId()==1 , "Passed! next free Id after delete" );
 });
+QUnit.test( "delete exercise with incorrect parameter", function( assert ) {
+    assert.throws(function() {managerE.deleteExercise("");},"throws, delete exercise with id (\"\")");
+    assert.throws(function() {managerE.deleteExercise(null);},"throws, delete exercise with id (null)");
+    assert.throws(function() {managerE.deleteExercise(10);},"throws, delete exercise with wrong id");
+});
 QUnit.test( "delete storage", function( assert ) {
     localStorage.clear();
     managerE.getAllExercises().length=0;
