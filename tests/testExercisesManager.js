@@ -51,11 +51,6 @@ QUnit.test( "get exercise by id with incorrect parameter", function( assert ) {
 });
 QUnit.test( "update exercise", function( assert ) {
     var updateExercise = globalExercisesManager.getExerciseByID(2);
-    /*  updateExercise.id=8; //TODO repair
-     globalExercisesManager.updateExercise(updateExercise);
-     assert.equal(2,globalExercisesManager.nextExerciseId(),"Id updated exercise is free");
-     updateExercise.id=2;
-     globalExercisesManager.updateExercise(updateExercise);*/
     updateExercise.name="2run2";
     globalExercisesManager.updateExercise(updateExercise);
     assert.equal(updateExercise.name,globalExercisesManager.getExerciseByID(2).name,"Name was been updated");
@@ -70,9 +65,6 @@ QUnit.test( "update exercise with incorrect parameter", function( assert ) {
     assert.throws(function() {globalExercisesManager.updateExercise(updateExercise);},"throws, exercise with incorrect id (empty string)");
     updateExercise.id=null;
     assert.throws(function() {globalExercisesManager.updateExercise(updateExercise);},"throws, exercise with incorrect id (null)");
-    /*  updateExercise.id=5;
-     assert.throws(function() {globalExercisesManager.updateExercise(updateExercise);},"throws, exercise with incorrect id(id is in the db)"); //TODO not updated another exercise
-     updateExercise.id=2;*/
     updateExercise.name="";
     assert.throws(function() {globalExercisesManager.updateExercise(updateExercise);},"throws, exercise with incorrect name (empty string)");
     updateExercise.name=null;
