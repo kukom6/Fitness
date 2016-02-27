@@ -1,7 +1,7 @@
 /**
  * Created by mkralik on 2/14/16.
  */
-var managerM = new MealsManager(); //TODO move to init()
+var globalMealsManager = new MealsManager(); //TODO move to init()
 
 function MealsManager(){
     var meals = [];
@@ -23,7 +23,9 @@ function MealsManager(){
         }
         var originalMeal = meals[result];
         console.log("Meal : \n" + originalMeal + "\n was been gotten from DB");
-        return new Meal(originalMeal.id,originalMeal.name,originalMeal.protein,originalMeal.carbohydrate,originalMeal.fat,originalMeal.kcal,originalMeal.method);
+        var returnMeal = new Meal(originalMeal.name,originalMeal.protein,originalMeal.carbohydrate,originalMeal.fat,originalMeal.kcal,originalMeal.method);
+        returnMeal.id = id;
+        return returnMeal;
  //       return meals[result]; //unsafe ?? !!
     };
     /**
@@ -40,11 +42,12 @@ function MealsManager(){
      */
     this.addMeal = function(meal){
         console.log("addMeal" + meal);
-        if(!this.correctArgument(meal)||this.isIdInDB(meal.id)){
+        if(!this.correctArgument(meal)){
             throw "invalid argument exception";
         }
         this.addMissingValue(meal);
-        var pushMeal = new Meal(meal.id,meal.name,meal.protein,meal.carbohydrate,meal.fat,meal.kcal,meal.method); //safe ?
+        var pushMeal = new Meal(meal.name,meal.protein,meal.carbohydrate,meal.fat,meal.kcal,meal.method); //safe ?
+        pushMeal.id=this.nextMealId();
         meals.push(pushMeal);
         saveLocal();
         console.log("Meal : \n" + meal + "\n was been added to DB");
@@ -139,10 +142,6 @@ function MealsManager(){
      * @returns {boolean}
      */
     this.correctArgument = function(meal){
-        if(meal.id==null||meal.id==""){
-            console.log("Invalid ID: "+meal.id);
-            return false;
-        }
         if(meal.name==null||meal.name==""){
             console.log("Invalid name: "+meal.name);
             return false;
@@ -179,7 +178,50 @@ function MealsManager(){
             meal.kcal= meal.protein*4 + meal.carbohydrate*4 + meal.fat*9;
         }
     };
-
+    /**
+     * sum of protein
+     * @returns {number} sum
+     */
+    this.sumProtein = function(){
+        var sum=0;
+        for(var i=0;i<meals.length;i++){
+            sum+=Number(meals[i].protein);
+        }
+        return sum;
+    };
+    /**
+     * sum of carbohydrate
+     * @returns {number} sum
+     */
+    this.sumCarbohydrate = function(){
+        var sum=0;
+        for(var i=0;i<meals.length;i++){
+            sum+=Number(meals[i].carbohydrate);
+        }
+        return sum;
+    };
+    /**
+     * sum of fat
+     * @returns {number} sum
+     */
+    this.sumFat = function(){
+        var sum=0;
+        for(var i=0;i<meals.length;i++){
+            sum+=Number(meals[i].fat);
+        }
+        return sum;
+    };
+    /**
+     * sum of kcal
+     * @returns {number} sum
+     */
+    this.sumKcal = function(){
+        var sum=0;
+        for(var i=0;i<meals.length;i++){
+            sum+=Number(meals[i].kcal);
+        }
+        return sum;
+    };
     //TODO sort, this way ?
     this.sortByIdDescending = function(){
         meals.sort(function(meal1, meal2) {

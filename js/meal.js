@@ -13,8 +13,8 @@
  * @param method - "100g" - the values are on 100g ;"one piece" - the values are on one piece
  * @constructor
  */
-function Meal(id,name,protein,carbohydrate,fat,kcal,method){
-    this.id=id;
+function Meal(name,protein,carbohydrate,fat,kcal,method){
+    this.id=null; //TODO or var id = null; get+set
     this.name=name;
     this.protein=protein;
     this.carbohydrate=carbohydrate;

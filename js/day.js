@@ -9,13 +9,19 @@
  */
 function Day(date){
     this.date=date;
-    this.dayMeals = [];
-    this.dayExercises = [];
+    var mealsManager = new MealsManager();
+    var exercisesManager = new ExercisesManager();
 
+    this.getMealsManager = function(){
+        return mealsManager;
+    };
+    this.getExercisesManager = function(){
+        return exercisesManager;
+    };
+/*
     this.addMeal = function(addM){
         this.dayMeals.push(addM);
     };
-
     this.addExercise = function(addE){
         this.dayExercises.push(addE);
     };
@@ -23,7 +29,7 @@ function Day(date){
      * delede meal by id ( order )
      * @param id
      */
-    this.deleteMeal = function(id){
+ /*   this.deleteMeal = function(id){
         console.log("deleteMealById: "+id +" from day: "+this.date);
         var index= this.indexMealInDay(id);
         if(index == -1){
@@ -38,7 +44,7 @@ function Day(date){
      * delede exercise by id ( order )
      * @param id
      */
-    this.deleteExercise = function(id){
+ /*   this.deleteExercise = function(id){
         console.log("deleteExerciseById: "+id+" from day: "+this.date);
         var index= this.indexExerciseInDay(id);
         if(index == -1){
@@ -94,7 +100,7 @@ function Day(date){
         return this.dayExercises.findIndex(function(exercise){
             return id==exercise.id;
         });
-    };
+    };*/
 
     this.toString = function () {
         var result = "";

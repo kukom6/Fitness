@@ -1,7 +1,7 @@
 /**
  * Created by mkralik on 2/14/16.
  */
-var managerE = new ExercisesManager(); //TODO move to init()
+var globalExercisesManager = new ExercisesManager(); //TODO move to init()
 
 function ExercisesManager(){
     var exercises = [];
@@ -40,9 +40,10 @@ function ExercisesManager(){
      */
     this.addExercise = function(exercise){
         console.log("addExercise" + exercise);
-        if(!this.correctArgument(exercise)||this.isIdInDB(exercise.id)){
+        if(!this.correctArgument(exercise)){
             throw "invalid argument exception";
         }
+        exercise.setId(nextExerciseId());
         var pushExercise = new Exercise(exercise.id,exercise.name,exercise.kcal); //safe ?
         exercises.push(pushExercise);
         saveLocal();
@@ -141,7 +142,17 @@ function ExercisesManager(){
         }
         return true;
     };
-
+    /**
+     * sum of kcal
+     * @returns {number} sum
+     */
+    this.sumKcal = function(){
+        var sum=0;
+        for(var i=0;i<exercises.length;i++){
+            sum+=Number(exercises[i].kcal);
+        }
+        return sum;
+    };
     this.sortByIdDescending = function(){
         exercises.sort(function(exercise1, exercise2) {
             return exercise1.id - exercise2.id;

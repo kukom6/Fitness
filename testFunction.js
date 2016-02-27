@@ -10,30 +10,30 @@ var testFactory = new TestFunction();
  */
 function TestFunction(){
     this.nextMealId = function(){
-        document.getElementById("nextFreeIdMeal").innerHTML = managerM.nextMealId();
+        document.getElementById("nextFreeIdMeal").innerHTML = globalMealsManager.nextMealId();
     };
     this.nextExerciseId = function(){
-        document.getElementById("nextFreeIdExercise").innerHTML = managerE.nextExerciseId();
+        document.getElementById("nextFreeIdExercise").innerHTML = globalExercisesManager.nextExerciseId();
     };
     this.isMealIdInDB = function(form){
         var id = form[0].value;
-        document.getElementById("freeIdMeal").innerHTML = managerM.isIdInDB(id);
+        document.getElementById("freeIdMeal").innerHTML = globalMealsManager.isIdInDB(id);
         form.reset();
     };
     this.isExerciseIdInDB = function(form){
         var id = form[0].value;
-        document.getElementById("freeIdExercise").innerHTML = managerE.isIdInDB(id);
+        document.getElementById("freeIdExercise").innerHTML = globalExercisesManager.isIdInDB(id);
         form.reset();
     };
     this.deleteMeal = function(form){
         var id = form[0].value;
-        managerM.deleteMealByID(id);
+        globalMealsManager.deleteMealByID(id);
         refreshShowDB();
         form.reset();
     };
     this.deleteExercise = function(form){
         var id = form[0].value;
-        managerE.deleteExerciseByID(id);
+        globalExercisesManager.deleteExerciseByID(id);
         refreshShowDB();
         form.reset();
     };

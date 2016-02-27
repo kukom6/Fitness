@@ -5,12 +5,12 @@
  * show all db as table
  */
 function showAllDB(){
-    if(managerM.isEmpty() && managerM.isEmpty() && days.length == 0){
+    if(globalMealsManager.isEmpty() && globalMealsManager.isEmpty() && days.length == 0){
         alert("DB is empty, nothing to show");
         return;
     }
-    document.getElementById("mealsTable").appendChild(createMealsTab(managerM.getAllMeals()));
-    document.getElementById("exercisesTable").appendChild(createExercisesTab(managerE.getAllExercises()));
+    document.getElementById("mealsTable").appendChild(createMealsTab(globalMealsManager.getAllMeals()));
+    document.getElementById("exercisesTable").appendChild(createExercisesTab(globalExercisesManager.getAllExercises()));
     document.getElementById("daysTable").appendChild(createDaysTable(days));
 }
 /**
