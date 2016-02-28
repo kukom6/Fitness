@@ -5,9 +5,12 @@
 function loadDB(){  //TODO temp function
     if (storageAvailable('localStorage')) {
         if(localStorage.getItem('isInLocal')){
-            loadLocal();
+            if(loadLocal()){
+                document.getElementById("loadButton").disabled=true;
+                document.getElementById("input").disabled=true;
+            }
         }else{ //first start
-            loadJSON("data.json");
+            alert("local storage is empty, please load backup json file or start new story")
         }
         showAllDB();
     }else {
@@ -19,44 +22,35 @@ function loadDB(){  //TODO temp function
  * @param jsonFiles
  */
 function loadJSONasFile(jsonFiles){
-    //TODO test na validitu suboru jsonFils[0]
     var reader = new FileReader();
     reader.onload = function(event) {
         var tempArr = JSON.parse(event.target.result);
-        if(!parseJSONtoLocal(tempArr)){
-            alert("DB unsuccessfully load from uploaded file");
-            return; //TODO exception?
+        var saveJSON = {
+            meals : tempArr['meals'],
+            exercises : tempArr['exercises'],
+            days : tempArr['days']
+        };
+        var data = JSON.stringify(saveJSON);
+        localStorage.setItem('jsonData',data);
+        var days = tempArr['daysContent'];
+        var currentDate= null;
+        for(var i= 0;i<days.length;i++){
+            currentDate=days[i]['date'];
+            saveJSON={
+                date : currentDate,
+                dayMeals : days[i]['dayMeals'],
+                dayExercises : days[i]['dayExercises']
+            };
+            data = JSON.stringify(saveJSON);
+            localStorage.setItem(currentDate,data);
         }
-        alert("DB was successfully loaded from uploaded file");
-        document.getElementById("loadButton").disabled=true;
-        document.getElementById("input").disabled=true;
-        saveLocal();
+        localStorage.setItem('isInLocal',true);
+        loadLocal();
+        console.log("db was add from JSON file to local storage and loaded");
         refreshShowDB();
     };
     reader.readAsText(jsonFiles[0]);
 }
-/**
- * load define DB after first start with XMLHttpRequest
- */
-function loadJSON(url) { //TODO refactoring, temp function, will delete from aplication
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function () {
-        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-            var tempArr = JSON.parse(xmlhttp.responseText);
-            if(!parseJSONtoLocal(tempArr)){
-                alert("DB unsuccessfully load from JSON");
-                return; //TODO exception?
-            }
-            alert("DB was successfully loaded from JSON");
-            document.getElementById("loadButton").disabled=true;
-            document.getElementById("input").disabled=true;
-            saveLocal();
-        }
-    };
-    xmlhttp.open("GET", url, true);
-    xmlhttp.send();
-}
-
 /**
  * Load from local storage
  */
@@ -64,17 +58,13 @@ function loadLocal(){
     var data = localStorage.getItem('jsonData');
     var tempArr = JSON.parse(data);
     if(!parseJSONtoLocal(tempArr)){
-        alert("DB unsuccessfully loaded from local DB");
-        return; //TODO exception?
+        throw "DB unsuccessfully loaded from local DB";
     }
-    alert("DB was successfully loaded from local DB");
-    if(globalMealsManager.isEmpty() && globalMealsManager.isEmpty() && this.days.length==0){ //DB in local storage was been empty
-        alert("DB in the local storage is empty!");
-        document.getElementById("loadButton").disabled=false;
-        return;
+    if(globalMealsManager.isEmpty() && globalMealsManager.isEmpty() && globalDaysManager.isEmpty()){ //DB in local storage was been empty
+        throw "DB in the local storage is empty!";
     }
-    document.getElementById("loadButton").disabled=true;
-    document.getElementById("input").disabled=true;
+    console.log("DB was successful loaded from local storage");
+    return true;
 }
 
 /**
@@ -84,14 +74,25 @@ function saveLocal(){
     var saveJSON = {
         meals : globalMealsManager.getAllMeals(),
         exercises : globalExercisesManager.getAllExercises(),
-        days : this.days
+        days : globalDaysManager.getAllDays()
     };
     var data = JSON.stringify(saveJSON);   //TODO save as only one a JSON type or each of them as a separated JSON type (meals,exercises,days)?
     localStorage.setItem('jsonData',data);
+    var days = globalDaysManager.getAllDays();
+    var         currentDate= null;
+    for(var i= 0;i<days.length;i++){
+        currentDate=days[i].date.toDateString();
+        saveJSON={
+            date : currentDate,
+            dayMeals : days[i].mealsManager.getAllMeals(),
+            dayExercises : days[i].exercisesManager.getAllExercises()
+        };
+        data = JSON.stringify(saveJSON);
+        localStorage.setItem(currentDate,data);
+    }
     localStorage.setItem('isInLocal',true);
     console.log("DB was saved");
 }
-
 /**
  * Export DB to JSON file
  */
@@ -99,13 +100,25 @@ function saveJSON(){ //TODO download file, right way ?
     var saveJSON = {
         meals : globalMealsManager.getAllMeals(),
         exercises : globalExercisesManager.getAllExercises(),
-        days : this.days
+        days : globalDaysManager.getAllDays(),
+        daysContent : []
+    };
+    var days = globalDaysManager.getAllDays();
+    var currentDate,day= null;
+    for(var i= 0;i<days.length;i++){
+        currentDate=days[i].date.toDateString();
+        day={
+            date : currentDate,
+            dayMeals : days[i].mealsManager.getAllMeals(),
+            dayExercises : days[i].exercisesManager.getAllExercises()
         };
-    var data = 'data:text/json;charser=utf8,'+ encodeURIComponent(JSON.stringify(saveJSON));  //TODO ukladanie
+        saveJSON.daysContent.push(day);
+    }
+    var data = 'data:text/json;charser=utf8,'+ encodeURIComponent(JSON.stringify(saveJSON));
     var a = document.createElement('a');
     a.href = data;
     a.download = 'data.json';
-    document.getElementById("downloadVisible").appendChild(a); //TODO chrome vs. the others
+    document.getElementById("downloadVisible").appendChild(a);
     a.click();
 }
 
@@ -130,7 +143,7 @@ function parseJSONtoLocal(tempArr){
         return false;
     }
     for(var i=0;i<tempArr["meals"].length;i++){ //load meals
-        globalMealsManager.addMeal(new Meal(tempArr["meals"][i].id,
+        globalMealsManager.addMeal(new Meal(
             tempArr["meals"][i].name,
             tempArr["meals"][i].protein,
             tempArr["meals"][i].carbohydrate,
@@ -140,31 +153,35 @@ function parseJSONtoLocal(tempArr){
         ));
     }
     for(i=0;i<tempArr["exercises"].length;i++){ //load exercises
-        globalExercisesManager.addExercise(new Exercise(tempArr["exercises"][i].id,
+        globalExercisesManager.addExercise(new Exercise(
             tempArr["exercises"][i].name,
             tempArr["exercises"][i].kcal));
     }
-    var saveDay = [];
+    var saveDay,storageDay,dayManagers,dayDate = null;
     var specificDay = []; // helpful variable
     for(i=0;i<tempArr["days"].length;i++){  //load days with days and exercises
-        specificDay = tempArr["days"][i]; // clarifications code
-        saveDay = new Day(new Date(specificDay["date"]));
-        for(var j=0;j<specificDay["dayMeals"].length;j++){
-            saveDay.addMeal(new Meal(specificDay["dayMeals"][j].id,
-                specificDay["dayMeals"][j].name,
-                specificDay["dayMeals"][j].protein,
-                specificDay["dayMeals"][j].carbohydrate,
-                specificDay["dayMeals"][j].fat,
-                specificDay["dayMeals"][j].kcal,
-                specificDay["dayMeals"][j].method
+        specificDay = tempArr["days"][i];
+        dayDate = new Date(specificDay['date']);
+        storageDay = localStorage.getItem(dayDate.toDateString());
+        dayManagers= JSON.parse(storageDay);
+        saveDay = new Day(dayDate);
+        //todo add managers data
+        for(var j=0;j<dayManagers['dayMeals'].length;j++){ //add all meals to day
+            saveDay.mealsManager.addMeal(new Meal(
+                dayManagers["dayMeals"][j].name,
+                dayManagers["dayMeals"][j].protein,
+                dayManagers["dayMeals"][j].carbohydrate,
+                dayManagers["dayMeals"][j].fat,
+                dayManagers["dayMeals"][j].kcal,
+                dayManagers["dayMeals"][j].method
             ));
         }
-        for(j=0;j<specificDay["dayExercises"].length;j++){
-            saveDay.addExercise(new Exercise(specificDay["dayExercises"][j].id,
-                specificDay["dayExercises"][j].name,
-                specificDay["dayExercises"][j].kcal));
+        for(j=0;j<dayManagers['dayExercises'].length;j++){ //add all exercises to day
+            saveDay.exercisesManager.addExercise(new Exercise(
+                dayManagers["dayExercises"][j].name,
+                dayManagers["dayExercises"][j].kcal));
         }
-        days.push(saveDay);
+        globalDaysManager.addDay(saveDay);
     }
     return true;
 }

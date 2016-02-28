@@ -5,13 +5,13 @@
  * show all db as table
  */
 function showAllDB(){
-    if(globalMealsManager.isEmpty() && globalMealsManager.isEmpty() && days.length == 0){
+    if(globalMealsManager.isEmpty() && globalMealsManager.isEmpty() && globalDaysManager.isEmpty()){
         alert("DB is empty, nothing to show");
         return;
     }
     document.getElementById("mealsTable").appendChild(createMealsTab(globalMealsManager.getAllMeals()));
     document.getElementById("exercisesTable").appendChild(createExercisesTab(globalExercisesManager.getAllExercises()));
-    document.getElementById("daysTable").appendChild(createDaysTable(days));
+    document.getElementById("daysTable").appendChild(createDaysTable(globalDaysManager.getAllDays()));
 }
 /**
  * Create meals table with all items in the array
@@ -176,8 +176,8 @@ function createDaysTable(array){
         caption.appendChild(document.createTextNode("Day: "+array[i].date.toLocaleString()));
         caption.style.fontWeight = "bold";
         tabDay.appendChild(caption);
-        tabDay.appendChild(createMealsTab(array[i].dayMeals));
-        tabDay.appendChild(createExercisesTab(array[i].dayExercises));
+        tabDay.appendChild(createMealsTab(array[i].mealsManager.getAllMeals()));
+        tabDay.appendChild(createExercisesTab(array[i].exercisesManager.getAllExercises()));
         tabDays.appendChild(tabDay); //add day table to the days table
     }
     return tabDays;

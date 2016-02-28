@@ -5,12 +5,18 @@ var globalDaysManager = new DaysManager(); //TODO move to init()
 
 function DaysManager(){
     var days = [];
+    this.setDays = function(array){
+        this.days = array;
+    };
+
     this.addDay = function(day){
         if(this.isDayInDB(day.date)){
             console.log("date is already in db, please update exist day");
             throw "date is already in db, please update exist day";
         }
         days.push(day); //TODO validacia
+        saveLocal();
+        console.log("Day: "+day.date+" was added to DB");
     };
     this.addMealToDay = function(date, meal){
         if(date==""||date==null){ //TODO validation meal is in the meals manager??
