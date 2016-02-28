@@ -13,12 +13,12 @@ function MealsManager(){
     this.getMealByID = function(id){
         console.log("getMealById: "+id);
         if(id==""||id==null){
-            console.log("invalid ID");
+            console.error("invalid ID");
             throw "invalid argument exception";
         }
         var result = this.indexMealInArrayById(id);
         if(result == -1){
-            console.log("Meal with " + id + " id is not in the DB");
+            console.error("Meal with " + id + " id is not in the DB");
             throw "Meal with " + id + " id is not in the DB";
         }
         var originalMeal = meals[result];
@@ -64,7 +64,7 @@ function MealsManager(){
         this.addMissingValue(meal);
         var result = this.indexMealInArrayById(meal.id);
         if(result == -1){
-            console.log("Meal with " + id + " id is not in the DB use add function!");
+            console.error("Meal with " + id + " id is not in the DB use add function!");
             throw "Meal with " + id + " id is not in the DB use add function!";
         }
         meals[result].name=meal.name;
@@ -84,7 +84,7 @@ function MealsManager(){
         console.log("deleteMealById: "+id);
         var index= this.indexMealInArrayById(id);
         if(index == -1){
-            console.log("Meal with " + id + " id is not in the DB");
+            console.error("Meal with " + id + " id is not in the DB");
             throw "Meal with " + id + " id is not in the DB" ;
         }
         meals.splice(index,1);
@@ -109,7 +109,7 @@ function MealsManager(){
      */
     this.isIdInDB = function(id){
         if(id==""||id==null){
-            console.log("invalid ID in isIdInDb");
+            console.error("invalid ID in isIdInDb");
             throw "invalid argument exception";
         }
         return this.indexMealInArrayById(id) != -1 ;
@@ -136,11 +136,11 @@ function MealsManager(){
      */
     this.correctArgument = function(meal){
         if(meal.name==null||meal.name==""){
-            console.log("Invalid name: "+meal.name);
+            console.error("Invalid name: "+meal.name);
             return false;
         }
         if(meal.method!="100g"&&meal.method!="one piece"){
-            console.log("Invalid method: "+meal.method);
+            console.error("Invalid method: "+meal.method);
             return false;
         }
         if((meal.protein==null||meal.protein==""||meal.protein==0)&&
@@ -148,7 +148,7 @@ function MealsManager(){
             (meal.fat==null||meal.fat==""||meal.fat==0)&&
             (meal.kcal==null||meal.kcal==""||meal.kcal==0)
         ){
-            console.log("Invalid argument, at least one parameter must be filled");
+            console.error("Invalid argument, at least one parameter must be filled");
             return false;
         }
         return true;

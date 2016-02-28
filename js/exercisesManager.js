@@ -13,12 +13,12 @@ function ExercisesManager(){
     this.getExerciseByID = function(id){
         console.log("getExerciseById: "+id);
         if(id==""||id==null){
-            console.log("invalid ID");
+            console.error("invalid ID");
             throw "invalid argument exception";
         }
         var result = this.indexExerciseInArrayById(id);
         if(result == -1){
-            console.log("Exercise with " + id + " id is not in the DB");
+            console.error("Exercise with " + id + " id is not in the DB");
             throw "Exercise with " + id + " id is not in the DB";
         }
         var originalExercise = exercises[result];
@@ -61,7 +61,7 @@ function ExercisesManager(){
         }
         var result = this.indexExerciseInArrayById(exercise.id);
         if(result == -1){
-            console.log("Exercise with " + id + " id is not in the DB use add function!");
+            console.error("Exercise with " + id + " id is not in the DB use add function!");
             throw "Exercise with " + id + " id is not in the DB use add function!";
         }
         exercises[result].name=exercise.name;
@@ -78,7 +78,7 @@ function ExercisesManager(){
         console.log("deleteExerciseById: "+id);
         var index= this.indexExerciseInArrayById(id);
         if(index == -1){
-            console.log("Exercise with " + id + " id is not in the DB");
+            console.error("Exercise with " + id + " id is not in the DB");
             throw "Exercise with " + id + " id is not in the DB" ;
         }
         exercises.splice(index,1);
@@ -103,7 +103,7 @@ function ExercisesManager(){
      */
     this.isIdInDB = function(id){
         if(id==""||id==null){
-            console.log("invalid ID in isIdInDb");
+            console.error("invalid ID in isIdInDb");
             throw "invalid argument exception";
         }
         return this.indexExerciseInArrayById(id) != -1 ;
@@ -130,11 +130,11 @@ function ExercisesManager(){
      */
     this.correctArgument = function(exercise){
         if(exercise.name==null||exercise.name==""){
-            console.log("Invalid name: "+exercise.name);
+            console.error("Invalid name: "+exercise.name);
             return false;
         }
         if(exercise.kcal==null||exercise.kcal==""||exercise.kcal<=0) {
-            console.log("Invalid argument, at least one parameter must be filled");
+            console.error("Invalid argument, at least one parameter must be filled");
             return false;
         }
         return true;

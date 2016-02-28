@@ -11,18 +11,10 @@ function Day(date){
     this.date=date;
     this.mealsManager = new MealsManager();
     this.exercisesManager = new ExercisesManager();
-/*
-    this.getMealsManager = function(){
-        return mealsManager;
-    };
-    this.getExercisesManager = function(){
-        return exercisesManager;
-    };
-    */
 
     this.toString = function () {
         var result = "";
-        result += "Den " +this.date.toLocaleString()+ ":\n";
+        result += "Date " +this.date.toLocaleString()+ ":\n";
         result += "Meals: \n";
         var dayMeals = this.mealsManager.getAllMeals();
         for(var j=0;j<dayMeals.length;j++){

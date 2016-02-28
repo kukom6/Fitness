@@ -5,13 +5,9 @@ var globalDaysManager = new DaysManager(); //TODO move to init()
 
 function DaysManager(){
     var days = [];
-    this.setDays = function(array){
-        this.days = array;
-    };
-
     this.addDay = function(day){
         if(this.isDayInDB(day.date)){
-            console.log("date is already in db, please update exist day");
+            console.error("date is already in db, please update exist day");
             throw "date is already in db, please update exist day";
         }
         days.push(day); //TODO validacia
@@ -20,7 +16,7 @@ function DaysManager(){
     };
     this.addMealToDay = function(date, meal){
         if(date==""||date==null){ //TODO validation meal is in the meals manager??
-            console.log("invalid date");
+            console.error("invalid date");
             throw "invalid argument exception";
         }
         var day=this.getDayByDate(date);
@@ -29,7 +25,7 @@ function DaysManager(){
     };
     this.addExerciseToDay = function(date, exercise){
         if(date==""||date==null){ //TODO validation exercise is in the exercises manager??
-            console.log("invalid date");
+            console.error("invalid date");
             throw "invalid argument exception";
         }
         var day=this.getDayByDate(date);
@@ -39,12 +35,12 @@ function DaysManager(){
     this.getDayByDate = function(date){
         console.log("getDayByDate: "+date);
         if(date==""||date==null){
-            console.log("invalid date");
+            console.error("invalid date");
             throw "invalid argument exception";
         }
         var result = this.indexDayInArrayById(date);
         if(result == -1){
-            console.log("Day with " + date + " date is not in the DB");
+            console.error("Day with " + date + " date is not in the DB");
             throw "Day with " + date + " date is not in the DB";
         }
         console.log("Day : \n" + date.toDateString() + "\n was been gotten from DB");
@@ -56,7 +52,7 @@ function DaysManager(){
     };
     this.deleteMealInDay = function(date,idMeal){
         if(date==""||date==null){
-            console.log("invalid date");
+            console.error("invalid date");
             throw "invalid argument exception";
         }
         var day=this.getDayByDate(date);
@@ -65,7 +61,7 @@ function DaysManager(){
     };
     this.deleteExerciseInDay = function(date,idExercise){
         if(date==""||date==null){
-            console.log("invalid date");
+            console.error("invalid date");
             throw "invalid argument exception";
         }
         var day=this.getDayByDate(date);
@@ -75,12 +71,12 @@ function DaysManager(){
     this.deleteDayByDate = function(date){
         console.log("deleteDayByDate: "+date);
         if(date==""||date==null){
-            console.log("invalid date");
+            console.error("invalid date");
             throw "invalid argument exception";
         }
         var index= this.indexDayInArrayById(date);
         if(index == -1){
-            console.log("Day with " + date + " date is not in the DB");
+            console.error("Day with " + date + " date is not in the DB");
             throw "Day with " + date + " date is not in the DB" ;
         }
         days.splice(index,1);
@@ -89,7 +85,7 @@ function DaysManager(){
     };
     this.isDayInDB = function(date){ //TODO correct day values
         if(date==""||date==null){
-            console.log("invalid date parameter in isDayInDb");
+            console.error("invalid date parameter in isDayInDb");
             throw "invalid argument exception";
         }
         return this.indexDayInArrayById(date) != -1 ;

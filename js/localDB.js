@@ -134,6 +134,7 @@ function deleteLocal(){
     if (confirm("Delete local storage! Make sure that you download DB!") == true) {
         alert("Local storage was deleted. App will be reload");
         localStorage.clear();
+        console.log("Local storage was been deleted");
         location.reload();
     }
 }
@@ -258,28 +259,26 @@ function addDB(form){
  * @param mode - type of value
  * @param form - form from html
  */
-function addToDB(mode,form){  //TODO way of forms ???
+function addToDB(mode,form){
     if(mode=="meal"){
         globalMealsManager.addMeal(new Meal(
             form[0].value,
             form[1].value,
             form[2].value,
             form[3].value,
-            form[4].value,
-            form[5].value
+            form[4].value
         ));
     }else if(mode=="exercise"){
         globalExercisesManager.addExercise(new Exercise(
             form[0].value,
-            form[1].value,
-            form[2].value
+            form[1].value
         ));
     }
     refreshShowDB();
     saveLocal();
 }
 
-/** TODO do it
+/** TODO
  * add new meal or exercise to the new or exist day
  * @param mode - type of value
  * @param form - form from html

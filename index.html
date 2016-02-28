@@ -36,7 +36,6 @@
 
         <form name="addMeal" onsubmit="addDB(this);return false" method="post"> <!--TODO way of forms ??? -->
             Enter meal: <br>
-            <input type="text" placeholder="id" name="id" required/>
             <input type="text" placeholder="Name" name="nameM" required/>
             <input type="text" placeholder="protein" name="protein" />
             <input type="text" placeholder="carbohydrate" name="carbohydrate" />
@@ -44,17 +43,16 @@
             <input type="text" placeholder="kcal" name="kcal"/>
             <input type="submit" value="Submit"/>
             Save to DB<input type="checkbox" name="addToDB" value="saveDB" checked>
-            Save to day<input type="checkbox" name="addToDay" value="saveDB" checked>
+            Save to day<input type="checkbox" name="addToDay" value="saveDB" >
         </form>
 
         <form name="addExercise" onsubmit="addDB(this);return false" method="post"> <!--TODO way of forms ??? -->
             Enter exercise: <br>
-            <input type="text" placeholder="id" name="id" required/>
             <input type="text" placeholder="Name" name="nameE" required/>
             <input type="text" placeholder="kcal" name="kcal" />
             <input type="submit" value="Submit"/>
             Save to DB<input type="checkbox" name="addToDB" value="saveDB" checked>
-            Save to day<input type="checkbox" name="addToDay" value="saveDB" checked>
+            Save to day<input type="checkbox" name="addToDay" value="saveDB" >
         </form>
 
         <br>
