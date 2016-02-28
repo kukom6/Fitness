@@ -2,14 +2,19 @@
  * Created by mkralik on 2/13/16.
  */
 
-function loadDB(){  //TODO temp function
+function loadDB(file){  //TODO temp function
     if (storageAvailable('localStorage')) {
         if(localStorage.getItem('isInLocal')){
             if(loadLocal()){
                 document.getElementById("loadButton").disabled=true;
                 document.getElementById("input").disabled=true;
             }
-        }else{ //first start
+        }else if(file != null){
+            loadJSONasFile(file);
+            document.getElementById("loadButton").disabled=true;
+            document.getElementById("input").disabled=true;
+        }
+        else{ //first start
             alert("local storage is empty, please load backup json file or start new story")
         }
         showAllDB();
