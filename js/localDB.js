@@ -266,7 +266,8 @@ function addToDB(mode,form){
             form[1].value,
             form[2].value,
             form[3].value,
-            form[4].value
+            form[4].value,
+            form[5].value
         ));
     }else if(mode=="exercise"){
         globalExercisesManager.addExercise(new Exercise(
@@ -291,11 +292,13 @@ function addToDay(mode,form){
         alert("Set date!");
         return;
     }
-    var tmp = new Date(date);
-    //TODO get day by date , if it not exist create new
-    var newDay = new Day(tmp);
+    var particularDate = new Date(date);
+    if(!globalDaysManager.isDayInDB(particularDate)){
+        globalDaysManager.addDay(new Day(particularDate)); // if day is not in the db
+    }
+    var day = globalDaysManager.getDayByDate(particularDate);
     if(mode=="meal"){
-        newDay.addMeal(new Meal(
+        day.mealsManager.addMeal(new Meal(
             form[0].value,
             form[1].value,
             form[2].value,
@@ -304,13 +307,11 @@ function addToDay(mode,form){
             form[5].value
         ));
     }else if(mode=="exercise"){
-        newDay.addExercise(new Exercise(
+        day.exercisesManager.addExercise(new Exercise(
             form[0].value,
-            form[1].value,
-            form[2].value
+            form[1].value
         ));
     }
-    days.push(newDay);
     refreshShowDB();
     saveLocal();
 }

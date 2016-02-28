@@ -9,16 +9,18 @@ function showAllDB(){
         alert("DB is empty, nothing to show");
         return;
     }
-    document.getElementById("mealsTable").appendChild(createMealsTab(globalMealsManager.getAllMeals()));
-    document.getElementById("exercisesTable").appendChild(createExercisesTab(globalExercisesManager.getAllExercises()));
-    document.getElementById("daysTable").appendChild(createDaysTable(globalDaysManager.getAllDays()));
+    document.getElementById("mealsTable").appendChild(createMealsTab(globalMealsManager,false));
+    document.getElementById("exercisesTable").appendChild(createExercisesTab(globalExercisesManager,false));
+    document.getElementById("daysTable").appendChild(createDaysTable(globalDaysManager));
 }
 /**
  * Create meals table with all items in the array
- * @param array - array with meals
+ * @param manager - specific meals manager
+ * @param sum - if shows sum
  * @returns {Element} - Table DOM element
  */
-function createMealsTab(array){
+function createMealsTab(manager,sum){
+    var array = manager.getAllMeals();
     var tabMeals = document.createElement("table"); //create meals table
     tabMeals.border = '2';
     tabMeals.style.width = "100%";
@@ -98,14 +100,49 @@ function createMealsTab(array){
         tr.appendChild(node);
         tabMeals.appendChild(tr);
     }
+    if(sum){
+        tr = document.createElement("tr");
+        tr.style.backgroundColor = '#EE8A8E';
+        node = document.createElement("td");
+        node.appendChild(document.createTextNode("SUCET"));
+        node.align = "middle";
+        tr.appendChild(node);
+        node = document.createElement("td");
+        node.appendChild(document.createTextNode(""));
+        node.align = "middle";
+        tr.appendChild(node);
+        node = document.createElement("td");
+        node.appendChild(document.createTextNode(manager.sumProtein()));
+        node.align = "middle";
+        tr.appendChild(node);
+        node = document.createElement("td");
+        node.appendChild(document.createTextNode(manager.sumCarbohydrate()));
+        node.align = "middle";
+        tr.appendChild(node);
+        node = document.createElement("td");
+        node.appendChild(document.createTextNode(manager.sumFat()));
+        node.align = "middle";
+        tr.appendChild(node);
+        node = document.createElement("td");
+        node.appendChild(document.createTextNode(String(manager.sumKcal())));
+        node.align = "middle";
+        tr.appendChild(node);
+        node = document.createElement("td");
+        node.appendChild(document.createTextNode(""));
+        node.align = "middle";
+        tr.appendChild(node);
+        tabMeals.appendChild(tr);
+    }
     return tabMeals;
 }
 /**
  * Create exercises table with all items in the array
- * @param array - array with meals
+ * @param manager - exercises manager
+ * @param sum - if shows sum
  * @returns {Element} - Table DOM element
  */
-function createExercisesTab(array){
+function createExercisesTab(manager,sum){
+    var array = manager.getAllExercises();
     var tabExercises = document.createElement("table"); //create exercises table
     tabExercises.border = '2';
     tabExercises.style.width = "100%";
@@ -149,14 +186,32 @@ function createExercisesTab(array){
         tr.appendChild(node);
         tabExercises.appendChild(tr);
     }
+    if(sum){
+        tr = document.createElement("tr");
+        tr.style.backgroundColor = '#EE8A8E';
+        node = document.createElement("td");
+        node.appendChild(document.createTextNode('SUCET'));
+        node.align = "middle";
+        tr.appendChild(node);
+        node = document.createElement("td");
+        node.appendChild(document.createTextNode(''));
+        node.align = "middle";
+        tr.appendChild(node);
+        node = document.createElement("td");
+        node.appendChild(document.createTextNode('-'+manager.sumKcal()));
+        node.align = "middle";
+        tr.appendChild(node);
+        tabExercises.appendChild(tr);
+    }
     return tabExercises;
 }
 /**
  * Create days table with all items in the array
- * @param array - array with meals
+ * @param manager - days manager
  * @returns {Element} - Table DOM element
  */
-function createDaysTable(array){
+function createDaysTable(manager){
+    var array = manager.getAllDays();
     var tabDays = document.createElement("table");
     tabDays.style.border = "medium dashed red";
     tabDays.style.width = "100%";
@@ -173,11 +228,20 @@ function createDaysTable(array){
         tabDay.style.width = "100%";
         tabDay.id = array[i].date;
         caption = document.createElement("caption");
-        caption.appendChild(document.createTextNode("Day: "+array[i].date.toLocaleString()));
+        var date = array[i].date.toDateString();
+        caption.appendChild(document.createTextNode("Day: "+date));
         caption.style.fontWeight = "bold";
         tabDay.appendChild(caption);
-        tabDay.appendChild(createMealsTab(array[i].mealsManager.getAllMeals()));
-        tabDay.appendChild(createExercisesTab(array[i].exercisesManager.getAllExercises()));
+        tabDay.appendChild(createMealsTab(array[i].mealsManager,true));
+        tabDay.appendChild(createExercisesTab(array[i].exercisesManager,true));
+        var deleteB = document.createElement("button");
+        deleteB.id = date;
+        deleteB.onclick = function() {
+            deleteDayFromHTML(this);
+        };
+        deleteB.appendChild(document.createTextNode("Delete day"+date));
+
+        tabDay.appendChild(deleteB);
         tabDays.appendChild(tabDay); //add day table to the days table
     }
     return tabDays;
@@ -202,4 +266,11 @@ function refreshShowDB(){  // TODO remove up element
     }
     showAllDB();
     document.getElementById("refreshButton").disabled=false;
+}
+
+function deleteDayFromHTML(button){
+    var date=button.id;
+    var deleteDate = new Date(date);
+    globalDaysManager.deleteDayByDate(deleteDate);
+    refreshShowDB();
 }

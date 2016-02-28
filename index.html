@@ -32,29 +32,33 @@
         <button onclick="storageTest()" style="color:red"> Max value in local storage (Wipe all DB!)  </button>
         <div id="downloadVisible"></div>
         <br><hr><br>
-        <p><label>Date (not implemented yet): <input id="setDate" type="date" value="2000-05-05"></label></p>
-
-        <form name="addMeal" onsubmit="addDB(this);return false" method="post"> <!--TODO way of forms ??? -->
-            Enter meal: <br>
-            <input type="text" placeholder="Name" name="nameM" required/>
-            <input type="text" placeholder="protein" name="protein" />
-            <input type="text" placeholder="carbohydrate" name="carbohydrate" />
-            <input type="text" placeholder="fat" name="fat"/>
-            <input type="text" placeholder="kcal" name="kcal"/>
-            <input type="submit" value="Submit"/>
-            Save to DB<input type="checkbox" name="addToDB" value="saveDB" checked>
-            Save to day<input type="checkbox" name="addToDay" value="saveDB" >
-        </form>
-
-        <form name="addExercise" onsubmit="addDB(this);return false" method="post"> <!--TODO way of forms ??? -->
-            Enter exercise: <br>
-            <input type="text" placeholder="Name" name="nameE" required/>
-            <input type="text" placeholder="kcal" name="kcal" />
-            <input type="submit" value="Submit"/>
-            Save to DB<input type="checkbox" name="addToDB" value="saveDB" checked>
-            Save to day<input type="checkbox" name="addToDay" value="saveDB" >
-        </form>
-
+        <div style="border-radius: 5px; border-color: #EEEEEE; background-color: #CCCCCC;">
+            <h3>New entry (fill values and choose where it to save)</h3>
+            <p><label>Date :<input id="setDate" type="date" value="2000-05-05"></label> if entry save to specific day</p>
+            <form name="addMeal" onsubmit="addDB(this);return false" method="post">
+                Enter meal: <br>
+                <input type="text" placeholder="Name" name="nameM" required/>
+                <input type="text" placeholder="protein" name="protein" />
+                <input type="text" placeholder="carbohydrate" name="carbohydrate" />
+                <input type="text" placeholder="fat" name="fat"/>
+                <input type="text" placeholder="kcal" name="kcal"/>
+                <select>
+                    <option value="100g">100g</option>
+                    <option value="one piece">one piece</option>
+                </select>
+                <input type="submit" value="Submit"/>
+                Save to DB<input type="checkbox" name="addToDB" value="saveDB" checked>
+                Save to day<input type="checkbox" name="addToDay" value="saveDB" >
+            </form>
+            <form name="addExercise" onsubmit="addDB(this);return false" method="post">
+                Enter exercise: <br>
+                <input type="text" placeholder="Name" name="nameE" required/>
+                <input type="text" placeholder="kcal" name="kcal" />
+                <input type="submit" value="Submit"/>
+                Save to DB<input type="checkbox" name="addToDB" value="saveDB" checked>
+                Save to day<input type="checkbox" name="addToDay" value="saveDB" >
+            </form>
+        </div>
         <br>
         <button onclick="globalMealsManager.sortByIdAscending();refreshShowDB()"> Sort Meals by ID (Vzestupne) </button>
         <button onclick="globalMealsManager.sortByIdDescending();refreshShowDB()"> Sort Meals by ID (Zestupne) </button>
