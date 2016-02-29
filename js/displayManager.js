@@ -95,13 +95,24 @@ function createGlobalMealsTab(){
         node.appendChild(document.createTextNode(array[j].method));
         node.align = "middle";
         tr.appendChild(node);
-        var deleteB = document.createElement("button");
+        var deleteB = document.createElement("button"); //add delete button
         deleteB.id = "G#"+array[j].id;
         deleteB.onclick = function() {
             deleteMeal(this);
         };
         deleteB.appendChild(document.createTextNode("Delete meal"));
         tr.appendChild(deleteB);
+        var input = document.createElement("input"); //add data type for add button
+        input.type="date";
+        input.id="DM#"+array[j].id;
+        tr.appendChild(input);
+        var addB = document.createElement("button"); // add add button
+        addB.id = "add#"+array[j].id;
+        addB.onclick = function() {
+            addMeal(this);
+        };
+        addB.appendChild(document.createTextNode("Add meal to day"));
+        tr.appendChild(addB);
         tabMeals.appendChild(tr);
     }
     return tabMeals;
@@ -152,13 +163,24 @@ function createGlobalExercisesTab(){
         node.appendChild(document.createTextNode(array[j].kcal));
         node.align = "middle";
         tr.appendChild(node);
-        var deleteB = document.createElement("button");
+        var deleteB = document.createElement("button"); //add delete button
         deleteB.id = "G#"+array[j].id;
         deleteB.onclick = function() {
             deleteExercise(this);
         };
         deleteB.appendChild(document.createTextNode("Delete exercise"));
         tr.appendChild(deleteB);
+        var input = document.createElement("input"); //add data type for add button
+        input.type="date";
+        input.id="DE#"+array[j].id;
+        tr.appendChild(input);
+        var addB = document.createElement("button"); // add add button
+        addB.id = "add#"+array[j].id;
+        addB.onclick = function() {
+            addExercise(this);
+        };
+        addB.appendChild(document.createTextNode("Add exercise to day"));
+        tr.appendChild(addB);
         tabExercises.appendChild(tr);
     }
     return tabExercises;
@@ -424,6 +446,38 @@ function refreshShowDB(){  // TODO remove up element
     }
     showAllDB();
     document.getElementById("refreshButton").disabled=false;
+}
+
+function addExercise(button){
+    var id = button.id.split("#");
+    var idDate = "DE#"+id[1];
+    var dateElement=document.getElementById(idDate);
+    var date=dateElement.value;
+    if(date==""){
+        alert("Set date!");
+        return;
+    }
+    if(!globalDaysManager.isDayInDB(new Date(date))){
+        globalDaysManager.addDay(new Day(new Date(date)));
+    }
+    globalDaysManager.addExerciseToDay(new Date(date),globalExercisesManager.getExerciseByID(id[1]));
+    refreshShowDB();
+}
+
+function addMeal(button){
+    var id = button.id.split("#");
+    var idDate = "DM#"+id[1];
+    var dateElement=document.getElementById(idDate);
+    var date=dateElement.value;
+    if(date==""){
+        alert("Set date!");
+        return;
+    }
+    if(!globalDaysManager.isDayInDB(new Date(date))){
+        globalDaysManager.addDay(new Day(new Date(date)));
+    }
+    globalDaysManager.addMealToDay(new Date(date),globalMealsManager.getMealByID(id[1]));
+    refreshShowDB();
 }
 
 function deleteExercise(button){
