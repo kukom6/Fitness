@@ -16,17 +16,14 @@
         <script src="js/daysManager.js"></script>
         <script src="js/displayManager.js"></script>
         <script src="js/localDB.js"></script>
-        <script src="testFunction.js"></script>
 
     </head>
     <body>
         LOAD DB : <button id="loadButton" onclick="loadDB()"> LoadDB  </button> <input type="file" id="input" onchange="loadDB(this.files)">
         <button id="refreshButton" onclick="this.disabled=true; refreshShowDB()"> RefreshDB  </button>
-        <br>
-        <button onclick="saveLocal()"> Save  </button>
         <button id="saveButton" onclick="saveJSON()"> DownloadDB  </button>
-        <br>
-        !TEST FUNCTION!
+        !TEST FUNCTION (don't use their)!
+        <button onclick="saveLocal()"> SaveLocal </button>
         <button onclick="deleteLocal()" style="color:red"> Delete localStorage  </button>
         <button onclick="loadDB()" style="color:red"> Load Storage Again  </button>
         <button onclick="storageTest()" style="color:red"> Max value in local storage (Wipe all DB!)  </button>
@@ -84,35 +81,11 @@
         <button onclick="globalExercisesManager.sortByKcalDescending();refreshShowDB()"> Sort Exercises by Kcal (Zestupne) </button>
         <div id="exercisesTable"></div>
         <br><hr><br>
-        <div id="daysTable"></div>
         <button onclick="globalDaysManager.sortByDataAscending();refreshShowDB()"> Sort Day (Vzestupne) </button>
         <button onclick="globalDaysManager.sortByDataDescending();refreshShowDB()"> Sort Day (Zestupne) </button>
+        <div id="daysTable"></div>
         <br><hr><br>
         <button onclick="showDays()" > Shows days as string:  </button>
         <div id="showDB"></div>
-        <h1>Test functions</h1>
-
-        <button onclick="testFactory.nextMealId()"> Next free id meal:  </button> <p id="nextFreeIdMeal"></p>
-        <button onclick="testFactory.nextExerciseId()" > Next free id exercise:  </button> <p id="nextFreeIdExercise"></p>
-
-        <form name="isMealIdInDB" onsubmit="testFactory.isMealIdInDB(this);return false" method="post">
-            <input type="text" placeholder="id" name="idM" required/>
-            <input type="submit" value="Submit"/>
-        </form>
-        Is ID is in DB<p id="freeIdMeal"></p>
-        <form name="isExerciseIdInDB" onsubmit="testFactory.isExerciseIdInDB(this);return false" method="post">
-            <input type="text" placeholder="id" name="idE" required/>
-            <input type="submit" value="Submit"/>
-        </form>
-        Is ID is in DB? <p id="freeIdExercise"></p>
-        <br>
-        <form name="isMealIdInDB" onsubmit="testFactory.deleteMeal(this);return false" method="post">
-            <input type="text" placeholder="id" required/>
-            <input type="submit" value="Submit"/>
-        </form>
-        <form name="isMealIdInDB" onsubmit="testFactory.deleteExercise(this);return false" method="post">
-            <input type="text" placeholder="id" required/>
-            <input type="submit" value="Submit"/>
-        </form>
     </body>
 </html>

@@ -113,6 +113,7 @@ function DaysManager(){
  * test temp function,
  */
 function showDays(){
+    var days = globalDaysManager.getAllDays();
     var results = "";
     var allMeals,allExercises;
     for(var i=0;i < days.length;i++){

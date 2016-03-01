@@ -8,6 +8,7 @@ function loadDB(file){  //TODO temp function
             if(loadLocal()){
                 document.getElementById("loadButton").disabled=true;
                 document.getElementById("input").disabled=true;
+                showAllDB();
             }
         }else if(file != null){
             loadJSONasFile(file);
@@ -15,9 +16,12 @@ function loadDB(file){  //TODO temp function
             document.getElementById("input").disabled=true;
         }
         else{ //first start
-            alert("local storage is empty, please load backup json file or start new story")
+            if (confirm("Local storage is empty, please load backup JSON file \n Or load template DB?") == true) {
+                loadTemplate();
+                document.getElementById("loadButton").disabled=true;
+                document.getElementById("input").disabled=true;
+            }
         }
-        showAllDB();
     }else {
         alert("local storage is not supported, please update your browser."); //TODO
     }
@@ -50,9 +54,8 @@ function loadJSONasFile(jsonFiles){
             localStorage.setItem(currentDate,data);
         }
         localStorage.setItem('isInLocal',true);
-        loadLocal();
+        loadDB();
         console.log("db was add from JSON file to local storage and loaded");
-        refreshShowDB();
     };
     reader.readAsText(jsonFiles[0]);
 }
@@ -233,85 +236,38 @@ function storageTest(){
 }
 
 /**
- * add value to current date
- * @param form
+ * load JSON with template DB
  */
-function addDB(form){
-    if(form["addToDB"].checked){ //save to db
-        if(form.name=="addMeal"){
-            addToDB("meal",form);
-        }else{
-            addToDB("exercise",form);
+function loadTemplate() { //TODO temp function ?
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            var tempArr = JSON.parse(xmlhttp.responseText);
+            var saveJSON = {
+                meals : tempArr['meals'],
+                exercises : tempArr['exercises'],
+                days : tempArr['days']
+            };
+            var data = JSON.stringify(saveJSON);
+            localStorage.setItem('jsonData',data);
+            var days = tempArr['daysContent'];
+            var currentDate= null;
+            for(var i= 0;i<days.length;i++){
+                currentDate=days[i]['date'];
+                saveJSON={
+                    date : currentDate,
+                    dayMeals : days[i]['dayMeals'],
+                    dayExercises : days[i]['dayExercises']
+                };
+                data = JSON.stringify(saveJSON);
+                localStorage.setItem(currentDate,data);
+            }
+            localStorage.setItem('isInLocal',true);
+            loadDB();
+            console.log("db was add from template JSON file to local storage and loaded");
+            alert("DB was successfully loaded from template JSON");
         }
-    }
-    if(form["addToDay"].checked){ //save to date
-        if(form.name=="addMeal"){
-            addToDay("meal",form);
-        }else{
-            addToDay("exercise",form);
-        }
-    }
-    form.reset();
-}
-
-/**
- * add value to DB with form
- * @param mode - type of value
- * @param form - form from html
- */
-function addToDB(mode,form){
-    if(mode=="meal"){
-        globalMealsManager.addMeal(new Meal(
-            form[0].value,
-            form[1].value,
-            form[2].value,
-            form[3].value,
-            form[4].value,
-            form[5].value
-        ));
-    }else if(mode=="exercise"){
-        globalExercisesManager.addExercise(new Exercise(
-            form[0].value,
-            form[1].value
-        ));
-    }
-    refreshShowDB();
-    saveLocal();
-}
-
-/** TODO
- * add new meal or exercise to the new or exist day
- * @param mode - type of value
- * @param form - form from html
- */
-function addToDay(mode,form){
-    //TODO if current date or setted day
-    var dateElement=document.getElementById("setDate");
-    var date=dateElement.value;
-    if(date==""){
-        alert("Set date!");
-        return;
-    }
-    var particularDate = new Date(date);
-    if(!globalDaysManager.isDayInDB(particularDate)){
-        globalDaysManager.addDay(new Day(particularDate)); // if day is not in the db
-    }
-    var day = globalDaysManager.getDayByDate(particularDate);
-    if(mode=="meal"){
-        day.mealsManager.addMeal(new Meal(
-            form[0].value,
-            form[1].value,
-            form[2].value,
-            form[3].value,
-            form[4].value,
-            form[5].value
-        ));
-    }else if(mode=="exercise"){
-        day.exercisesManager.addExercise(new Exercise(
-            form[0].value,
-            form[1].value
-        ));
-    }
-    refreshShowDB();
-    saveLocal();
+    };
+    xmlhttp.open("GET", "data.json", true);
+    xmlhttp.send();
 }

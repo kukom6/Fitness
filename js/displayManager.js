@@ -95,7 +95,7 @@ function createGlobalMealsTab(){
         node.appendChild(document.createTextNode(array[j].method));
         node.align = "middle";
         tr.appendChild(node);
-        var deleteB = document.createElement("button"); //add delete button
+        var deleteB = document.createElement("button"); //add delete button 
         deleteB.id = "G#"+array[j].id;
         deleteB.onclick = function() {
             deleteMeal(this);
@@ -481,6 +481,9 @@ function addMeal(button){
 }
 
 function deleteExercise(button){
+    if (confirm("Are you sure ?") == false) {
+        return;
+    }
     var id = button.id.split("#");
     if(id[0]=="G"){
         globalExercisesManager.deleteExerciseByID(id[1]);
@@ -492,6 +495,9 @@ function deleteExercise(button){
 }
 
 function deleteMeal(button){
+    if (confirm("Are you sure ?") == false) {
+        return;
+    }
     var id = button.id.split("#");
     if(id[0]=="G"){
         globalMealsManager.deleteMealByID(id[1]);
@@ -503,8 +509,95 @@ function deleteMeal(button){
 }
 
 function deleteDayFromHTML(button){
+    if (confirm("Are you sure ?") == false) {
+        return;
+    }
     var date=button.id;
     var deleteDate = new Date(date);
     globalDaysManager.deleteDayByDate(deleteDate);
     refreshShowDB();
+}
+
+/**
+ * add value to current date
+ * @param form
+ */
+function addDB(form){
+    if(form["addToDB"].checked){ //save to db
+        if(form.name=="addMeal"){
+            addToDB("meal",form);
+        }else{
+            addToDB("exercise",form);
+        }
+    }
+    if(form["addToDay"].checked){ //save to date
+        if(form.name=="addMeal"){
+            addToDay("meal",form);
+        }else{
+            addToDay("exercise",form);
+        }
+    }
+    form.reset();
+}
+
+/**
+ * add value to DB with form
+ * @param mode - type of value
+ * @param form - form from html
+ */
+function addToDB(mode,form){
+    if(mode=="meal"){
+        globalMealsManager.addMeal(new Meal(
+            form[0].value,
+            form[1].value,
+            form[2].value,
+            form[3].value,
+            form[4].value,
+            form[5].value
+        ));
+    }else if(mode=="exercise"){
+        globalExercisesManager.addExercise(new Exercise(
+            form[0].value,
+            form[1].value
+        ));
+    }
+    refreshShowDB();
+    saveLocal();
+}
+
+/** TODO
+ * add new meal or exercise to the new or exist day
+ * @param mode - type of value
+ * @param form - form from html
+ */
+function addToDay(mode,form){
+    //TODO if current date or setted day
+    var dateElement=document.getElementById("setDate");
+    var date=dateElement.value;
+    if(date==""){
+        alert("Set date!");
+        return;
+    }
+    var particularDate = new Date(date);
+    if(!globalDaysManager.isDayInDB(particularDate)){
+        globalDaysManager.addDay(new Day(particularDate)); // if day is not in the db
+    }
+    var day = globalDaysManager.getDayByDate(particularDate);
+    if(mode=="meal"){
+        day.mealsManager.addMeal(new Meal(
+            form[0].value,
+            form[1].value,
+            form[2].value,
+            form[3].value,
+            form[4].value,
+            form[5].value
+        ));
+    }else if(mode=="exercise"){
+        day.exercisesManager.addExercise(new Exercise(
+            form[0].value,
+            form[1].value
+        ));
+    }
+    refreshShowDB();
+    saveLocal();
 }
