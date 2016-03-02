@@ -1,7 +1,7 @@
 /**
  * Created by mkralik on 2/14/16.
  */
-var managerM = new MealsManager(); //TODO move to init()
+var globalMealsManager = new MealsManager(); //TODO move to init()
 
 function MealsManager(){
     var meals = [];
@@ -13,17 +13,19 @@ function MealsManager(){
     this.getMealByID = function(id){
         console.log("getMealById: "+id);
         if(id==""||id==null){
-            console.log("invalid ID");
+            console.error("invalid ID");
             throw "invalid argument exception";
         }
         var result = this.indexMealInArrayById(id);
         if(result == -1){
-            console.log("Meal with " + id + " id is not in the DB");
+            console.error("Meal with " + id + " id is not in the DB");
             throw "Meal with " + id + " id is not in the DB";
         }
         var originalMeal = meals[result];
         console.log("Meal : \n" + originalMeal + "\n was been gotten from DB");
-        return new Meal(originalMeal.id,originalMeal.name,originalMeal.protein,originalMeal.carbohydrate,originalMeal.fat,originalMeal.kcal,originalMeal.method);
+        var returnMeal = new Meal(originalMeal.name,originalMeal.protein,originalMeal.carbohydrate,originalMeal.fat,originalMeal.kcal,originalMeal.method);
+        returnMeal.id = id;
+        return returnMeal;
  //       return meals[result]; //unsafe ?? !!
     };
     /**
@@ -40,11 +42,12 @@ function MealsManager(){
      */
     this.addMeal = function(meal){
         console.log("addMeal" + meal);
-        if(!this.correctArgument(meal)||this.isIdInDB(meal.id)){
+        if(!this.correctArgument(meal)){
             throw "invalid argument exception";
         }
         this.addMissingValue(meal);
-        var pushMeal = new Meal(meal.id,meal.name,meal.protein,meal.carbohydrate,meal.fat,meal.kcal,meal.method); //safe ?
+        var pushMeal = new Meal(meal.name,meal.protein,meal.carbohydrate,meal.fat,meal.kcal,meal.method); //safe ?
+        pushMeal.id=this.nextMealId();
         meals.push(pushMeal);
         saveLocal();
         console.log("Meal : \n" + meal + "\n was been added to DB");
@@ -61,7 +64,7 @@ function MealsManager(){
         this.addMissingValue(meal);
         var result = this.indexMealInArrayById(meal.id);
         if(result == -1){
-            console.log("Meal with " + id + " id is not in the DB use add function!");
+            console.error("Meal with " + id + " id is not in the DB use add function!");
             throw "Meal with " + id + " id is not in the DB use add function!";
         }
         meals[result].name=meal.name;
@@ -81,7 +84,7 @@ function MealsManager(){
         console.log("deleteMealById: "+id);
         var index= this.indexMealInArrayById(id);
         if(index == -1){
-            console.log("Meal with " + id + " id is not in the DB");
+            console.error("Meal with " + id + " id is not in the DB");
             throw "Meal with " + id + " id is not in the DB" ;
         }
         meals.splice(index,1);
@@ -93,13 +96,6 @@ function MealsManager(){
      * @returns {number} - free ID
      */
     this.nextMealId = function(){
-      /*  this.sortByIdAscending();
-        try{
-            var id = parseInt(meals[0].id);
-        }catch(ex){
-            return 0;
-        }
-        return id + 1;*/ //TODO or ?
         for(var i=0;i<=meals.length;i++){
             if(!this.isIdInDB(i+1)){
                 return i+1;
@@ -113,7 +109,7 @@ function MealsManager(){
      */
     this.isIdInDB = function(id){
         if(id==""||id==null){
-            console.log("invalid ID in isIdInDb");
+            console.error("invalid ID in isIdInDb");
             throw "invalid argument exception";
         }
         return this.indexMealInArrayById(id) != -1 ;
@@ -139,16 +135,12 @@ function MealsManager(){
      * @returns {boolean}
      */
     this.correctArgument = function(meal){
-        if(meal.id==null||meal.id==""){
-            console.log("Invalid ID: "+meal.id);
-            return false;
-        }
         if(meal.name==null||meal.name==""){
-            console.log("Invalid name: "+meal.name);
+            console.error("Invalid name: "+meal.name);
             return false;
         }
         if(meal.method!="100g"&&meal.method!="one piece"){
-            console.log("Invalid method: "+meal.method);
+            console.error("Invalid method: "+meal.method);
             return false;
         }
         if((meal.protein==null||meal.protein==""||meal.protein==0)&&
@@ -156,7 +148,7 @@ function MealsManager(){
             (meal.fat==null||meal.fat==""||meal.fat==0)&&
             (meal.kcal==null||meal.kcal==""||meal.kcal==0)
         ){
-            console.log("Invalid argument, at least one parameter must be filled");
+            console.error("Invalid argument, at least one parameter must be filled");
             return false;
         }
         return true;
@@ -179,7 +171,50 @@ function MealsManager(){
             meal.kcal= meal.protein*4 + meal.carbohydrate*4 + meal.fat*9;
         }
     };
-
+    /**
+     * sum of protein
+     * @returns {number} sum
+     */
+    this.sumProtein = function(){
+        var sum=0;
+        for(var i=0;i<meals.length;i++){
+            sum+=Number(meals[i].protein);
+        }
+        return sum;
+    };
+    /**
+     * sum of carbohydrate
+     * @returns {number} sum
+     */
+    this.sumCarbohydrate = function(){
+        var sum=0;
+        for(var i=0;i<meals.length;i++){
+            sum+=Number(meals[i].carbohydrate);
+        }
+        return sum;
+    };
+    /**
+     * sum of fat
+     * @returns {number} sum
+     */
+    this.sumFat = function(){
+        var sum=0;
+        for(var i=0;i<meals.length;i++){
+            sum+=Number(meals[i].fat);
+        }
+        return sum;
+    };
+    /**
+     * sum of kcal
+     * @returns {number} sum
+     */
+    this.sumKcal = function(){
+        var sum=0;
+        for(var i=0;i<meals.length;i++){
+            sum+=Number(meals[i].kcal);
+        }
+        return sum;
+    };
     //TODO sort, this way ?
     this.sortByIdDescending = function(){
         meals.sort(function(meal1, meal2) {

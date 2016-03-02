@@ -2,4 +2,6 @@
 Fitness.iml
 logos/icon1.png
 logos/icon2.png
-
+qunit-1.21.0.css
+qunit-1.21.0.js
+localAllTests.html

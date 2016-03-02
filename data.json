@@ -1,39 +1,45 @@
 {
-  "meals":[
-    {"id":"1","name":"salat","protein":"15","carbohydrate":"14","fat":"18","kcal":"58","method":"one piece"},{"id":"2","name":"jogurt","protein":"5","carbohydrate":"30","fat":"20","kcal":"210","method":"100g"}
+  "meals":
+  [
+    {"id":1,"name":"steakGlobal","protein":30,"carbohydrate":0,"fat":10,"kcal":600,"method":"one piece"},
+    {"id":2,"name":"steak2Global","protein":10,"carbohydrate":0,"fat":5,"kcal":300,"method":"100g"}
   ],
-  "exercises":[
-    {"id":"1","name":"beh","kcal":"30"},{"id":"2","name":"joga","kcal":"20"}
+  "exercises":
+  [
+    {"id":1,"name":"runGlobal","kcal":600}
   ],
-  "days":[
-    {"date":"1994-03-30 22:00",
-      "dayMeals":[
-        {"id":1,"name":"meso tesco classic0","protein":100,"carbohydrate":100,"fat":100,"kcal":1000,"method":"100g"}
+  "days":
+  [
+    {"date":"2016-02-28T19:08:44.824Z","mealsManager":{},"exercisesManager":{}},
+    {"date":"2015-03-25T00:00:00.000Z","mealsManager":{},"exercisesManager":{}}
+  ],
+  "daysContent":
+  [
+    {"date":"Sun Feb 28 2016",
+      "dayMeals":
+      [
+        {"id":1,"name":"steakGlobal","protein":30,"carbohydrate":0,"fat":10,"kcal":600,"method":"one piece"},
+        {"id":2,"name":"D1steakLocal","protein":50,"carbohydrate":10,"fat":5,"kcal":300,"method":"100g"},
+        {"id":3,"name":"D1steak2Local","protein":100,"carbohydrate":0,"fat":50,"kcal":300,"method":"100g"}
       ],
-      "dayExercises":[
-        {"id":4,"name":"beh","kcal":150}
+      "dayExercises":
+      [
+        {"id":1,"name":"runGlobal","kcal":600},
+        {"id":2,"name":"D1runLocal","kcal":100}
       ]
     },
-    {"date":"1994-03-20 22:00",
-      "dayMeals":[
-        {"id":1,"name":"meso tesco classic0","protein":100,"carbohydrate":100,"fat":100,"kcal":1000,"method":"100g"},
-        {"id":2,"name":"meso tesco classic1","protein":101,"carbohydrate":101,"fat":101,"kcal":1001,"method":"one piece"}
+    {"date":"Wed Mar 25 2015",
+      "dayMeals":
+      [
+        {"id":1,"name":"D2steakLocal","protein":40,"carbohydrate":0,"fat":50,"kcal":300,"method":"100g"},
+        {"id":2,"name":"D2steak2Local","protein":60,"carbohydrate":10,"fat":0,"kcal":300,"method":"100g"},
+        {"id":3,"name":"steak2Global","protein":10,"carbohydrate":0,"fat":5,"kcal":300,"method":"100g"}
       ],
-      "dayExercises":[
-        {"id":4,"name":"beh","kcal":150},
-        {"id":3,"name":"beh","kcal":151}
-      ]
-    },
-    {"date":"1994-03-25 22:00",
-      "dayMeals":[
-        {"id":1,"name":"meso tesco classic0","protein":100,"carbohydrate":100,"fat":100,"kcal":1000,"method":"100g"},
-        {"id":2,"name":"meso tesco classic1","protein":101,"carbohydrate":101,"fat":101,"kcal":1001,"method":"one piece"},
-        {"id":3,"name":"meso tesco classic2","protein":102,"carbohydrate":102,"fat":102,"kcal":1002,"method":"one piece"}
-      ],
-      "dayExercises":[
-        {"id":4,"name":"beh","kcal":150},
-        {"id":5,"name":"beh","kcal":152},
-        {"id":6,"name":"beh","kcal":154}
+      "dayExercises":
+      [
+        {"id":1,"name":"D2runLocal","kcal":200},
+        {"id":2,"name":"D2run2Local","kcal":300},
+        {"id":3,"name":"runGlobal","kcal":600}
       ]
     }
   ]

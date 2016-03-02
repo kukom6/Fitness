@@ -4,17 +4,16 @@
 
 /**
  * Type of exercise
- * @param id
  * @param name - name of exercise
  * @param kcal - count of exercise
  * @constructor
  */
-function Exercise(id,name,kcal){
-    this.id=id;
+function Exercise(name,kcal){
+    this.id=null;
     this.name=name;
     this.kcal=kcal;
 
     this.toString = function () {
-        return "Cvik " + this.name + " spotrebuje " +this.kcal+ "kcal za minutu.";
+        return "Exercise " + this.name + " have " +this.kcal+ "kcal per minute.";
     }
 }
