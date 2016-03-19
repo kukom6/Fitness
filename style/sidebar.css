@@ -1,0 +1,70 @@
+section.sidebar > header {
+  background-image: url("images/header2.png");
+  border-bottom: 0.1rem solid #323232;
+}
+
+section.principal {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index:1;
+  transition: 1s;
+}
+
+section.principal[aria-expanded=false] {
+  left: 80%;
+  right: -80%;
+}
+
+section.sidebar {
+   position: absolute;
+   left: -80%;
+   right: 100%;
+   top: 0;
+   bottom: 0;
+   background: url("images/shadow.png") right top repeat-y;
+   transition: 1s;
+}
+
+section.sidebar[aria-expanded=true] {
+   left: 0;
+   right: 20%;
+}
+
+footer.sidebar menu {
+    display: none;
+    table-layout: fixed;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    height:100%;
+    border: none;
+    color: white;
+}
+
+footer.sidebar menu[aria-expanded=true] {
+    display: inline-table;
+}
+
+footer.sidebar menu li {
+    display: table-cell;
+    background: url("images/separator.png") no-repeat scroll left -1px center / 2px 80%;
+    width: 100%;
+    margin:0;
+    padding:0;
+    text-align: center;
+    font-size: 1.4rem;
+    font-weight: 600;
+    vertical-align: middle;
+}
+
+footer.sidebar menu li:first-child {
+    background: none;
+}
+
+footer.sidebar menu li:active {
+    background-color: #008aaa;
+    color: #555;
+}

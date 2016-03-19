@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+    <head>
+        <meta charset="UTF-8">
+        <title>Fitness</title>
+    <!--    <script>
+            document.addEventListener("DOMContentLoaded", function(event) {
+                localDB();
+            });
+        </script> -->
+        <script src="js/exercise.js"></script>
+        <script src="js/exercisesManager.js"></script>
+        <script src="js/meal.js"></script>
+        <script src="js/mealsManager.js"></script>
+        <script src="js/day.js"></script>
+        <script src="js/daysManager.js"></script>
+        <script src="js/displayManager.js"></script>
+        <script src="js/localDB.js"></script>
+
+    </head>
+    <body>
+        LOAD DB : <button id="loadButton" onclick="loadDB()"> LoadDB  </button> <input type="file" id="input" onchange="loadDB(this.files)">
+        <button id="refreshButton" onclick="this.disabled=true; refreshShowDB()"> RefreshDB  </button>
+        <button id="saveButton" onclick="saveJSON()"> DownloadDB  </button>
+        !TEST FUNCTION (don't use their)!
+        <button onclick="saveLocal()"> SaveLocal </button>
+        <button onclick="deleteLocal()" style="color:red"> Delete localStorage  </button>
+        <button onclick="loadDB()" style="color:red"> Load Storage Again  </button>
+        <button onclick="storageTest()" style="color:red"> Max value in local storage (Wipe all DB!)  </button>
+        <div id="downloadVisible"></div>
+        <br><hr><br>
+        <div style="border-radius: 5px; border-color: #EEEEEE; background-color: #CCCCCC;">
+            <h3>New entry (fill values and choose where it to save)</h3>
+            <p><label>Date :<input id="setDate" type="date" value="2000-05-05"></label> if entry save to specific day</p>
+            <form name="addMeal" onsubmit="addDB(this);return false" method="post">
+                Enter meal: <br>
+                <input type="text" placeholder="Name" name="nameM" required/>
+                <input type="text" placeholder="protein" name="protein" />
+                <input type="text" placeholder="carbohydrate" name="carbohydrate" />
+                <input type="text" placeholder="fat" name="fat"/>
+                <input type="text" placeholder="kcal" name="kcal"/>
+                <select>
+                    <option value="100g">100g</option>
+                    <option value="one piece">one piece</option>
+                </select>
+                <input type="submit" value="Submit"/>
+                Save to DB<input type="checkbox" name="addToDB" value="saveDB" checked>
+                Save to day<input type="checkbox" name="addToDay" value="saveDB" >
+            </form>
+            <form name="addExercise" onsubmit="addDB(this);return false" method="post">
+                Enter exercise: <br>
+                <input type="text" placeholder="Name" name="nameE" required/>
+                <input type="text" placeholder="kcal" name="kcal" />
+                <input type="submit" value="Submit"/>
+                Save to DB<input type="checkbox" name="addToDB" value="saveDB" checked>
+                Save to day<input type="checkbox" name="addToDay" value="saveDB" >
+            </form>
+        </div>
+        <br>
+        <button onclick="globalMealsManager.sortByIdAscending();refreshShowDB()"> Sort Meals by ID (Vzestupne) </button>
+        <button onclick="globalMealsManager.sortByIdDescending();refreshShowDB()"> Sort Meals by ID (Zestupne) </button>
+        <button onclick="globalMealsManager.sortByNameFromA();refreshShowDB()"> Sort Meals by Name (from A) </button>
+        <button onclick="globalMealsManager.sortByNameFromZ();refreshShowDB()"> Sort Meals by Name (from Z) </button>
+        <button onclick="globalMealsManager.sortByProteinAscending();refreshShowDB()"> Sort Meals by Protein (Vzestupne) </button>
+        <button onclick="globalMealsManager.sortByProteinDescending();refreshShowDB()"> Sort Meals by Protein (Zestupne) </button>
+        <button onclick="globalMealsManager.sortByCarbohydrateAscending();refreshShowDB()"> Sort Meals by Carbohydrate (Vzestupne) </button>
+        <button onclick="globalMealsManager.sortByCarbohydrateDescending();refreshShowDB()"> Sort Meals by Carbohydrate (Zestupne) </button>
+        <button onclick="globalMealsManager.sortByFatAscending();refreshShowDB()"> Sort Meals by Fat (Vzestupne) </button>
+        <button onclick="globalMealsManager.sortByFatDescending();refreshShowDB()"> Sort Meals by Fat (Zestupne) </button>
+        <button onclick="globalMealsManager.sortByKcalAscending();refreshShowDB()"> Sort Meals by Kcal (Vzestupne) </button>
+        <button onclick="globalMealsManager.sortByKcalDescending();refreshShowDB()"> Sort Meals by Kcal (Zestupne) </button>
+        <button onclick="globalMealsManager.sortByMethodFromA();refreshShowDB()"> Sort Meals by Method (from A) </button>
+        <button onclick="globalMealsManager.sortByMethodFromZ();refreshShowDB()"> Sort Meals by Method (from Z) </button>
+        <div id="mealsTable"></div>
+        <br><hr><br>
+        <button onclick="globalExercisesManager.sortByIdAscending();refreshShowDB()"> Sort Exercises by ID (Vzestupne) </button>
+        <button onclick="globalExercisesManager.sortByIdDescending();refreshShowDB()"> Sort Exercises by ID (Zestupne) </button>
+        <button onclick="globalExercisesManager.sortByNameFromA();refreshShowDB()"> Sort Exercises by Name (from A) </button>
+        <button onclick="globalExercisesManager.sortByNameFromZ();refreshShowDB()"> Sort Exercises by Name (from Z) </button>
+        <button onclick="globalExercisesManager.sortByKcalAscending();refreshShowDB()"> Sort Exercises by Kcal (Vzestupne) </button>
+        <button onclick="globalExercisesManager.sortByKcalDescending();refreshShowDB()"> Sort Exercises by Kcal (Zestupne) </button>
+        <div id="exercisesTable"></div>
+        <br><hr><br>
+        <button onclick="globalDaysManager.sortByDataAscending();refreshShowDB()"> Sort Day (Vzestupne) </button>
+        <button onclick="globalDaysManager.sortByDataDescending();refreshShowDB()"> Sort Day (Zestupne) </button>
+        <div id="daysTable"></div>
+        <br><hr><br>
+        <button onclick="showDays()" > Shows days as string:  </button>
+        <div id="showDB"></div>
+    </body>
+    <footer>
+        <p>Create by: Matej Kralik</p>
+        <p>Test version Pre-Alpha</p>
+        <p>Contact me: <a href="mailto:matejkralik@hotmail.com">matejkralik@hotmail.com</a>.</p>
+    </footer>
+</html>
