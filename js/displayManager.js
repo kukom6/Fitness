@@ -1,6 +1,32 @@
 /**
  * Created by mkralik on 2/20/16.
  */
+
+function loadDB(file){  //TODO temp function
+    if (storageAvailable('localStorage')) {
+        if(localStorage.getItem('isInLocal')){
+            if(loadLocal()){
+                document.getElementById("loadButton").disabled=true;
+                document.getElementById("input").disabled=true;
+                showAllDB();
+            }
+        }else if(file != null){
+            loadJSONasFile(file);
+            document.getElementById("loadButton").disabled=true;
+            document.getElementById("input").disabled=true;
+        }
+        else{ //first start
+            if (confirm("Local storage is empty, please load backup JSON file! \n Load template DB?") == true) {
+                loadTemplate();
+                document.getElementById("loadButton").disabled=true;
+                document.getElementById("input").disabled=true;
+            }
+        }
+    }else {
+        alert("local storage is not supported, please update your browser."); //TODO
+    }
+}
+
 /**
  * show all db as table
  */

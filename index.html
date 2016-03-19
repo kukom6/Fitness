@@ -18,16 +18,25 @@
    <script type="text/javascript" src="js_template/button.js"></script>
    <script type="text/javascript" src="js_template/menulist.js"></script>
    <script type="text/javascript" src="js_template/pagebody.js"></script>
+   <script type="text/javascript" src="js_template/backupRestore.js"></script>
+   <script src="js/exercise.js"></script>
+   <script src="js/exercisesManager.js"></script>
+   <script src="js/meal.js"></script>
+   <script src="js/mealsManager.js"></script>
+   <script src="js/day.js"></script>
+   <script src="js/daysManager.js"></script>
+   <script src="js/localDB.js"></script>
    <title>FxOS Stub</title>
 </head>
 <body>
+   <div id="downloadVisible"></div>
    <section class="principal">
       <header>
         <button id="sidebar_trigger" class="icon menu"></button>
          <h1>Fitness</h1>
         <ul>
            <li id="install">Install</li>
-           <li id="backHome" class="icon week"></li>
+           <li class="icon week" onclick="revealPage('homePage')"></li>
         </ul>
       </header>
 
@@ -64,10 +73,36 @@
          </div>
          <!-- End of Junkyard - - - - - - - - - - - - - - - - - - - - - - - -->
       </div>
+      <div id="pageGraphs" class="pagebody">
+         <!-- Junkyard, only for the sake of the example - NOT for real use -->
+         <div style="margin:0.5rem 1rem 0.5rem 1rem">
+            <h3 style="text-align: center">Graphs</h3>
+         </div>
+         <!-- End of Junkyard - - - - - - - - - - - - - - - - - - - - - - - -->
+      </div>
+      <div id="pageNotes" class="pagebody">
+         <!-- Junkyard, only for the sake of the example - NOT for real use -->
+         <div style="margin:0.5rem 1rem 0.5rem 1rem">
+            <h3 style="text-align: center">Notes</h3>
+         </div>
+         <!-- End of Junkyard - - - - - - - - - - - - - - - - - - - - - - - -->
+      </div>
+      <div id="pageBackup" class="pagebody" aria-owns="backupRestore">
+         <header>
+            <button class="icon back" onclick="revealPage(previousPage);"></button>
+            <h2>Backup and Restore</h2>
+         </header>
+         <!-- Junkyard, only for the sake of the example - NOT for real use -->
+         <div style="margin:0.5rem 1rem 0.5rem 1rem">
+            <h3 style="text-align: center">Restore/Backup</h3>
+         </div>
+         <!-- End of Junkyard - - - - - - - - - - - - - - - - - - - - - - - -->
+      </div>
 
       <div id="addFood" class="pagebody" aria-owns="tbAddFood">
          <!-- An autarchic page -->
-         <header style="text-align: center">
+         <header>
+            <button class="icon back" onclick="revealPage(previousPage);"></button>
             <h2>Add food</h2>
          </header>
          <!-- Junkyard, only for the sake of the example - NOT for real use -->
@@ -79,7 +114,8 @@
 
       <div id="addExercise" class="pagebody" aria-owns="tbAddExercise">
          <!-- An autarchic page -->
-         <header style="text-align: center">
+         <header>
+            <button class="icon back" onclick="revealPage(previousPage);"></button>
             <h2>Add exercise</h2>
          </header>
          <!-- Junkyard, only for the sake of the example - NOT for real use -->
@@ -95,12 +131,18 @@
             <li aria-controls="addExercise">addExercise</li>
          </menu>
          <menu id="tbAddFood" type="toolbar">
-            <li id= "cancelFoodAdd" class="icon cancel"></li>
-            <li class="icon add"></li>
+            <li class="icon add" ></li>
          </menu>
          <menu id="tbAddExercise" type="toolbar">
-            <li id= "cancelExerciseAdd" class="icon cancel"></li>
-            <li class="icon add"></li>
+            <li class="icon add" ></li>
+         </menu>
+         <menu id="backupRestore" type="toolbar">
+            <li class="icon mail_reply" onclick="document.getElementById('upJsonFile').click();">
+               <input id="upJsonFile" type="file" onchange="loadFromFile(this.files)" style="display: none;">
+               Import
+            </li>
+            <li class="icon mail_forward" onclick="saveJSON()">Export</li>
+            <li class="icon delete" onclick="deleteLocal()"></li>
          </menu>
       </footer>
    </section>
@@ -110,9 +152,12 @@
          <h2>Menu</h2>
       </header>
       <div class="menulist">
-            <menuitem aria-controls="pageDays" type="command" label="Days"></menuitem>
-            <menuitem aria-controls="pageFoods" type="command" label="Foods"></menuitem>
-            <menuitem aria-controls="pageExercises" type="command" label="Exercises"></menuitem>
+         <menuitem aria-controls="pageDays" type="command" label="Days"></menuitem>
+         <menuitem aria-controls="pageFoods" type="command" label="Foods"></menuitem>
+         <menuitem aria-controls="pageExercises" type="command" label="Exercises"></menuitem>
+         <menuitem aria-controls="pageGraphs" type="command" label="Graph"></menuitem>
+         <menuitem aria-controls="pageNotes" type="command" label="Notes"></menuitem>
+         <menuitem aria-controls="pageBackup" type="command" label="Backup/Restore"></menuitem>
       </div>
    </section>
 </body>

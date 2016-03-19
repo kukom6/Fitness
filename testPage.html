@@ -24,7 +24,7 @@
         <button id="saveButton" onclick="saveJSON()"> DownloadDB  </button>
         !TEST FUNCTION (don't use their)!
         <button onclick="saveLocal()"> SaveLocal </button>
-        <button onclick="deleteLocal()" style="color:red"> Delete localStorage  </button>
+        <button onclick="deleteLocal();location.reload();" style="color:red"> Delete localStorage  </button>
         <button onclick="loadDB()" style="color:red"> Load Storage Again  </button>
         <button onclick="storageTest()" style="color:red"> Max value in local storage (Wipe all DB!)  </button>
         <div id="downloadVisible"></div>

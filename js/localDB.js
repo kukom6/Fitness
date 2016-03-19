@@ -2,30 +2,6 @@
  * Created by mkralik on 2/13/16.
  */
 
-function loadDB(file){  //TODO temp function
-    if (storageAvailable('localStorage')) {
-        if(localStorage.getItem('isInLocal')){
-            if(loadLocal()){
-                document.getElementById("loadButton").disabled=true;
-                document.getElementById("input").disabled=true;
-                showAllDB();
-            }
-        }else if(file != null){
-            loadJSONasFile(file);
-            document.getElementById("loadButton").disabled=true;
-            document.getElementById("input").disabled=true;
-        }
-        else{ //first start
-            if (confirm("Local storage is empty, please load backup JSON file \n Or load template DB?") == true) {
-                loadTemplate();
-                document.getElementById("loadButton").disabled=true;
-                document.getElementById("input").disabled=true;
-            }
-        }
-    }else {
-        alert("local storage is not supported, please update your browser."); //TODO
-    }
-}
 /**
  * load DB from upload file, next time data will be on the local storage
  * @param jsonFiles
@@ -54,7 +30,7 @@ function loadJSONasFile(jsonFiles){
             localStorage.setItem(currentDate,data);
         }
         localStorage.setItem('isInLocal',true);
-        loadDB();
+        loadLocal();
         console.log("db was add from JSON file to local storage and loaded");
     };
     reader.readAsText(jsonFiles[0]);
@@ -134,11 +110,12 @@ function saveJSON(){ //TODO download file, right way ?
  * delete DB in the local storage
  */
 function deleteLocal(){
-    if (confirm("Delete local storage! Make sure that you download DB!") == true) {
-        alert("Local storage was deleted. App will be reload");
+    if (confirm("Delete local storage! Are you sure?") == true) {
         localStorage.clear();
+        globalDaysManager = new DaysManager();
+        globalExercisesManager = new ExercisesManager();
+        globalMealsManager = new MealsManager();
         console.log("Local storage was been deleted");
-        location.reload();
     }
 }
 
@@ -263,7 +240,7 @@ function loadTemplate() { //TODO temp function ?
                 localStorage.setItem(currentDate,data);
             }
             localStorage.setItem('isInLocal',true);
-            loadDB();
+            loadLocal();
             console.log("db was add from template JSON file to local storage and loaded");
             alert("DB was successfully loaded from template JSON");
         }
