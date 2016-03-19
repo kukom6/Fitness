@@ -1,0 +1,10 @@
+div.daysBoard {
+    background: ghostwhite;
+    border-radius: 8px;
+    margin: 1rem 1rem 1rem 1rem;
+    position: relative;
+    overflow-y: auto;
+    height: 90%;
+    color: black;
+    text-align: center;
+}

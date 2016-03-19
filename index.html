@@ -11,6 +11,7 @@
    <link rel="stylesheet" type="text/css" href="style/sidebar.css"/>
    <link rel="stylesheet" type="text/css" href="style/menulist.css"/>
    <link rel="stylesheet" type="text/css" href="style/pagebody.css"/>
+   <link rel="stylesheet" type="text/css" href="style/table.css"/>
    <script type="text/javascript" src="js_template/dispatcher.js"></script>
    <script type="text/javascript" src="js_template/install.js"></script>
    <script type="text/javascript" src="js_template/toolbar.js"></script>
@@ -42,9 +43,33 @@
 
       <div id="homePage" class="pagebody" aria-owns="addAllTabs" aria-expanded="true">
          <!-- Junkyard, only for the sake of the example - NOT for real use -->
-         <div style="margin:0.5rem 1rem 0.5rem 1rem">
-         <h2>Uvodna stranka</h2>
-         <p>Toto bude uvodna stranka</p>
+         <div class="daysBoard">
+            <h2>Uvodna stranka</h2>
+            <p>Toto bude uvodna stranka</p>
+            <p>Toto bude uvodna stranka</p>
+            <p>Toto bude uvodna stranka</p>
+            <p>Toto bude uvodna stranka</p>
+            <p>Toto bude uvodna stranka</p>
+            <p>Toto bude uvodna stranka</p>
+            <p>Toto bude uvodna stranka</p>
+            <p>Toto bude uvodna stranka</p>
+            <p>Toto bude uvodna stranka</p>
+            <p>Toto bude uvodna stranka</p>
+            <p>Toto bude uvodna stranka</p>
+            <p>Toto bude uvodna stranka</p>
+            <p>Toto bude uvodna stranka</p>
+            <p>Toto bude uvodna stranka</p>
+            <p>Toto bude uvodna stranka</p>
+            <p>Toto bude uvodna stranka</p>
+            <p>Toto bude uvodna stranka</p>
+            <p>Toto bude uvodna stranka</p>
+            <p>Toto bude uvodna stranka</p>
+            <p>Toto bude uvodna stranka</p>
+            <p>Toto bude uvodna stranka</p>
+            <p>Toto bude uvodna stranka</p>
+            <p>Toto bude uvodna stranka</p>
+            <p>Toto bude uvodna stranka</p>
+
          </div>
          <!-- End of Junkyard - - - - - - - - - - - - - - - - - - - - - - - -->
       </div>
@@ -68,8 +93,8 @@
       </div>
       <div id="pageDays" class="pagebody">
          <!-- Junkyard, only for the sake of the example - NOT for real use -->
-         <div style="margin:0.5rem 1rem 0.5rem 1rem">
-            <h3>Days</h3>
+         <div class="daysBoard">
+
          </div>
          <!-- End of Junkyard - - - - - - - - - - - - - - - - - - - - - - - -->
       </div>
@@ -95,6 +120,7 @@
          <!-- Junkyard, only for the sake of the example - NOT for real use -->
          <div style="margin:0.5rem 1rem 0.5rem 1rem">
             <h3 style="text-align: center">Restore/Backup</h3>
+            <button id="saveButton" onclick="saveJSON()"> DownloadDB  </button>
          </div>
          <!-- End of Junkyard - - - - - - - - - - - - - - - - - - - - - - - -->
       </div>

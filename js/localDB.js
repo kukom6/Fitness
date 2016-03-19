@@ -100,6 +100,7 @@ function saveJSON(){ //TODO download file, right way ?
     }
     var data = 'data:text/json;charser=utf8,'+ encodeURIComponent(JSON.stringify(saveJSON));
     var a = document.createElement('a');
+    a.style="display: none;";
     a.href = data;
     a.download = 'data.json';
     document.getElementById("downloadVisible").appendChild(a);
