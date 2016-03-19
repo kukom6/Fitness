@@ -1,6 +1,3 @@
-/**
- * Created by mkralik on 3/19/16.
- */
 window.addEventListener(
     "load",
     function() {
@@ -18,7 +15,7 @@ window.addEventListener(
             button.addEventListener(
                 "click",
                 function() {
-                    revealPage("homePage");
+                    revealPage(previousPage);
                 }
             );
         }
@@ -27,9 +24,15 @@ window.addEventListener(
             button.addEventListener(
                 "click",
                 function() {
-                    revealPage("homePage");
+                    revealPage(previousPage);
                 }
             );
         }
     }
 );
+
+var previousPage = "homePage";
+function savePreviousPage(){
+    var activePage=document.querySelector(".principal > div.pagebody[aria-expanded=true]");
+    previousPage=activePage.getAttribute("id");
+}

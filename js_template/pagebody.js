@@ -1,9 +1,7 @@
 window.addEventListener(
    "load",
    function() {
-      var elt = document.querySelector(
-         ".principal > div.pagebody[aria-expanded=true]"
-      );
+      var elt = document.querySelector(".principal > div.pagebody[aria-expanded=true]");
       if (elt) {
          var toolbarId = elt.getAttribute("aria-owns");
          if (toolbarId) showToolbar(toolbarId);
@@ -11,6 +9,7 @@ window.addEventListener(
    }
 );
 function revealPage(id) {
+   savePreviousPage();
    var elt = document.getElementById(id);
    var nodeName = elt.nodeName; // expect "DIV" (.pagebody)
    var siblings = elt.parentNode.children;
