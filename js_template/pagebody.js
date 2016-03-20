@@ -104,15 +104,9 @@ function createDayMealsTab2(day){
     var tbody = document.createElement("tbody");
     for(var j=0;j<array.length;j++){  //show all meals in the day
         tr = document.createElement("tr");
-        tr.setAttribute("idMeal","L#"+day.date+"#"+array[j].id);
+        tr.setAttribute("idMeal","LM#"+day.date+"#"+array[j].id);
         tr.onclick = function(){
-            if (confirm("Delete meal. Are you sure ?") == false) {
-                return;
-            }
-            var id = this.getAttribute("idMeal").split("#");
-            globalDaysManager.deleteMealInDay(new Date(id[1]),id[2]);
-            deleteShowDay();
-            showDay(new Date(id[1]));
+            fillEditMeal(this.getAttribute("idMeal"));
         };
         node = document.createElement("td");
         node.appendChild(document.createTextNode(array[j].name));
@@ -186,15 +180,9 @@ function createDayExerciseTab2(day){
     var tbody = document.createElement("tbody");
     for(var j=0;j<array.length;j++){ //show all exercises in the day
         tr = document.createElement("tr");
-        tr.setAttribute("idExercise","L#"+day.date+"#"+array[j].id);
+        tr.setAttribute("idExercise","LE#"+day.date+"#"+array[j].id);
         tr.onclick = function(){
-            if (confirm("Delete exercise. Are you sure ?") == false) {
-                return;
-            }
-            var id = this.getAttribute("idExercise").split("#");
-            globalDaysManager.deleteExerciseInDay(new Date(id[1]),id[2]);
-            deleteShowDay();
-            showDay(new Date(id[1]));
+            fillEditExercise(this.getAttribute("idExercise"));
         };
         node = document.createElement("td");
         node.appendChild(document.createTextNode(array[j].name));
@@ -217,4 +205,48 @@ function createDayExerciseTab2(day){
     tfoot.appendChild(tr);
     tabExercises.appendChild(tfoot);
     return tabExercises;
+}
+function fillEditMeal(id){
+    revealPage("editMealPage");
+    var ids = id.split("#");
+    var form = document.getElementById("editMealForm");
+    var meal = globalDaysManager.getDayByDate(new Date(ids[1])).mealsManager.getMealByID(ids[2]);
+    form[0].value=meal.name;
+    form[1].value=meal.protein;
+    form[2].value=meal.carbohydrate;
+    form[3].value=meal.fat;
+    form[4].value=meal.kcal;
+    if(meal.method=="one piece"||meal.method=="100g"){
+        form[5].value=meal.method;
+    }
+    var toolbarButton = document.getElementById("deleteIconEdit");
+    toolbarButton.onclick = function(){
+        if (confirm("Delete meal. Are you sure ?") == false) {
+            return;
+        }
+        globalDaysManager.deleteMealInDay(new Date(ids[1]),ids[2]);
+        saveLocal();
+        deleteShowDay();
+        showDay(new Date(ids[1]));
+        revealPage(previousPage);
+    };
+}
+function fillEditExercise(id){
+    revealPage("editExercisePage");
+    var ids = id.split("#");
+    var form = document.getElementById("editExerciseForm");
+    var meal = globalDaysManager.getDayByDate(new Date(ids[1])).exercisesManager.getExerciseByID(ids[2]);
+    form[0].value=meal.name;
+    form[1].value=meal.kcal;
+    var toolbarButton = document.getElementById("deleteIconEdit");
+    toolbarButton.onclick = function(){
+        if (confirm("Delete exercise. Are you sure ?") == false) {
+            return;
+        }
+        globalDaysManager.deleteExerciseInDay(new Date(ids[1]),ids[2]);
+        saveLocal();
+        deleteShowDay();
+        showDay(new Date(ids[1]));
+        revealPage(previousPage);
+    };
 }

@@ -8,6 +8,9 @@ div.daysBoard {
     color: black;
     text-align: center;
 }
+div.daysBoard input{
+    width : 90%;
+}
 table.dayTable table {
     font-family: "Helvetica Neue", Helvetica, sans-serif
 }

@@ -49,7 +49,6 @@
             <h2 id="todayBoard">Uvodna stranka</h2>
             <p>Toto bude uvodna stranka</p>
             <div id="dayBoard">
-
             </div>
 
          </div>
@@ -107,7 +106,37 @@
          </div>
          <!-- End of Junkyard - - - - - - - - - - - - - - - - - - - - - - - -->
       </div>
-
+      <div id="editMealPage" class="pagebody" aria-owns="editToolbar">
+         <header>
+            <button class="icon back" onclick="revealPage(previousPage)"></button>
+            <h2>Edit Meal</h2>
+         </header>
+         <div class="daysBoard" >
+            <form id="editMealForm">
+               Name: <br><input type="text" name="nameM" required/> <br>
+               Protein: <br><input type="text" name="protein" /> <br>
+               Carbohydrate: <br><input type="text" name="carbohydrate" /> <br>
+               Fat:<br><input type="text" name="fat"/> <br>
+               Kcal: <br><input type="text" name="kcal"/> <br>
+               Method: <br><select>
+                  <option value="100g">100g</option>
+                  <option value="one piece">one piece</option>
+               </select>
+            </form>
+         </div>
+      </div>
+      <div id="editExercisePage" class="pagebody" aria-owns="editToolbar">
+         <header>
+            <button class="icon back" onclick="revealPage(previousPage)"></button>
+            <h2>Edit Exercise</h2>
+         </header>
+         <div class="daysBoard" >
+            <form id="editExerciseForm">
+               Name:<br> <input type="text" name="nameE" required/> <br>
+               Kcal:<br> <input type="text" name="kcal" /> <br>
+            </form>
+         </div>
+      </div>
       <div id="addFood" class="pagebody" aria-owns="tbAddFood">
          <!-- An autarchic page -->
          <header>
@@ -120,7 +149,6 @@
          </div>
          <!-- End of Junkyard - - - - - - - - - - - - - - - - - - - - - - - -->
       </div>
-
       <div id="addExercise" class="pagebody" aria-owns="tbAddExercise">
          <!-- An autarchic page -->
          <header>
@@ -152,6 +180,10 @@
             </li>
             <li class="icon mail_forward" onclick="saveJSON()">Export</li>
             <li class="icon delete" onclick="deleteLocal()"></li>
+         </menu>
+         <menu id="editToolbar" type="toolbar">
+            <li id="deleteIconEdit" class="icon delete">Delete</li>
+            <li class="icon move_file" onclick="updateMeal()">Update</li>
          </menu>
       </footer>
    </section>
