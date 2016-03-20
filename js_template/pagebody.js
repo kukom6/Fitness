@@ -71,210 +71,150 @@ function createDayMealsTab2(day){
     var manager = day.mealsManager;
     var array = manager.getAllMeals();
     var tabMeals = document.createElement("table"); //create meals table
-    tabMeals.border = '2';
     tabMeals.style.width = "100%";
+    tabMeals.className = "dayTable" ;
     var caption = document.createElement("caption");
-    caption.appendChild(document.createTextNode("Meals:"));
-    caption.style.fontWeight = "bold";
-    caption.style.color = "red";
+    caption.appendChild(document.createTextNode("Meals"));
+    caption.style.textAlign = "center";
     tabMeals.appendChild(caption);
     //create head table
+    var thead = document.createElement("thead");
     var tr = document.createElement("tr");
-    var node = document.createElement("td");
-    node.appendChild(document.createTextNode("Id"));
-    node.style.fontWeight = "bold";
-    node.align = "middle";
-    tr.appendChild(node);
-    node = document.createElement("td");
+    var node = document.createElement("th");
     node.appendChild(document.createTextNode("Name"));
-    node.style.fontWeight = "bold";
-    node.align = "middle";
     tr.appendChild(node);
-    node = document.createElement("td");
-    node.appendChild(document.createTextNode("Protein"));
-    node.style.fontWeight = "bold";
-    node.align = "middle";
+    node = document.createElement("th");
+    node.appendChild(document.createTextNode("P"));
     tr.appendChild(node);
-    node = document.createElement("td");
-    node.appendChild(document.createTextNode("Carbohydrate"));
-    node.style.fontWeight = "bold";
-    node.align = "middle";
+    node = document.createElement("th");
+    node.appendChild(document.createTextNode("C"));
     tr.appendChild(node);
-    node = document.createElement("td");
-    node.appendChild(document.createTextNode("Fat"));
-    node.style.fontWeight = "bold";
-    node.align = "middle";
+    node = document.createElement("th");
+    node.appendChild(document.createTextNode("F"));
     tr.appendChild(node);
-    node = document.createElement("td");
+    node = document.createElement("th");
     node.appendChild(document.createTextNode("Kcal"));
-    node.style.fontWeight = "bold";
-    node.align = "middle";
     tr.appendChild(node);
-    node = document.createElement("td");
-    node.appendChild(document.createTextNode("Method"));
-    node.style.fontWeight = "bold";
-    node.align = "middle";
+    node = document.createElement("th");
+    node.appendChild(document.createTextNode("Met"));
     tr.appendChild(node);
-    tabMeals.appendChild(tr);
+    thead.appendChild(tr);
+    tabMeals.appendChild(thead);
+
+    var tbody = document.createElement("tbody");
     for(var j=0;j<array.length;j++){  //show all meals in the day
         tr = document.createElement("tr");
-        node = document.createElement("td");
-        node.appendChild(document.createTextNode(array[j].id));
-        node.align = "middle";
-        tr.appendChild(node);
-        node = document.createElement("td");
-        node.appendChild(document.createTextNode(array[j].name));
-        node.align = "middle";
-        tr.appendChild(node);
-        node = document.createElement("td");
-        node.appendChild(document.createTextNode(array[j].protein));
-        node.align = "middle";
-        tr.appendChild(node);
-        node = document.createElement("td");
-        node.appendChild(document.createTextNode(array[j].carbohydrate));
-        node.align = "middle";
-        tr.appendChild(node);
-        node = document.createElement("td");
-        node.appendChild(document.createTextNode(array[j].fat));
-        node.align = "middle";
-        tr.appendChild(node);
-        node = document.createElement("td");
-        node.appendChild(document.createTextNode(array[j].kcal));
-        node.align = "middle";
-        tr.appendChild(node);
-        node = document.createElement("td");
-        node.appendChild(document.createTextNode(array[j].method));
-        node.align = "middle";
-        tr.appendChild(node);
-        var deleteB = document.createElement("button");
-        deleteB.id = "L#"+day.date.toLocaleString()+"#"+array[j].id;
-        deleteB.onclick = function() {
-            if (confirm("Are you sure ?") == false) {
+        tr.setAttribute("idMeal","L#"+day.date+"#"+array[j].id);
+        tr.onclick = function(){
+            if (confirm("Delete meal. Are you sure ?") == false) {
                 return;
             }
-            var id = this.id.split("#");
-            if(id[0]=="G"){
-                globalMealsManager.deleteMealByID(id[1]);
-            }else if(id[0]=="L"){
-                globalDaysManager.deleteMealInDay(new Date(id[1]),id[2]);
-            }
+            var id = this.getAttribute("idMeal").split("#");
+            globalDaysManager.deleteMealInDay(new Date(id[1]),id[2]);
             deleteShowDay();
             showDay(new Date(id[1]));
         };
-        deleteB.appendChild(document.createTextNode("Delete meal"));
-        tr.appendChild(deleteB);
-        tabMeals.appendChild(tr);
+        node = document.createElement("td");
+        node.appendChild(document.createTextNode(array[j].name));
+        tr.appendChild(node);
+        node = document.createElement("td");
+        node.appendChild(document.createTextNode(array[j].protein));
+        tr.appendChild(node);
+        node = document.createElement("td");
+        node.appendChild(document.createTextNode(array[j].carbohydrate));
+        tr.appendChild(node);
+        node = document.createElement("td");
+        node.appendChild(document.createTextNode(array[j].fat));
+        tr.appendChild(node);
+        node = document.createElement("td");
+        node.appendChild(document.createTextNode(array[j].kcal));
+        tr.appendChild(node);
+        node = document.createElement("td");
+        node.appendChild(document.createTextNode(array[j].method));
+        tr.appendChild(node);
+        tbody.appendChild(tr);
     }
+    tabMeals.appendChild(tbody);
+
+    var tfoot = document.createElement("tfoot");
     tr = document.createElement("tr");
-    tr.style.backgroundColor = '#EE8A8E';
     node = document.createElement("td");
-    node.appendChild(document.createTextNode("SUCET"));
-    node.align = "middle";
-    tr.appendChild(node);
-    node = document.createElement("td");
-    node.appendChild(document.createTextNode(""));
-    node.align = "middle";
+    node.appendChild(document.createTextNode("Total"));
     tr.appendChild(node);
     node = document.createElement("td");
     node.appendChild(document.createTextNode(manager.sumProtein()));
-    node.align = "middle";
     tr.appendChild(node);
     node = document.createElement("td");
     node.appendChild(document.createTextNode(manager.sumCarbohydrate()));
-    node.align = "middle";
     tr.appendChild(node);
     node = document.createElement("td");
     node.appendChild(document.createTextNode(manager.sumFat()));
-    node.align = "middle";
     tr.appendChild(node);
     node = document.createElement("td");
     node.appendChild(document.createTextNode(String(manager.sumKcal())));
-    node.align = "middle";
     tr.appendChild(node);
     node = document.createElement("td");
     node.appendChild(document.createTextNode(""));
     node.align = "middle";
     tr.appendChild(node);
-    tabMeals.appendChild(tr);
+    tfoot.appendChild(tr);
+    tabMeals.appendChild(tfoot);
     return tabMeals;
 }
 function createDayExerciseTab2(day){
     var manager = day.exercisesManager;
     var array = manager.getAllExercises();
     var tabExercises = document.createElement("table"); //create exercises table
-    tabExercises.border = '2';
     tabExercises.style.width = "100%";
+    tabExercises.className = "dayTable" ;
     var caption = document.createElement("caption");
     caption.appendChild(document.createTextNode("Exercises"));
-    caption.style.color = "red";
-    caption.style.fontWeight = "bold";
+    caption.style.textAlign = "center";
     tabExercises.appendChild(caption);
     //create head table
+    var thead = document.createElement("thead");
     var tr = document.createElement("tr");
-    var node = document.createElement("td");
-    node.appendChild(document.createTextNode("Id"));
-    node.style.fontWeight = "bold";
-    node.align = "middle";
-    tr.appendChild(node);
-    node = document.createElement("td");
+    var node = document.createElement("th");
     node.appendChild(document.createTextNode("Name"));
-    node.style.fontWeight = "bold";
-    node.align = "middle";
     tr.appendChild(node);
-    node = document.createElement("td");
+    node = document.createElement("th");
     node.appendChild(document.createTextNode("Kcal"));
     tr.appendChild(node);
-    node.style.fontWeight = "bold";
-    node.align = "middle";
-    tabExercises.appendChild(tr);
+    thead.appendChild(tr);
+    tabExercises.appendChild(thead);
 
+    var tbody = document.createElement("tbody");
     for(var j=0;j<array.length;j++){ //show all exercises in the day
         tr = document.createElement("tr");
-        node = document.createElement("td");
-        node.appendChild(document.createTextNode(array[j].id));
-        node.align = "middle";
-        tr.appendChild(node);
-        node = document.createElement("td");
-        node.appendChild(document.createTextNode(array[j].name));
-        node.align = "middle";
-        tr.appendChild(node);
-        node = document.createElement("td");
-        node.appendChild(document.createTextNode(array[j].kcal));
-        node.align = "middle";
-        tr.appendChild(node);
-        var deleteB = document.createElement("button");
-        deleteB.id = "L#"+day.date.toLocaleString()+"#"+array[j].id;
-        deleteB.onclick = function() {
-            if (confirm("Are you sure ?") == false) {
+        tr.setAttribute("idExercise","L#"+day.date+"#"+array[j].id);
+        tr.onclick = function(){
+            if (confirm("Delete exercise. Are you sure ?") == false) {
                 return;
             }
-            var id = this.id.split("#");
-            if(id[0]=="G"){
-                globalExercisesManager.deleteExerciseByID(id[1]);
-            }else if(id[0]=="L"){
-                globalDaysManager.deleteExerciseInDay(new Date(id[1]),id[2]);
-            }
+            var id = this.getAttribute("idExercise").split("#");
+            globalDaysManager.deleteExerciseInDay(new Date(id[1]),id[2]);
             deleteShowDay();
             showDay(new Date(id[1]));
         };
-        deleteB.appendChild(document.createTextNode("Delete exercise"));
-        tr.appendChild(deleteB);
-        tabExercises.appendChild(tr);
+        node = document.createElement("td");
+        node.appendChild(document.createTextNode(array[j].name));
+        tr.appendChild(node);
+        node = document.createElement("td");
+        node.appendChild(document.createTextNode(array[j].kcal));
+        tr.appendChild(node);
+        tbody.appendChild(tr);
     }
+    tabExercises.appendChild(tbody);
+
+    var tfoot = document.createElement("tfoot");
     tr = document.createElement("tr");
-    tr.style.backgroundColor = '#EE8A8E';
     node = document.createElement("td");
-    node.appendChild(document.createTextNode('SUCET'));
-    node.align = "middle";
-    tr.appendChild(node);
-    node = document.createElement("td");
-    node.appendChild(document.createTextNode(''));
-    node.align = "middle";
+    node.appendChild(document.createTextNode('Total'));
     tr.appendChild(node);
     node = document.createElement("td");
     node.appendChild(document.createTextNode('-'+manager.sumKcal()));
-    node.align = "middle";
     tr.appendChild(node);
-    tabExercises.appendChild(tr);
+    tfoot.appendChild(tr);
+    tabExercises.appendChild(tfoot);
     return tabExercises;
 }
