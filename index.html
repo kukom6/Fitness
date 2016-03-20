@@ -27,6 +27,7 @@
    <script src="js/day.js"></script>
    <script src="js/daysManager.js"></script>
    <script src="js/localDB.js"></script>
+   <script src="js/displayManager.js"></script>
    <title>FxOS Stub</title>
 </head>
 <body>
@@ -34,8 +35,9 @@
    <section class="principal">
       <header>
         <button id="sidebar_trigger" class="icon menu"></button>
-         <h1>Fitness</h1>
+        <h1>Fitness</h1>
         <ul>
+           <li class="icon day" onclick="deleteShowDay(new Date('2015-03-25'));showDay(new Date('2015-03-25'))"></li>
            <li id="install">Install</li>
            <li class="icon week" onclick="revealPage('homePage')"></li>
         </ul>
@@ -43,32 +45,12 @@
 
       <div id="homePage" class="pagebody" aria-owns="addAllTabs" aria-expanded="true">
          <!-- Junkyard, only for the sake of the example - NOT for real use -->
-         <div class="daysBoard">
-            <h2>Uvodna stranka</h2>
+         <div class="daysBoard" >
+            <h2 id="todayBoard">Uvodna stranka</h2>
             <p>Toto bude uvodna stranka</p>
-            <p>Toto bude uvodna stranka</p>
-            <p>Toto bude uvodna stranka</p>
-            <p>Toto bude uvodna stranka</p>
-            <p>Toto bude uvodna stranka</p>
-            <p>Toto bude uvodna stranka</p>
-            <p>Toto bude uvodna stranka</p>
-            <p>Toto bude uvodna stranka</p>
-            <p>Toto bude uvodna stranka</p>
-            <p>Toto bude uvodna stranka</p>
-            <p>Toto bude uvodna stranka</p>
-            <p>Toto bude uvodna stranka</p>
-            <p>Toto bude uvodna stranka</p>
-            <p>Toto bude uvodna stranka</p>
-            <p>Toto bude uvodna stranka</p>
-            <p>Toto bude uvodna stranka</p>
-            <p>Toto bude uvodna stranka</p>
-            <p>Toto bude uvodna stranka</p>
-            <p>Toto bude uvodna stranka</p>
-            <p>Toto bude uvodna stranka</p>
-            <p>Toto bude uvodna stranka</p>
-            <p>Toto bude uvodna stranka</p>
-            <p>Toto bude uvodna stranka</p>
-            <p>Toto bude uvodna stranka</p>
+            <div id="dayBoard">
+
+            </div>
 
          </div>
          <!-- End of Junkyard - - - - - - - - - - - - - - - - - - - - - - - -->
@@ -120,6 +102,7 @@
          <!-- Junkyard, only for the sake of the example - NOT for real use -->
          <div style="margin:0.5rem 1rem 0.5rem 1rem">
             <h3 style="text-align: center">Restore/Backup</h3>
+            <button class="icon keybd_off" onclick="loadTemplate()"></button>
             <button id="saveButton" onclick="saveJSON()"> DownloadDB  </button>
          </div>
          <!-- End of Junkyard - - - - - - - - - - - - - - - - - - - - - - - -->
