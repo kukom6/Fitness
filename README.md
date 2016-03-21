@@ -1,6 +1,9 @@
 # Health and Fitness
 Health and fitness is a web application to monitor the nutritional value of meals and tracking exercises during the day.
 
+Actual branch, which is being worked on:
+<a href="https://htmlpreview.github.io/?https://github.com/kukom6/Fitness/blob/design/index.html"> Test page</a> <br>
+
 Application will contain: <br>
 <ul>
 <li>User will can save food or exercise to the memory and use their in the future.</li>
@@ -13,7 +16,7 @@ Application will contain: <br>
 <li>Backup or restore database with foods and exercises.</li>
 </ul>
 <b>Mater contains only the basic functions and the page index.html is only temporary for testing functions.</b> <br>
-Test page:
-<a href="https://htmlpreview.github.io/?https://github.com/kukom6/Fitness/blob/master/index.html"> Test page</a> <br>
+Test functions page:
+<a href="https://htmlpreview.github.io/?https://github.com/kukom6/Fitness/blob/master/index.html"> Test functions page</a> <br>
 Page with tests: 
 <a href="https://htmlpreview.github.io/?https://github.com/kukom6/Fitness/blob/master/AllTests.html"> All tests</a>
