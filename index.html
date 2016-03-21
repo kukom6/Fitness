@@ -39,19 +39,58 @@
         <ul>
            <li class="icon day" onclick="deleteShow('homeDayBoard');showTempDay(new Date('2015-03-25'))"></li>
            <li id="install">Install</li>
-           <li class="icon week" onclick="revealPageSave('homePage')"></li>
+           <li class="icon week" onclick="loadTemplate()">Load Template</li>
         </ul>
       </header>
 
       <div id="homePage" class="pagebody" aria-owns="addAllTabs" aria-expanded="true">
-         <!-- Junkyard, only for the sake of the example - NOT for real use -->
          <div class="generalBoard" >
-            <h2 id="todayBoard">Uvodna stranka</h2>
-            <p>Toto bude uvodna stranka</p>
+            <h2 id="todayBoard">Home Page</h2>
+            <p>After first start you must load either template (button at the top right) or db from JSON file (backup/restore page). Next start db will be loaded from local storage</p>
+            <p>What is already implemented?</p>
+            <ol style="text-align:left">
+               <li><b>Meals page</b>
+                  <ul>
+                     <li>Show table with all meals in localDB</li>
+                     <li>Click to the meals will open meals editor</li>
+                     <li>Delete meal via meals editor</li>
+                     <li>Update meal via meals editor (not implemented yet)</li>
+                  </ul>
+               </li>
+               <li><b>Exercises page</b>
+                  <ul>
+                     <li>Show table with all exercises in localDB</li>
+                     <li>Click to the exercises will open exercises editor</li>
+                     <li>Delete exercise via exercises editor</li>
+                     <li>Update exercise via exercises editor (not implemented yet)</li>
+                  </ul>
+               </li>
+               <li><b>Days page</b>
+                  <ul>
+                     <li>Show all days (</li>
+                     <li>Click to the day will open selected day page</li>
+                  </ul>
+               </li>
+               <li><b>Day page</b>
+                  <ul>
+                     <li>Show meals and exercises table in the day</li>
+                     <li>Click to the exercise or meal will open theirs editor</li>
+                     <li>Delete meal/exercise from day</li>
+                     <li>Update meal/exercise from day (not implemented yet)</li>
+                  </ul>
+               </li>
+               <li><b>Backup/Restore</b>
+                  <ul>
+                     <li>Import local DB as JSON</li>
+                     <li>Export local DB as JSON (issue on windows phone browser and firefox os simulator)</li>
+                     <li>Delete local storage</li>
+                  </ul>
+               </li>
+
+            </ol>
             <div id="homeDayBoard"> <!-- Temp day -->
             </div>
          </div>
-         <!-- End of Junkyard - - - - - - - - - - - - - - - - - - - - - - - -->
       </div>
       <div id="pageMeals" class="pagebody">
          <div class="generalBoard" >
@@ -110,7 +149,6 @@
          <!-- Junkyard, only for the sake of the example - NOT for real use -->
          <div style="margin:0.5rem 1rem 0.5rem 1rem">
             <h3 style="text-align: center">Restore/Backup</h3>
-            Load template : <button class="icon keybd_off" onclick="loadTemplate()"></button>
          </div>
          <!-- End of Junkyard - - - - - - - - - - - - - - - - - - - - - - - -->
       </div>
@@ -201,6 +239,7 @@
          <h2>Menu</h2>
       </header>
       <div class="menulist">
+         <menuitem aria-controls="homePage" type="command" label="HOME"></menuitem>
          <menuitem aria-controls="pageDays" type="command" label="Days" onclick="deleteShow('daysBoard');showGlobalDays();"></menuitem>
          <menuitem aria-controls="pageMeals" type="command" label="Foods" onclick="deleteShow('mealsBoard');showGlobalMeals();"></menuitem>
          <menuitem aria-controls="pageExercises" type="command" label="Exercises" onclick="deleteShow('exercisesBoard');showGlobalExercises();"></menuitem>

@@ -5,7 +5,7 @@ window.addEventListener(
       for (var i=0, max=revealers.length; i < max; ++i) {
          revealers[i].addEventListener(
             "click",
-            function() { revealPage(this.getAttribute("aria-controls")); }
+            function() { revealPageSave(this.getAttribute("aria-controls")); }
          );
       }
    }
