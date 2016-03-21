@@ -39,7 +39,7 @@
         <ul>
            <li class="icon day" onclick="deleteShow('homeDayBoard');showTempDay(new Date('2015-03-25'))"></li>
            <li id="install">Install</li>
-           <li class="icon week" onclick="revealPage('homePage')"></li>
+           <li class="icon week" onclick="revealPageSave('homePage')"></li>
         </ul>
       </header>
 
@@ -80,7 +80,7 @@
       </div>
       <div id="pageDay" class="pagebody">
          <header>
-            <button class="icon back" onclick="deleteShow('dayBoard');deleteShow('daysBoard');showGlobalDays();revealPage(previousPage);"></button>
+            <button class="icon back" onclick="deleteShow('dayBoard');deleteShow('daysBoard');showGlobalDays();revealPage(previousPages.pop());"></button>
             <h2>Day</h2>
          </header>
          <div class="generalBoard">
@@ -104,7 +104,7 @@
       </div>
       <div id="pageBackup" class="pagebody" aria-owns="backupRestore">
          <header>
-            <button class="icon back" onclick="revealPage(previousPage);"></button>
+            <button class="icon back" onclick="revealPage(previousPages.pop());"></button>
             <h2>Backup and Restore</h2>
          </header>
          <!-- Junkyard, only for the sake of the example - NOT for real use -->
@@ -116,7 +116,7 @@
       </div>
       <div id="editMealPage" class="pagebody" aria-owns="editToolbar">
          <header>
-            <button class="icon back" onclick="revealPage(previousPage)"></button>
+            <button class="icon back" onclick="revealPage(previousPages.pop())"></button>
             <h2>Edit Meal</h2>
          </header>
          <div class="generalBoard" >
@@ -135,7 +135,7 @@
       </div>
       <div id="editExercisePage" class="pagebody" aria-owns="editToolbar">
          <header>
-            <button class="icon back" onclick="revealPage(previousPage)"></button>
+            <button class="icon back" onclick="revealPage(previousPages.pop())"></button>
             <h2>Edit Exercise</h2>
          </header>
          <div class="generalBoard" >
@@ -148,7 +148,7 @@
       <div id="addFood" class="pagebody" aria-owns="tbAddFood">
          <!-- An autarchic page -->
          <header>
-            <button class="icon back" onclick="revealPage(previousPage);"></button>
+            <button class="icon back" onclick="revealPage(previousPages.pop());"></button>
             <h2>Add food</h2>
          </header>
          <!-- Junkyard, only for the sake of the example - NOT for real use -->
@@ -160,7 +160,7 @@
       <div id="addExercise" class="pagebody" aria-owns="tbAddExercise">
          <!-- An autarchic page -->
          <header>
-            <button class="icon back" onclick="revealPage(previousPage);"></button>
+            <button class="icon back" onclick="revealPage(previousPages.pop());"></button>
             <h2>Add exercise</h2>
          </header>
          <!-- Junkyard, only for the sake of the example - NOT for real use -->

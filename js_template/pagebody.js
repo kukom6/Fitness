@@ -13,7 +13,6 @@ window.addEventListener(
    }
 );
 function revealPage(id) {
-   savePreviousPage();
    var elt = document.getElementById(id);
    var nodeName = elt.nodeName; // expect "DIV" (.pagebody)
    var siblings = elt.parentNode.children;
@@ -31,6 +30,11 @@ function revealPage(id) {
        closeAllToolbar();
    }
 }
+function revealPageSave(id){
+    savePreviousPage();
+    revealPage(id);
+}
+
 function showGlobalMeals(){
     document.getElementById("mealsBoard").appendChild(createDayMealsTab2());
 }
@@ -47,7 +51,7 @@ function showGlobalDays(){
         li.setAttribute("idDay","GD#"+manager[i].date);
         li.onclick = function(){
             var id = this.getAttribute("idDay").split("#");
-            revealPage("pageDay");
+            revealPageSave("pageDay");
             showDay(id[1]);
         };
         li.appendChild(document.createTextNode(manager[i].date.toDateString()));
@@ -265,7 +269,7 @@ function createDayExerciseTab2(day){
     return tabExercises;
 }
 function fillEditMeal(id){
-    revealPage("editMealPage");
+    revealPageSave("editMealPage");
     var ids = id.split("#");
     var form = document.getElementById("editMealForm");
     var meal = null;
@@ -301,11 +305,11 @@ function fillEditMeal(id){
             deleteShow("mealsBoard");
             showGlobalMeals();
         }
-        revealPage(previousPage);
+        revealPage(previousPages.pop());
     };
 }
 function fillEditExercise(id){
-    revealPage("editExercisePage");
+    revealPageSave("editExercisePage");
     var ids = id.split("#");
     var form = document.getElementById("editExerciseForm");
     var exercise = null;
@@ -335,6 +339,6 @@ function fillEditExercise(id){
             deleteShow("exercisesBoard");
             showGlobalExercises();
         }
-        revealPage(previousPage);
+        revealPage(previousPages.pop());
     };
 }
