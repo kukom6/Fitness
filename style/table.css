@@ -1,4 +1,4 @@
-div.daysBoard {
+div.generalBoard {
     background: ghostwhite;
     border-radius: 8px;
     margin: 1rem 1rem 1rem 1rem;
@@ -8,7 +8,7 @@ div.daysBoard {
     color: black;
     text-align: center;
 }
-div.daysBoard input{
+div.generalBoard input{
     width : 90%;
 }
 table.dayTable table {

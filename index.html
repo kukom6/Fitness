@@ -37,7 +37,7 @@
         <button id="sidebar_trigger" class="icon menu"></button>
         <h1>Fitness</h1>
         <ul>
-           <li class="icon day" onclick="deleteShowDay(new Date('2015-03-25'));showDay(new Date('2015-03-25'))"></li>
+           <li class="icon day" onclick="deleteShow('homeDayBoard');showTempDay(new Date('2015-03-25'))"></li>
            <li id="install">Install</li>
            <li class="icon week" onclick="revealPage('homePage')"></li>
         </ul>
@@ -45,39 +45,48 @@
 
       <div id="homePage" class="pagebody" aria-owns="addAllTabs" aria-expanded="true">
          <!-- Junkyard, only for the sake of the example - NOT for real use -->
-         <div class="daysBoard" >
+         <div class="generalBoard" >
             <h2 id="todayBoard">Uvodna stranka</h2>
             <p>Toto bude uvodna stranka</p>
-            <div id="dayBoard">
+            <div id="homeDayBoard"> <!-- Temp day -->
+            </div>
+         </div>
+         <!-- End of Junkyard - - - - - - - - - - - - - - - - - - - - - - - -->
+      </div>
+      <div id="pageMeals" class="pagebody">
+         <div class="generalBoard" >
+            <h2> Meals </h2>
+            <div id="mealsBoard">
             </div>
 
          </div>
-         <!-- End of Junkyard - - - - - - - - - - - - - - - - - - - - - - - -->
-      </div>
-      <div id="pageFoods" class="pagebody">
-         <!-- Junkyard, only for the sake of the example - NOT for real use -->
-         <div style="margin:0.5rem 1rem 0.5rem 1rem">
-         <h3>Foods</h3>
-         <p>Na ktore jedlo sa klikne to sa da do dnesneho dna, otvori sa stranka s pridanim jedla</p><br>
-         <p>Pri jedle je tlacitko upravit (upravit hodnoty/delete)</p>
-         </div>
-         <!-- End of Junkyard - - - - - - - - - - - - - - - - - - - - - - - -->
       </div>
       <div id="pageExercises" class="pagebody">
-         <!-- Junkyard, only for the sake of the example - NOT for real use -->
-         <div style="margin:0.5rem 1rem 0.5rem 1rem">
-            <h3>Exercises</h3>
-            <p>Na ktoru aktivitu sa klikne ta sa da do dnesneho dna, otvori sa stranka s pridanim aktvity</p><br>
-            <p>Pri aktivite je tlacitko upravit (upravit hodnoty/delete)</p>
+         <div class="generalBoard" >
+            <h2> Exercises </h2>
+            <div id="exercisesBoard">
+            </div>
+
          </div>
-         <!-- End of Junkya rd - - - - - - - - - - - - - - - - - - - - - - - -->
       </div>
       <div id="pageDays" class="pagebody">
          <!-- Junkyard, only for the sake of the example - NOT for real use -->
-         <div class="daysBoard">
-
+         <div class="generalBoard">
+            <h2> Days </h2>
+            <div id="daysBoard">
+            </div>
          </div>
          <!-- End of Junkyard - - - - - - - - - - - - - - - - - - - - - - - -->
+      </div>
+      <div id="pageDay" class="pagebody">
+         <header>
+            <button class="icon back" onclick="deleteShow('dayBoard');deleteShow('daysBoard');showGlobalDays();revealPage(previousPage);"></button>
+            <h2>Day</h2>
+         </header>
+         <div class="generalBoard">
+            <div id="dayBoard">
+            </div>
+         </div>
       </div>
       <div id="pageGraphs" class="pagebody">
          <!-- Junkyard, only for the sake of the example - NOT for real use -->
@@ -101,8 +110,7 @@
          <!-- Junkyard, only for the sake of the example - NOT for real use -->
          <div style="margin:0.5rem 1rem 0.5rem 1rem">
             <h3 style="text-align: center">Restore/Backup</h3>
-            <button class="icon keybd_off" onclick="loadTemplate()"></button>
-            <button id="saveButton" onclick="saveJSON()"> DownloadDB  </button>
+            Load template : <button class="icon keybd_off" onclick="loadTemplate()"></button>
          </div>
          <!-- End of Junkyard - - - - - - - - - - - - - - - - - - - - - - - -->
       </div>
@@ -111,7 +119,7 @@
             <button class="icon back" onclick="revealPage(previousPage)"></button>
             <h2>Edit Meal</h2>
          </header>
-         <div class="daysBoard" >
+         <div class="generalBoard" >
             <form id="editMealForm">
                Name: <br><input type="text" name="nameM" required/> <br>
                Protein: <br><input type="text" name="protein" /> <br>
@@ -130,7 +138,7 @@
             <button class="icon back" onclick="revealPage(previousPage)"></button>
             <h2>Edit Exercise</h2>
          </header>
-         <div class="daysBoard" >
+         <div class="generalBoard" >
             <form id="editExerciseForm">
                Name:<br> <input type="text" name="nameE" required/> <br>
                Kcal:<br> <input type="text" name="kcal" /> <br>
@@ -193,9 +201,9 @@
          <h2>Menu</h2>
       </header>
       <div class="menulist">
-         <menuitem aria-controls="pageDays" type="command" label="Days"></menuitem>
-         <menuitem aria-controls="pageFoods" type="command" label="Foods"></menuitem>
-         <menuitem aria-controls="pageExercises" type="command" label="Exercises"></menuitem>
+         <menuitem aria-controls="pageDays" type="command" label="Days" onclick="deleteShow('daysBoard');showGlobalDays();"></menuitem>
+         <menuitem aria-controls="pageMeals" type="command" label="Foods" onclick="deleteShow('mealsBoard');showGlobalMeals();"></menuitem>
+         <menuitem aria-controls="pageExercises" type="command" label="Exercises" onclick="deleteShow('exercisesBoard');showGlobalExercises();"></menuitem>
          <menuitem aria-controls="pageGraphs" type="command" label="Graph"></menuitem>
          <menuitem aria-controls="pageNotes" type="command" label="Notes"></menuitem>
          <menuitem aria-controls="pageBackup" type="command" label="Backup/Restore"></menuitem>

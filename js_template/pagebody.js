@@ -3,11 +3,12 @@ window.addEventListener(
     function() {
         var elt = document.querySelector(".principal > div.pagebody[aria-expanded=true]");
         if (elt) {
-         var toolbarId = elt.getAttribute("aria-owns");
-         if (toolbarId) showToolbar(toolbarId);
+            var toolbarId = elt.getAttribute("aria-owns");
+            if (toolbarId) showToolbar(toolbarId);
         }
        if(localStorage.getItem('isInLocal')){
            loadLocal();
+           alert("load from local"); //TODO temp
        }
    }
 );
@@ -30,7 +31,44 @@ function revealPage(id) {
        closeAllToolbar();
    }
 }
+function showGlobalMeals(){
+    document.getElementById("mealsBoard").appendChild(createDayMealsTab2());
+}
+function showGlobalExercises(){
+    document.getElementById("exercisesBoard").appendChild(createDayExerciseTab2());
+}
+function showGlobalDays(){
+    var manager = globalDaysManager.getAllDays();
+    var daysBoard = document.getElementById('daysBoard');
+    var ul = document.createElement('ul');
+    var li = null;
+    for(var i=0;i<manager.length;i++){
+        li=document.createElement('li');
+        li.setAttribute("idDay","GD#"+manager[i].date);
+        li.onclick = function(){
+            var id = this.getAttribute("idDay").split("#");
+            revealPage("pageDay");
+            showDay(id[1]);
+        };
+        li.appendChild(document.createTextNode(manager[i].date.toDateString()));
+        ul.appendChild(li);
+    }
+    daysBoard.appendChild(ul);
+}
 function showDay(dayDate){
+    document.getElementById("dayBoard").appendChild(createDayTable(dayDate));
+}
+function showTempDay(dayDate){
+    document.getElementById("homeDayBoard").appendChild(createDayTable(dayDate)); //TODO delete, test day on homepage
+}
+function createDayTable(inDate){
+    var dayDate;
+    try{ //if date is string or date object
+        dayDate.toLocaleString();
+        dayDate=inDate;
+    }catch(ex){
+        dayDate=new Date(inDate);
+    }
     var currentDate = globalDaysManager.getDayByDate(dayDate);
     var tabDay = document.createElement("table"); //create day table
     tabDay.style.border = "thin dotted red";
@@ -51,15 +89,15 @@ function showDay(dayDate){
         }
         var date=this.id;
         globalDaysManager.deleteDayByDate(new Date(date));
-        deleteShowDay();
+        deleteShow("dayBoard");
         showDay(new Date(date));
     };
     deleteB.appendChild(document.createTextNode("Delete day"+date));
     tabDay.appendChild(deleteB);
-    document.getElementById("dayBoard").appendChild(tabDay);
+    return tabDay;
 }
-function deleteShowDay(){
-    var table = document.getElementById("dayBoard");
+function deleteShow(name){
+    var table = document.getElementById(name);
     if(table==null){
         return; //if date was deleted
     }
@@ -68,7 +106,13 @@ function deleteShowDay(){
     }
 }
 function createDayMealsTab2(day){
-    var manager = day.mealsManager;
+    var manager = null;
+    if(day){
+        manager = day.mealsManager;
+
+    }else{
+        manager = globalMealsManager
+    }
     var array = manager.getAllMeals();
     var tabMeals = document.createElement("table"); //create meals table
     tabMeals.style.width = "100%";
@@ -104,7 +148,11 @@ function createDayMealsTab2(day){
     var tbody = document.createElement("tbody");
     for(var j=0;j<array.length;j++){  //show all meals in the day
         tr = document.createElement("tr");
-        tr.setAttribute("idMeal","LM#"+day.date+"#"+array[j].id);
+        if(day){
+            tr.setAttribute("idMeal","LM#"+day.date+"#"+array[j].id);
+        }else{
+            tr.setAttribute("idMeal","GM#"+array[j].id);
+        }
         tr.onclick = function(){
             fillEditMeal(this.getAttribute("idMeal"));
         };
@@ -156,7 +204,13 @@ function createDayMealsTab2(day){
     return tabMeals;
 }
 function createDayExerciseTab2(day){
-    var manager = day.exercisesManager;
+    var manager = null;
+    if(day){
+        manager = day.exercisesManager;
+
+    }else{
+        manager = globalExercisesManager;
+    }
     var array = manager.getAllExercises();
     var tabExercises = document.createElement("table"); //create exercises table
     tabExercises.style.width = "100%";
@@ -180,7 +234,11 @@ function createDayExerciseTab2(day){
     var tbody = document.createElement("tbody");
     for(var j=0;j<array.length;j++){ //show all exercises in the day
         tr = document.createElement("tr");
-        tr.setAttribute("idExercise","LE#"+day.date+"#"+array[j].id);
+        if(day){
+            tr.setAttribute("idExercise","LE#"+day.date+"#"+array[j].id);
+        }else{
+            tr.setAttribute("idExercise","GE#"+array[j].id);
+        }
         tr.onclick = function(){
             fillEditExercise(this.getAttribute("idExercise"));
         };
@@ -210,7 +268,12 @@ function fillEditMeal(id){
     revealPage("editMealPage");
     var ids = id.split("#");
     var form = document.getElementById("editMealForm");
-    var meal = globalDaysManager.getDayByDate(new Date(ids[1])).mealsManager.getMealByID(ids[2]);
+    var meal = null;
+    if(ids[0]=="LM"){
+        meal = globalDaysManager.getDayByDate(new Date(ids[1])).mealsManager.getMealByID(ids[2]);
+    }else if(ids[0]=="GM"){
+        meal = globalMealsManager.getMealByID(ids[1]);
+    }
     form[0].value=meal.name;
     form[1].value=meal.protein;
     form[2].value=meal.carbohydrate;
@@ -224,10 +287,20 @@ function fillEditMeal(id){
         if (confirm("Delete meal. Are you sure ?") == false) {
             return;
         }
-        globalDaysManager.deleteMealInDay(new Date(ids[1]),ids[2]);
+        if(ids[0]=="LM"){
+            globalDaysManager.deleteMealInDay(new Date(ids[1]),ids[2]);
+        }else{
+            globalMealsManager.deleteMealByID(ids[1]);
+        }
         saveLocal();
-        deleteShowDay();
-        showDay(new Date(ids[1]));
+        if(ids[0]=="LM"){
+            deleteShow("homeDayBoard"); //TODO temp
+            deleteShow("dayBoard");
+            showDay(new Date(ids[1]));
+        }else{
+            deleteShow("mealsBoard");
+            showGlobalMeals();
+        }
         revealPage(previousPage);
     };
 }
@@ -235,18 +308,33 @@ function fillEditExercise(id){
     revealPage("editExercisePage");
     var ids = id.split("#");
     var form = document.getElementById("editExerciseForm");
-    var meal = globalDaysManager.getDayByDate(new Date(ids[1])).exercisesManager.getExerciseByID(ids[2]);
-    form[0].value=meal.name;
-    form[1].value=meal.kcal;
+    var exercise = null;
+    if(ids[0]=="LE"){
+        exercise = globalDaysManager.getDayByDate(new Date(ids[1])).exercisesManager.getExerciseByID(ids[2]);
+    }else if(ids[0]=="GE"){
+        exercise = globalExercisesManager.getExerciseByID(ids[1]);
+    }
+    form[0].value=exercise.name;
+    form[1].value=exercise.kcal;
     var toolbarButton = document.getElementById("deleteIconEdit");
     toolbarButton.onclick = function(){
         if (confirm("Delete exercise. Are you sure ?") == false) {
             return;
         }
-        globalDaysManager.deleteExerciseInDay(new Date(ids[1]),ids[2]);
+        if(ids[0]=="LE"){
+            globalDaysManager.deleteExerciseInDay(new Date(ids[1]),ids[2]);
+        }else{
+            globalExercisesManager.deleteExerciseByID(ids[1]);
+        }
         saveLocal();
-        deleteShowDay();
-        showDay(new Date(ids[1]));
+        if(ids[0]=="LE"){
+            deleteShow("homeDayBoard"); //TODO temp
+            deleteShow("dayBoard");
+            showDay(new Date(ids[1]));
+        }else{
+            deleteShow("exercisesBoard");
+            showGlobalExercises();
+        }
         revealPage(previousPage);
     };
 }
