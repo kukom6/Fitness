@@ -7,8 +7,8 @@ function DaysManager(){
     var days = [];
     this.addDay = function(day){
         if(this.isDayInDB(day.date)){
-            console.error("date is already in db, please update exist day");
-            throw "date is already in db, please update exist day";
+            console.error("date: "+day.data+" is already in db, please update exist day");
+            throw "date: "+day.data+" is already in db, please update exist day";
         }
         days.push(day); //TODO validacia
         saveLocal();

@@ -28,6 +28,7 @@
    <script src="js/daysManager.js"></script>
    <script src="js/localDB.js"></script>
    <script src="js/displayManager.js"></script>
+   <script src="generatedData.js"></script>
    <title>FxOS Stub</title>
 </head>
 <body>
@@ -38,8 +39,9 @@
         <h1>Fitness</h1>
         <ul>
            <li class="icon day" onclick="deleteShow('homeDayBoard');showTempDay(new Date('2015-03-25'))"></li>
-           <li id="install">Install</li>
-           <li class="icon week" onclick="loadTemplate()">Load Template</li>
+          <!-- <li id="install">Install</li> -->
+           <li class="icon star_on" onclick="generatedData()">rand.</li>
+           <li class="icon week" onclick="loadTemplate()">Template</li>
         </ul>
       </header>
 

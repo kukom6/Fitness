@@ -6,7 +6,7 @@ window.addEventListener(
           revealers[i].addEventListener(
               "click",
               function() {
-                  revealPage(this.getAttribute("aria-controls"));
+                  revealPageSave(this.getAttribute("aria-controls"));
                   document.getElementById("sidebar_trigger").click();
               }
           );
