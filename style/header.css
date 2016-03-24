@@ -29,7 +29,7 @@ header > button {
   vertical-align: top;
   background: url("images/mainsepa.png") repeat-y scroll right top rgba(0, 0, 0, 0.15);
   margin: 0rem 2rem 0rem -0.3rem;
-  padding: 1rem 0rem 0.7rem 0rem;
+  padding: 1rem 1rem 0.7rem 1rem;
   border: none;
   height: 100%;
   z-index: -1;

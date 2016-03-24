@@ -8,6 +8,16 @@ div.generalBoard {
     color: black;
     text-align: center;
 }
+
+div.generalBoard li{
+    background: deepskyblue;
+    border-radius: 8px;
+    margin: 1rem 1rem 1rem 1rem;
+    font-size: larger;
+    list-style-type: none;
+    line-height: 400%;
+}
+
 div.generalBoard input{
     width : 90%;
 }
