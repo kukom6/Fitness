@@ -307,6 +307,42 @@ function fillEditMeal(id){
         }
         revealPage(previousPages.pop());
     };
+    toolbarButton = document.getElementById("updateIconEdit");
+    toolbarButton.onclick = function(){
+        var form = document.getElementById("editMealForm");
+        var saveMeal = null;
+        //TODO validate
+        if(ids[0]=="LM"){
+            saveMeal = globalDaysManager.getDayByDate(new Date(ids[1])).mealsManager.getMealByID(ids[2]);
+            saveMeal.name = form[0].value;
+            saveMeal.protein = parseInt(form[1].value, 10);
+            saveMeal.carbohydrate = parseInt(form[2].value, 10);
+            saveMeal.fat = parseInt(form[3].value, 10);
+            saveMeal.kcal = parseInt(form[4].value, 10);
+            saveMeal.method = form[5].value;
+            globalDaysManager.updateMealInDay(new Date(ids[1]),saveMeal);
+        }else{
+            saveMeal = globalMealsManager.getMealByID(ids[1]);
+            saveMeal.name = form[0].value;
+            saveMeal.protein = parseInt(form[1].value, 10);
+            saveMeal.carbohydrate = parseInt(form[2].value, 10);
+            saveMeal.fat = parseInt(form[3].value, 10);
+            saveMeal.kcal = parseInt(form[4].value, 10);
+            saveMeal.method = form[5].value;
+            globalMealsManager.updateMeal(saveMeal);
+        }
+        saveLocal();
+        alert("Meal was been updated");
+        form.reset();
+        if(ids[0]=="LM"){
+            deleteShow("dayBoard");
+            showDay(new Date(ids[1]));
+        }else{
+            deleteShow("mealsBoard");
+            showGlobalMeals();
+        }
+        revealPage(previousPages.pop());
+    };
 }
 function fillEditExercise(id){
     revealPageSave("editExercisePage");
@@ -333,6 +369,34 @@ function fillEditExercise(id){
         saveLocal();
         if(ids[0]=="LE"){
             deleteShow("homeDayBoard"); //TODO temp
+            deleteShow("dayBoard");
+            showDay(new Date(ids[1]));
+        }else{
+            deleteShow("exercisesBoard");
+            showGlobalExercises();
+        }
+        revealPage(previousPages.pop());
+    };
+    toolbarButton = document.getElementById("updateIconEdit");
+    toolbarButton.onclick = function(){
+        var form = document.getElementById("editExerciseForm");
+        var saveExercise = null;
+        //TODO validate
+        if(ids[0]=="LE"){
+            saveExercise = globalDaysManager.getDayByDate(new Date(ids[1])).exercisesManager.getExerciseByID(ids[2]);
+            saveExercise.name = form[0].value;
+            saveExercise.kcal = parseInt(form[1].value, 10);
+            globalDaysManager.updateExerciseInDay(new Date(ids[1]),saveExercise);
+        }else{
+            saveExercise = globalExercisesManager.getExerciseByID(ids[1]);
+            saveExercise.name = form[0].value;
+            saveExercise.kcal = parseInt(form[1].value, 10);
+            globalExercisesManager.updateExercise(saveExercise);
+        }
+        saveLocal();
+        alert("Exercise was been updated");
+        form.reset();
+        if(ids[0]=="LE"){
             deleteShow("dayBoard");
             showDay(new Date(ids[1]));
         }else{

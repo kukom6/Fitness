@@ -68,6 +68,32 @@ function DaysManager(){
         day.exercisesManager.deleteExerciseByID(idExercise);
         console.log("Exercise was deleted from day: "+day.date.toDateString());
     };
+    this.updateMealInDay = function(date,meal){
+        if(date==""||date==null){
+            console.error("invalid date");
+            throw "invalid argument exception";
+        }
+        if(meal==""||meal==null){
+            console.error("invalid meal");
+            throw "invalid argument exception";
+        }
+        var day=this.getDayByDate(date);
+        day.mealsManager.updateMeal(meal);
+        console.log("Meal was updated in day: "+day.date.toDateString());
+    };
+    this.updateExerciseInDay = function(date,exercise){
+        if(date==""||date==null){
+            console.error("invalid date");
+            throw "invalid argument exception";
+        }
+        if(exercise==""||exercise==null){
+            console.error("invalid exercise");
+            throw "invalid argument exception";
+        }
+        var day=this.getDayByDate(date);
+        day.exercisesManager.updateExercise(exercise);
+        console.log("Exercise was updated in day: "+day.date.toDateString());
+    };
     this.deleteDayByDate = function(date){
         console.log("deleteDayByDate: "+date);
         if(date==""||date==null){

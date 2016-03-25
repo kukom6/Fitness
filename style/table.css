@@ -12,7 +12,7 @@ div.generalBoard {
 div.generalBoard li{
     background: deepskyblue;
     border-radius: 8px;
-    margin: 1rem 1rem 1rem 1rem;
+    margin: 1rem 1rem 1rem -3rem;
     font-size: larger;
     list-style-type: none;
     line-height: 400%;
@@ -20,6 +20,7 @@ div.generalBoard li{
 
 div.generalBoard input{
     width : 90%;
+    text-align: center;
 }
 table.dayTable table {
     font-family: "Helvetica Neue", Helvetica, sans-serif
