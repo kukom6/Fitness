@@ -16,7 +16,6 @@
    <script type="text/javascript" src="js_template/install.js"></script>
    <script type="text/javascript" src="js_template/toolbar.js"></script>
    <script type="text/javascript" src="js_template/sidebar.js"></script>
-   <script type="text/javascript" src="js_template/button.js"></script>
    <script type="text/javascript" src="js_template/menulist.js"></script>
    <script type="text/javascript" src="js_template/pagebody.js"></script>
    <script type="text/javascript" src="js_template/backupRestore.js"></script>
@@ -143,6 +142,13 @@
          </div>
          <!-- End of Junkyard - - - - - - - - - - - - - - - - - - - - - - - -->
       </div>
+      <div id="pageAbout" class="pagebody">
+         <!-- Junkyard, only for the sake of the example - NOT for real use -->
+         <div style="margin:0.5rem 1rem 0.5rem 1rem">
+            <h3 style="text-align: center">About</h3>
+         </div>
+         <!-- End of Junkyard - - - - - - - - - - - - - - - - - - - - - - - -->
+      </div>
       <div id="pageBackup" class="pagebody" aria-owns="backupRestore">
          <header>
             <button class="icon back" onclick="revealPage(previousPages.pop());"></button>
@@ -161,7 +167,7 @@
          </header>
          <div class="generalBoard" >
             <form id="editMealForm">
-               Name: <br><input type="text" name="nameM" required/> <br>
+               Name: <br><input type="text" name="nameM" /> <br>
                Protein: <br><input type="text" name="protein" /> <br>
                Carbohydrate: <br><input type="text" name="carbohydrate" /> <br>
                Fat:<br><input type="text" name="fat"/> <br>
@@ -180,7 +186,7 @@
          </header>
          <div class="generalBoard" >
             <form id="editExerciseForm">
-               Name:<br> <input type="text" name="nameE" required/> <br>
+               Name:<br> <input type="text" name="nameE" /> <br>
                Kcal:<br> <input type="text" name="kcal" /> <br>
             </form>
          </div>
@@ -248,6 +254,7 @@
          <menuitem aria-controls="pageGraphs" type="command" label="Graph"></menuitem>
          <menuitem aria-controls="pageNotes" type="command" label="Notes"></menuitem>
          <menuitem aria-controls="pageBackup" type="command" label="Backup/Restore"></menuitem>
+         <menuitem aria-controls="pageAbout" type="command" label="About"></menuitem>
       </div>
    </section>
 </body>

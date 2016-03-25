@@ -121,7 +121,7 @@ function createGlobalMealsTab(){
         node.appendChild(document.createTextNode(array[j].method));
         node.align = "middle";
         tr.appendChild(node);
-        var deleteB = document.createElement("button"); //add delete button 
+        var deleteB = document.createElement("button"); //add delete button
         deleteB.id = "G#"+array[j].id;
         deleteB.onclick = function() {
             deleteMeal(this);

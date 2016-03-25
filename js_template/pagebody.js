@@ -12,6 +12,13 @@ window.addEventListener(
        }
    }
 );
+var previousPages =[];
+//previousPages.push("homePage"); //first start
+
+function savePreviousPage(){
+    var activePage=document.querySelector(".principal > div.pagebody[aria-expanded=true]");
+    previousPages.push(activePage.getAttribute("id"));
+}
 function revealPage(id) {
    var elt = document.getElementById(id);
    var nodeName = elt.nodeName; // expect "DIV" (.pagebody)
@@ -36,10 +43,10 @@ function revealPageSave(id){
 }
 
 function showGlobalMeals(){
-    document.getElementById("mealsBoard").appendChild(createDayMealsTab2());
+    document.getElementById("mealsBoard").appendChild(createDayMealsTable());
 }
 function showGlobalExercises(){
-    document.getElementById("exercisesBoard").appendChild(createDayExerciseTab2());
+    document.getElementById("exercisesBoard").appendChild(createDayExerciseTable());
 }
 function showGlobalDays(){
     var manager = globalDaysManager.getAllDays();
@@ -83,8 +90,8 @@ function createDayTable(inDate){
     caption.appendChild(document.createTextNode("Day: "+date));
     caption.style.fontWeight = "bold";
     tabDay.appendChild(caption);
-    tabDay.appendChild(createDayMealsTab2(currentDate));
-    tabDay.appendChild(createDayExerciseTab2(currentDate));
+    tabDay.appendChild(createDayMealsTable(currentDate));
+    tabDay.appendChild(createDayExerciseTable(currentDate));
     var deleteB = document.createElement("button");
     deleteB.id = date;
     deleteB.onclick = function() {
@@ -109,7 +116,7 @@ function deleteShow(name){
         table.removeChild(table.firstChild);
     }
 }
-function createDayMealsTab2(day){
+function createDayMealsTable(day){
     var manager = null;
     if(day){
         manager = day.mealsManager;
@@ -164,16 +171,16 @@ function createDayMealsTab2(day){
         node.appendChild(document.createTextNode(array[j].name));
         tr.appendChild(node);
         node = document.createElement("td");
-        node.appendChild(document.createTextNode(array[j].protein.toFixed(1)));
+        node.appendChild(document.createTextNode(array[j].protein));
         tr.appendChild(node);
         node = document.createElement("td");
-        node.appendChild(document.createTextNode(array[j].carbohydrate.toFixed(1)));
+        node.appendChild(document.createTextNode(array[j].carbohydrate));
         tr.appendChild(node);
         node = document.createElement("td");
-        node.appendChild(document.createTextNode(array[j].fat.toFixed(1)));
+        node.appendChild(document.createTextNode(array[j].fat));
         tr.appendChild(node);
         node = document.createElement("td");
-        node.appendChild(document.createTextNode(array[j].kcal.toFixed(1)));
+        node.appendChild(document.createTextNode(array[j].kcal));
         tr.appendChild(node);
         node = document.createElement("td");
         node.appendChild(document.createTextNode(array[j].method));
@@ -197,7 +204,7 @@ function createDayMealsTab2(day){
     node.appendChild(document.createTextNode(manager.sumFat().toFixed(1)));
     tr.appendChild(node);
     node = document.createElement("td");
-    node.appendChild(document.createTextNode(String(manager.sumKcal().toFixed(1))));
+    node.appendChild(document.createTextNode(String(manager.sumKcal().toFixed(2))));
     tr.appendChild(node);
     node = document.createElement("td");
     node.appendChild(document.createTextNode(""));
@@ -207,7 +214,7 @@ function createDayMealsTab2(day){
     tabMeals.appendChild(tfoot);
     return tabMeals;
 }
-function createDayExerciseTab2(day){
+function createDayExerciseTable(day){
     var manager = null;
     if(day){
         manager = day.exercisesManager;
@@ -311,23 +318,25 @@ function fillEditMeal(id){
     toolbarButton.onclick = function(){
         var form = document.getElementById("editMealForm");
         var saveMeal = null;
-        //TODO validate
+        if(!validateForm(form,"meal")){
+            return;
+        }
         if(ids[0]=="LM"){
             saveMeal = globalDaysManager.getDayByDate(new Date(ids[1])).mealsManager.getMealByID(ids[2]);
             saveMeal.name = form[0].value;
-            saveMeal.protein = parseInt(form[1].value, 10);
-            saveMeal.carbohydrate = parseInt(form[2].value, 10);
-            saveMeal.fat = parseInt(form[3].value, 10);
-            saveMeal.kcal = parseInt(form[4].value, 10);
+            saveMeal.protein = parseFloat(form[1].value).toFixed(2);
+            saveMeal.carbohydrate = parseFloat(form[2].value).toFixed(2);
+            saveMeal.fat = parseFloat(form[3].value).toFixed(2);
+            saveMeal.kcal = parseFloat(form[4].value).toFixed(2);
             saveMeal.method = form[5].value;
             globalDaysManager.updateMealInDay(new Date(ids[1]),saveMeal);
         }else{
             saveMeal = globalMealsManager.getMealByID(ids[1]);
             saveMeal.name = form[0].value;
-            saveMeal.protein = parseInt(form[1].value, 10);
-            saveMeal.carbohydrate = parseInt(form[2].value, 10);
-            saveMeal.fat = parseInt(form[3].value, 10);
-            saveMeal.kcal = parseInt(form[4].value, 10);
+            saveMeal.protein = parseFloat(form[1].value).toFixed(2);
+            saveMeal.carbohydrate = parseFloat(form[2].value).toFixed(2);
+            saveMeal.fat = parseFloat(form[3].value).toFixed(2);
+            saveMeal.kcal = parseFloat(form[4].value).toFixed(2);
             saveMeal.method = form[5].value;
             globalMealsManager.updateMeal(saveMeal);
         }
@@ -381,16 +390,18 @@ function fillEditExercise(id){
     toolbarButton.onclick = function(){
         var form = document.getElementById("editExerciseForm");
         var saveExercise = null;
-        //TODO validate
+        if(!validateForm(form,"exercise")){
+            return;
+        }
         if(ids[0]=="LE"){
             saveExercise = globalDaysManager.getDayByDate(new Date(ids[1])).exercisesManager.getExerciseByID(ids[2]);
             saveExercise.name = form[0].value;
-            saveExercise.kcal = parseInt(form[1].value, 10);
+            saveExercise.kcal = parseFloat(form[1].value).toFixed(2);
             globalDaysManager.updateExerciseInDay(new Date(ids[1]),saveExercise);
         }else{
             saveExercise = globalExercisesManager.getExerciseByID(ids[1]);
             saveExercise.name = form[0].value;
-            saveExercise.kcal = parseInt(form[1].value, 10);
+            saveExercise.kcal = parseFloat(form[1].value).toFixed(2);
             globalExercisesManager.updateExercise(saveExercise);
         }
         saveLocal();
@@ -405,4 +416,75 @@ function fillEditExercise(id){
         }
         revealPage(previousPages.pop());
     };
+}
+function validateForm(form,type){
+
+    var isOnlyNumber = function(str){ //test if value from form is only number
+        return (/^[0-9.]*$/).test(str) ;
+    };
+
+    var containsComma = function(str){ //test if value from form contains comma in the decimal number
+        return str.indexOf(',') !== -1;
+
+    };
+
+    if(form[0].value==null||form[0].value==""){
+        alert("Name must be filled!");
+        return false;
+    }
+    if(form[0].value.length>20){
+        alert("Name must have less as 20 characters!");
+        return false;
+    }
+    if(type=="meal"){
+        if((form[1].value==null||form[1].value==""||form[1].value==0)&&
+            (form[2].value==null||form[2].value==""||form[2].value==0)&&
+            (form[3].value==null||form[3].value==""||form[3].value==0)&&
+            (form[4].value==null||form[4].value==""||form[4].value==0)
+        ){
+            alert("At least one item of protein, carbohydrate, fat, kcal must be filled!");
+            return false;
+        }
+        if(containsComma(form[1].value) || containsComma(form[2].value) || containsComma(form[3].value) || containsComma(form[4].value)){
+            alert("Please use a period instead of comma in the decimal numbers!");
+            return false;
+        }
+        if(!isOnlyNumber(form[1].value)){
+            alert("Protein must contains only numbers!");
+            return false;
+        }
+        if(!isOnlyNumber(form[2].value)){
+            alert("Carbohydrate must contains only numbers!");
+            return false;
+        }
+        if(!isOnlyNumber(form[3].value)){
+            alert("Fat must contains only numbers!");
+            return false;
+        }
+        if(!isOnlyNumber(form[4].value)){
+            alert("Kcal must contains only numbers!");
+            return false;
+        }
+        if(form[5].value==null||form[5].value==""){
+            alert("Method must be chosen!");
+            return false;
+        }
+    }else if(type=="exercise"){
+        if(form[1].value==null||form[1].value==""){
+            alert("Kcal must be filled!");
+            return false;
+        }
+        if(containsComma(form[1].value )){
+            alert("Please use a period instead of comma in the decimal numbers!");
+            return false;
+        }
+        if(!isOnlyNumber(form[1].value)){
+            alert("Name must contains only numbers!");
+            return false;
+        }
+    }else{
+        console.error("form with type "+type+" is not supported");
+        return false;
+    }
+    return true;
 }

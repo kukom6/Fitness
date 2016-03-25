@@ -48,14 +48,8 @@ table.dayTable tbody tr:nth-child(even) {
     background: WhiteSmoke;
 }
 
-table.dayTable tbody tr td:nth-child(2) {
+table.dayTable tbody tr td {
     text-align:center;
-}
-
-table.dayTable tbody tr td:nth-child(3),
-table.dayTable tbody tr td:nth-child(4) {
-    text-align: right;
-    font-family: monospace;
 }
 
 table.dayTable tfoot {
