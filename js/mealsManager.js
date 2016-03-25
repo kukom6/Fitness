@@ -276,15 +276,4 @@ function MealsManager(){
             return meal2.kcal - meal1.kcal;
         });
     };
-    this.sortByMethodFromA = function(){
-        meals.sort(function(meal1, meal2) {
-            return meal1.method.localeCompare(meal2.method);
-        });
-    };
-    this.sortByMethodFromZ = function(){
-        meals.sort(function(meal1, meal2) {
-            return meal2.method.localeCompare(meal1.method);
-
-        });
-    };
 }

@@ -13,6 +13,7 @@ window.addEventListener(
    }
 );
 var previousPages =[];
+var commonSort = "asc";
 //previousPages.push("homePage"); //first start
 
 function savePreviousPage(){
@@ -41,12 +42,11 @@ function revealPageSave(id){
     savePreviousPage();
     revealPage(id);
 }
-
 function showGlobalMeals(){
-    document.getElementById("mealsBoard").appendChild(createDayMealsTable());
+    document.getElementById("mealsBoard").appendChild(createDayMealsTable("sort"));
 }
 function showGlobalExercises(){
-    document.getElementById("exercisesBoard").appendChild(createDayExerciseTable());
+    document.getElementById("exercisesBoard").appendChild(createDayExerciseTable("sort"));
 }
 function showGlobalDays(){
     var manager = globalDaysManager.getAllDays();
@@ -117,10 +117,14 @@ function deleteShow(name){
     }
 }
 function createDayMealsTable(day){
+    var sort = false;
+    if(day=="sort"){ //TODO right ?
+        sort = true;
+        day = false;
+    }
     var manager = null;
     if(day){
         manager = day.mealsManager;
-
     }else{
         manager = globalMealsManager
     }
@@ -137,18 +141,93 @@ function createDayMealsTable(day){
     var tr = document.createElement("tr");
     var node = document.createElement("th");
     node.appendChild(document.createTextNode("Name"));
+    if(sort){
+        node.onclick = function(){
+            if(commonSort=="asc"){
+                globalMealsManager.sortByNameFromA();
+                commonSort = "desc";
+                deleteShow("mealsBoard");
+                showGlobalMeals();
+            }else{
+                globalMealsManager.sortByNameFromZ();
+                commonSort = "asc";
+                deleteShow("mealsBoard");
+                showGlobalMeals();
+            }
+        }
+    }
     tr.appendChild(node);
     node = document.createElement("th");
     node.appendChild(document.createTextNode("P"));
+    if(sort){
+        node.onclick = function(){
+            if(commonSort=="asc"){
+                globalMealsManager.sortByProteinAscending();
+                commonSort = "desc";
+                deleteShow("mealsBoard");
+                showGlobalMeals();
+            }else{
+                globalMealsManager.sortByProteinDescending();
+                commonSort = "asc";
+                deleteShow("mealsBoard");
+                showGlobalMeals();
+            }
+        }
+    }
     tr.appendChild(node);
     node = document.createElement("th");
     node.appendChild(document.createTextNode("C"));
+    if(sort){
+        node.onclick = function(){
+            if(commonSort=="asc"){
+                globalMealsManager.sortByCarbohydrateAscending();
+                commonSort = "desc";
+                deleteShow("mealsBoard");
+                showGlobalMeals();
+            }else{
+                globalMealsManager.sortByCarbohydrateDescending();
+                commonSort = "asc";
+                deleteShow("mealsBoard");
+                showGlobalMeals();
+            }
+        }
+    }
     tr.appendChild(node);
     node = document.createElement("th");
     node.appendChild(document.createTextNode("F"));
+    if(sort){
+        node.onclick = function(){
+            if(commonSort=="asc"){
+                globalMealsManager.sortByFatAscending();
+                commonSort = "desc";
+                deleteShow("mealsBoard");
+                showGlobalMeals();
+            }else{
+                globalMealsManager.sortByFatDescending();
+                commonSort = "asc";
+                deleteShow("mealsBoard");
+                showGlobalMeals();
+            }
+        }
+    }
     tr.appendChild(node);
     node = document.createElement("th");
     node.appendChild(document.createTextNode("Kcal"));
+    if(sort){
+        node.onclick = function(){
+            if(commonSort=="asc"){
+                globalMealsManager.sortByKcalAscending();
+                commonSort = "desc";
+                deleteShow("mealsBoard");
+                showGlobalMeals();
+            }else{
+                globalMealsManager.sortByKcalDescending();
+                commonSort = "asc";
+                deleteShow("mealsBoard");
+                showGlobalMeals();
+            }
+        }
+    }
     tr.appendChild(node);
     node = document.createElement("th");
     node.appendChild(document.createTextNode("Met"));
@@ -215,6 +294,11 @@ function createDayMealsTable(day){
     return tabMeals;
 }
 function createDayExerciseTable(day){
+    var sort = false;
+    if(day=="sort"){ //TODO right ?
+        sort = true;
+        day = false;
+    }
     var manager = null;
     if(day){
         manager = day.exercisesManager;
@@ -235,9 +319,39 @@ function createDayExerciseTable(day){
     var tr = document.createElement("tr");
     var node = document.createElement("th");
     node.appendChild(document.createTextNode("Name"));
+    if(sort){
+        node.onclick = function(){
+            if(commonSort=="asc"){
+                globalExercisesManager.sortByNameFromA();
+                commonSort = "desc";
+                deleteShow("exercisesBoard");
+                showGlobalExercises();
+            }else{
+                globalExercisesManager.sortByNameFromZ();
+                commonSort = "asc";
+                deleteShow("exercisesBoard");
+                showGlobalExercises();
+            }
+        }
+    }
     tr.appendChild(node);
     node = document.createElement("th");
     node.appendChild(document.createTextNode("Kcal"));
+    if(sort){
+        node.onclick = function(){
+            if(commonSort=="asc"){
+                globalExercisesManager.sortByKcalAscending();
+                commonSort = "desc";
+                deleteShow("exercisesBoard");
+                showGlobalExercises();
+            }else{
+                globalExercisesManager.sortByKcalDescending();
+                commonSort = "asc";
+                deleteShow("exercisesBoard");
+                showGlobalExercises();
+            }
+        }
+    }
     tr.appendChild(node);
     thead.appendChild(tr);
     tabExercises.appendChild(thead);

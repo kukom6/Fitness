@@ -163,11 +163,13 @@ function ExercisesManager(){
     this.sortByNameFromA = function(){
         exercises.sort(function(exercise1, exercise2) {
             return exercise1.name.localeCompare(exercise2.name);
+
         });
     };
     this.sortByNameFromZ = function(){
         exercises.sort(function(exercise1, exercise2) {
             return exercise2.name.localeCompare(exercise1.name);
+
         });
     };
     this.sortByKcalDescending = function(){
