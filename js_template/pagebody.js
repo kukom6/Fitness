@@ -71,6 +71,14 @@ function showDay(dayDate){
 function showTempDay(dayDate){
     document.getElementById("homeDayBoard").appendChild(createDayTable(dayDate)); //TODO delete, test day on homepage
 }
+function showAddMealsBoard(date){
+    document.getElementById("addFromMealsBoard").appendChild(createGlobalMealsTable(date));
+
+}
+function showAddExercisesBoard(date){
+    document.getElementById("addFromExercisesBoard").appendChild(createGlobalExercisesTable(date));
+
+}
 function deleteShow(name){
     var table = document.getElementById(name);
     if(table==null){
@@ -140,7 +148,6 @@ function fillEditMeal(id) {
             saveMeal.carbohydrate = parseFloat(form[2].value).toFixed(2);
             saveMeal.fat = parseFloat(form[3].value).toFixed(2);
             saveMeal.kcal = parseFloat(form[4].value).toFixed(2);
-            saveMeal.method = form[5].value;
             saveMeal.partOfDay = form[6].value;
             globalDaysManager.updateMealInDay(new Date(ids[1]),saveMeal);
         }else{
@@ -150,6 +157,7 @@ function fillEditMeal(id) {
             saveMeal.carbohydrate = parseFloat(form[2].value).toFixed(2);
             saveMeal.fat = parseFloat(form[3].value).toFixed(2);
             saveMeal.kcal = parseFloat(form[4].value).toFixed(2);
+            saveMeal.method = form[5].value;
             saveMeal.partOfDay = form[6].value;
             globalMealsManager.updateMeal(saveMeal);
         }
@@ -229,6 +237,16 @@ function fillEditExercise(id){
         }
         revealPage(previousPages.pop());
     };
+}
+function fillAddMeal(id,date){
+    revealPageSave("addMealPage");
+    var ids = id.split("#");
+    console.log("ADD ID: "+ids[1]+ " DATE: " + date);
+}
+function fillAddExercise(id,date){
+    revealPageSave("addExercisePage");
+    var ids = id.split("#");
+    console.log("ADD ID: "+ids[1]+ " DATE: " + date);
 }
 function validateForm(form,type){
 

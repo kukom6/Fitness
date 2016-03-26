@@ -34,6 +34,16 @@ function createDayTable(inDate){
     };
     deleteB.appendChild(document.createTextNode("Delete day"+date));
     tabDay.appendChild(deleteB);
+    var addB = document.getElementById("addMealButton");
+    addB.setAttribute("date",date);
+    addB.onclick = function() {
+        showAddMealsBoard(this.getAttribute("date"));
+    };
+    addB = document.getElementById("addExerciseButton");
+    addB.setAttribute("date",date);
+    addB.onclick = function() {
+       showAddExercisesBoard(this.getAttribute("date"));
+    };
     return tabDay;
 }
 function createDayMealsTable(day){
@@ -266,7 +276,7 @@ function createDayMealsTable(day){
     tabMeals.appendChild(tfoot);
     return tabMeals;
 }
-function createGlobalMealsTable(){
+function createGlobalMealsTable(date){
     var manager = globalMealsManager;
     var array = manager.getAllMeals();
     var tabMeals = document.createElement("table"); //create meals table
@@ -369,9 +379,16 @@ function createGlobalMealsTable(){
     for(var j=0;j<array.length;j++){  //show all meals in the day
         tr = document.createElement("tr");
         tr.setAttribute("idMeal","GM#"+array[j].id);
-        tr.onclick = function(){
-            fillEditMeal(this.getAttribute("idMeal"));
-        };
+        if(date){
+            tr.setAttribute("dateMeal",date);
+            tr.onclick = function(){
+                fillAddMeal(this.getAttribute("idMeal"),this.getAttribute("dateMeal"));
+            };
+        }else{
+            tr.onclick = function(){
+                fillEditMeal(this.getAttribute("idMeal"));
+            };
+        }
         node = document.createElement("td");
         node.appendChild(document.createTextNode(array[j].name));
         tr.appendChild(node);
@@ -475,7 +492,7 @@ function createDayExerciseTable(day){
     tabExercises.appendChild(tfoot);
     return tabExercises;
 }
-function createGlobalExercisesTable(){
+function createGlobalExercisesTable(date){
     var manager = globalExercisesManager;
     var array = manager.getAllExercises();
     var tabExercises = document.createElement("table"); //create exercises table
@@ -527,9 +544,16 @@ function createGlobalExercisesTable(){
     for(var j=0;j<array.length;j++){ //show all exercises in the day
         tr = document.createElement("tr");
         tr.setAttribute("idExercise","GE#"+array[j].id);
-        tr.onclick = function(){
-            fillEditExercise(this.getAttribute("idExercise"));
-        };
+        if(date){
+            tr.setAttribute("dateExercise",date);
+            tr.onclick = function(){
+                fillAddExercise(this.getAttribute("idExercise"),this.getAttribute("dateExercise"));
+            };
+        }else{
+            tr.onclick = function(){
+                fillEditExercise(this.getAttribute("idExercise"));
+            };
+        }
         node = document.createElement("td");
         node.appendChild(document.createTextNode(array[j].name));
         tr.appendChild(node);
