@@ -37,12 +37,14 @@ function createDayTable(inDate){
     var addB = document.getElementById("addMealButton");
     addB.setAttribute("date",date);
     addB.onclick = function() {
+        deleteShow("addFromMealsBoard");
         showAddMealsBoard(this.getAttribute("date"));
     };
     addB = document.getElementById("addExerciseButton");
     addB.setAttribute("date",date);
     addB.onclick = function() {
-       showAddExercisesBoard(this.getAttribute("date"));
+        deleteShow("addFromExercisesBoard");
+        showAddExercisesBoard(this.getAttribute("date"));
     };
     return tabDay;
 }
@@ -382,7 +384,7 @@ function createGlobalMealsTable(date){
         if(date){
             tr.setAttribute("dateMeal",date);
             tr.onclick = function(){
-                fillAddMeal(this.getAttribute("idMeal"),this.getAttribute("dateMeal"));
+                fillAddMeal(this.getAttribute("dateMeal"),this.getAttribute("idMeal"));
             };
         }else{
             tr.onclick = function(){
@@ -547,7 +549,7 @@ function createGlobalExercisesTable(date){
         if(date){
             tr.setAttribute("dateExercise",date);
             tr.onclick = function(){
-                fillAddExercise(this.getAttribute("idExercise"),this.getAttribute("dateExercise"));
+                fillAddExercise(this.getAttribute("dateExercise"),this.getAttribute("idExercise"));
             };
         }else{
             tr.onclick = function(){

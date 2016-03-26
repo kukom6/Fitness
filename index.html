@@ -197,7 +197,7 @@
             </form>
          </div>
       </div>
-      <div id="pageMealsToAdd" class="pagebody" aria-owns="tbAddMeal">
+      <div id="pageMealsToAdd" class="pagebody" aria-owns="addNewMeal">
          <!-- An autarchic page -->
          <header>
             <button class="icon back" onclick="revealPage(previousPages.pop());"></button>
@@ -209,7 +209,7 @@
             </div>
          </div>
       </div>
-      <div id="pageExercisesToAdd" class="pagebody" aria-owns="tbAddExercise">
+      <div id="pageExercisesToAdd" class="pagebody" aria-owns="addNewExercise">
          <!-- An autarchic page -->
          <header>
             <button class="icon back" onclick="revealPage(previousPages.pop());"></button>
@@ -266,6 +266,12 @@
          </menu>
          <menu id="saveToolbar" type="toolbar">
             <li id="saveButton" class="icon add" ></li>
+         </menu>
+         <menu id="addNewMeal" type="toolbar">
+            <li id="addNewMealButton" class="icon add" > Add new meal</li>
+         </menu>
+         <menu id="addNewExercise" type="toolbar">
+            <li id="addNewExerciseButton" class="icon add" > Add new exercise</li>
          </menu>
          <menu id="backupRestore" type="toolbar">
             <li class="icon mail_reply" onclick="document.getElementById('upJsonFile').click();">
