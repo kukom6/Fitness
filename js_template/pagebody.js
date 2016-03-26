@@ -15,7 +15,6 @@ window.addEventListener(
 var previousPages =[];
 var commonSort = "asc";
 //previousPages.push("homePage"); //first start
-
 function savePreviousPage(){
     var activePage=document.querySelector(".principal > div.pagebody[aria-expanded=true]");
     previousPages.push(activePage.getAttribute("id"));
@@ -81,26 +80,30 @@ function deleteShow(name){
         table.removeChild(table.firstChild);
     }
 }
-function fillEditMeal(id){
+function fillEditMeal(id) {
     revealPageSave("editMealPage");
     var ids = id.split("#");
     var form = document.getElementById("editMealForm");
     var meal = null;
-    if(ids[0]=="LM"){
+    if (ids[0] == "LM") {
         meal = globalDaysManager.getDayByDate(new Date(ids[1])).mealsManager.getMealByID(ids[2]);
-    }else if(ids[0]=="GM"){
+    } else if (ids[0] == "GM") {
         meal = globalMealsManager.getMealByID(ids[1]);
     }
-    form[0].value=meal.name;
-    form[1].value=meal.protein;
-    form[2].value=meal.carbohydrate;
-    form[3].value=meal.fat;
-    form[4].value=meal.kcal;
-    if(meal.method=="one piece"||meal.method=="100g"){
-        form[5].value=meal.method;
+    form[0].value = meal.name;
+    form[1].value = meal.protein;
+    form[2].value = meal.carbohydrate;
+    form[3].value = meal.fat;
+    form[4].value = meal.kcal;
+    if (meal.method == "one piece" || meal.method == "100g") {
+        form[5].value = meal.method;
     }
-    if(meal.partOfDay=="breakfast"||meal.partOfDay=="lunch"||meal.partOfDay=="dinner"||meal.partOfDay=="snack"){
-        form[6].value=meal.partOfDay;
+    if (ids[0] == "LM") {
+        if (meal.partOfDay == "breakfast" || meal.partOfDay == "lunch" || meal.partOfDay == "dinner" || meal.partOfDay == "snack") {
+            form[6].value = meal.partOfDay;
+        }
+    }else{
+        form[6].disabled = true;
     }
     var toolbarButton = document.getElementById("deleteIconEdit");
     toolbarButton.onclick = function(){

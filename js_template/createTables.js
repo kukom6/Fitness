@@ -3,20 +3,18 @@
  */
 function createDayTable(inDate){
     var dayDate;
-    try{ //if date is string or date object
-        dayDate.toLocaleString();
+    if(inDate instanceof Date){
         dayDate=inDate;
-    }catch(ex){
+    }else{
         dayDate=new Date(inDate);
     }
     var currentDate = globalDaysManager.getDayByDate(dayDate);
     var tabDay = document.createElement("table"); //create day table
-    tabDay.style.border = "thin dotted red";
     tabDay.style.width = "100%";
     tabDay.id = currentDate.date;
     var caption = document.createElement("caption");
     var date = currentDate.date.toDateString();
-    caption.appendChild(document.createTextNode("Day: "+date));
+    caption.appendChild(document.createTextNode(date));
     caption.style.fontWeight = "bold";
     tabDay.appendChild(caption);
     tabDay.appendChild(createDayMealsTable(currentDate));
@@ -30,7 +28,9 @@ function createDayTable(inDate){
         var date=this.id;
         globalDaysManager.deleteDayByDate(new Date(date));
         deleteShow("dayBoard");
-        showDay(new Date(date));
+        deleteShow("daysBoard");
+        showGlobalDays();
+        revealPage(previousPages.pop());
     };
     deleteB.appendChild(document.createTextNode("Delete day"+date));
     tabDay.appendChild(deleteB);
@@ -43,7 +43,6 @@ function createDayMealsTable(day){
     }else{
         return;
     }
-    var array = manager.getAllMeals();
     var tabMeals = document.createElement("table"); //create meals table
     tabMeals.style.width = "100%";
     tabMeals.className = "dayTable" ;
@@ -79,9 +78,19 @@ function createDayMealsTable(day){
     tabMeals.appendChild(thead);
 
     var tbody = document.createElement("tbody");
-    for(var j=0;j<array.length;j++){  //show all meals in the day
+
+    var array = manager.getMealsInBreakfast(); //show all meals in the breakfast
+    tr = document.createElement("tr");
+    node = document.createElement("td");
+    node.appendChild(document.createTextNode("Breakfast"));
+    node.setAttribute("colspan","7");
+    node.style.textAlign = "center";
+    node.style.backgroundColor = "gainsboro";
+    tr.appendChild(node);
+    tbody.appendChild(tr);
+    for(var j=0;j<array.length;j++){
         tr = document.createElement("tr");
-        tr.setAttribute("idMeal","GM#"+array[j].id);
+        tr.setAttribute("idMeal","LM#"+day.date+"#"+array[j].id);
         tr.onclick = function(){
             fillEditMeal(this.getAttribute("idMeal"));
         };
@@ -108,6 +117,124 @@ function createDayMealsTable(day){
         tr.appendChild(node);
         tbody.appendChild(tr);
     }
+
+    array = manager.getMealsInLunch(); //show all meals in the dinner
+    tr = document.createElement("tr");
+    node = document.createElement("td");
+    node.appendChild(document.createTextNode("Lunch"));
+    node.setAttribute("colspan","7");
+    node.style.textAlign = "center";
+    node.style.backgroundColor = "gainsboro";
+    tr.appendChild(node);
+    tbody.appendChild(tr);
+    for(j=0;j<array.length;j++){
+        tr = document.createElement("tr");
+        tr.setAttribute("idMeal","LM#"+day.date+"#"+array[j].id);
+        tr.onclick = function(){
+            fillEditMeal(this.getAttribute("idMeal"));
+        };
+        node = document.createElement("td");
+        node.appendChild(document.createTextNode(array[j].name));
+        tr.appendChild(node);
+        node = document.createElement("td");
+        node.appendChild(document.createTextNode(array[j].protein));
+        tr.appendChild(node);
+        node = document.createElement("td");
+        node.appendChild(document.createTextNode(array[j].carbohydrate));
+        tr.appendChild(node);
+        node = document.createElement("td");
+        node.appendChild(document.createTextNode(array[j].fat));
+        tr.appendChild(node);
+        node = document.createElement("td");
+        node.appendChild(document.createTextNode(array[j].kcal));
+        tr.appendChild(node);
+        node = document.createElement("td");
+        node.appendChild(document.createTextNode(array[j].method));
+        tr.appendChild(node);
+        node = document.createElement("td"); //TEMP part of day
+        node.appendChild(document.createTextNode(array[j].partOfDay));
+        tr.appendChild(node);
+        tbody.appendChild(tr);
+    }
+
+    array = manager.getMealsInDinner(); //show all meals in the dinner
+    tr = document.createElement("tr");
+    node = document.createElement("td");
+    node.appendChild(document.createTextNode("Dinner"));
+    node.setAttribute("colspan","7");
+    node.style.textAlign = "center";
+    node.style.backgroundColor = "gainsboro";
+    tr.appendChild(node);
+    tbody.appendChild(tr);
+    for(j=0;j<array.length;j++){
+        tr = document.createElement("tr");
+        tr.setAttribute("idMeal","LM#"+day.date+"#"+array[j].id);
+        tr.onclick = function(){
+            fillEditMeal(this.getAttribute("idMeal"));
+        };
+        node = document.createElement("td");
+        node.appendChild(document.createTextNode(array[j].name));
+        tr.appendChild(node);
+        node = document.createElement("td");
+        node.appendChild(document.createTextNode(array[j].protein));
+        tr.appendChild(node);
+        node = document.createElement("td");
+        node.appendChild(document.createTextNode(array[j].carbohydrate));
+        tr.appendChild(node);
+        node = document.createElement("td");
+        node.appendChild(document.createTextNode(array[j].fat));
+        tr.appendChild(node);
+        node = document.createElement("td");
+        node.appendChild(document.createTextNode(array[j].kcal));
+        tr.appendChild(node);
+        node = document.createElement("td");
+        node.appendChild(document.createTextNode(array[j].method));
+        tr.appendChild(node);
+        node = document.createElement("td"); //TEMP part of day
+        node.appendChild(document.createTextNode(array[j].partOfDay));
+        tr.appendChild(node);
+        tbody.appendChild(tr);
+    }
+
+    array = manager.getMealsInSnack(); //show all meals in the snack
+    tr = document.createElement("tr");
+    node = document.createElement("td");
+    node.appendChild(document.createTextNode("Snack"));
+    node.setAttribute("colspan","7");
+    node.style.textAlign = "center";
+    node.style.backgroundColor = "gainsboro";
+    tr.appendChild(node);
+    tbody.appendChild(tr);
+    for(j=0;j<array.length;j++){
+        tr = document.createElement("tr");
+        tr.setAttribute("idMeal","LM#"+day.date+"#"+array[j].id);
+        tr.onclick = function(){
+            fillEditMeal(this.getAttribute("idMeal"));
+        };
+        node = document.createElement("td");
+        node.appendChild(document.createTextNode(array[j].name));
+        tr.appendChild(node);
+        node = document.createElement("td");
+        node.appendChild(document.createTextNode(array[j].protein));
+        tr.appendChild(node);
+        node = document.createElement("td");
+        node.appendChild(document.createTextNode(array[j].carbohydrate));
+        tr.appendChild(node);
+        node = document.createElement("td");
+        node.appendChild(document.createTextNode(array[j].fat));
+        tr.appendChild(node);
+        node = document.createElement("td");
+        node.appendChild(document.createTextNode(array[j].kcal));
+        tr.appendChild(node);
+        node = document.createElement("td");
+        node.appendChild(document.createTextNode(array[j].method));
+        tr.appendChild(node);
+        node = document.createElement("td"); //TEMP part of day
+        node.appendChild(document.createTextNode(array[j].partOfDay));
+        tr.appendChild(node);
+        tbody.appendChild(tr);
+    }
+
     tabMeals.appendChild(tbody);
 
     var tfoot = document.createElement("tfoot");
@@ -235,9 +362,6 @@ function createGlobalMealsTable(){
     node = document.createElement("th");
     node.appendChild(document.createTextNode("Met"));
     tr.appendChild(node);
-    node = document.createElement("th"); //TEMP part of day
-    node.appendChild(document.createTextNode("Part"));
-    tr.appendChild(node);
     thead.appendChild(tr);
     tabMeals.appendChild(thead);
 
@@ -266,9 +390,6 @@ function createGlobalMealsTable(){
         node = document.createElement("td");
         node.appendChild(document.createTextNode(array[j].method));
         tr.appendChild(node);
-        node = document.createElement("td"); //TEMP part of day
-        node.appendChild(document.createTextNode(array[j].partOfDay));
-        tr.appendChild(node);
         tbody.appendChild(tr);
     }
     tabMeals.appendChild(tbody);
@@ -291,10 +412,6 @@ function createGlobalMealsTable(){
     node.appendChild(document.createTextNode(String(manager.sumKcal().toFixed(2))));
     tr.appendChild(node);
     node = document.createElement("td");
-    node.appendChild(document.createTextNode(""));
-    node.align = "middle";
-    tr.appendChild(node);
-    node = document.createElement("td"); //TEMP part of day
     node.appendChild(document.createTextNode(""));
     node.align = "middle";
     tr.appendChild(node);
@@ -401,7 +518,7 @@ function createGlobalExercisesTable(){
             deleteShow("exercisesBoard");
             showGlobalExercises();
         }
-    }
+    };
     tr.appendChild(node);
     thead.appendChild(tr);
     tabExercises.appendChild(thead);

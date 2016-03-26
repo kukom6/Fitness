@@ -27,7 +27,7 @@ function generatedData(){
             }
         }
         day = new Day(date);
-        random = Math.floor((Math.random() * 13) + 1);
+        random = Math.floor((Math.random() * 30) + 1);
         var randomPart = null;
         var tempDay;
         for(var j=0;j<random;j++){ //meals
