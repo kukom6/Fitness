@@ -195,16 +195,16 @@ function MealsManager(){
      * @param meal
      */
     this.addMissingValue = function(meal){
-        if(meal.protein==null||meal.protein==""){
+        if(meal.protein==null||meal.protein==""||meal.protein=="NaN"){
             meal.protein=0;
         }
-        if(meal.carbohydrate==null||meal.carbohydrate==""){
+        if(meal.carbohydrate==null||meal.carbohydrate==""||meal.carbohydrate=="NaN"){
             meal.carbohydrate=0;
         }
-        if(meal.fat==null||meal.fat==""){
+        if(meal.fat==null||meal.fat==""||meal.fat=="NaN"){
             meal.fat=0;
         }
-        if(meal.kcal==null||meal.kcal==""){
+        if(meal.kcal==null||meal.kcal==""||meal.kcal=="NaN"){
             meal.kcal= meal.protein*4 + meal.carbohydrate*4 + meal.fat*9;
         }
     };
