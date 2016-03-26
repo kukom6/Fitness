@@ -36,6 +36,42 @@ function MealsManager(){
         console.log("getAllMeals");
         return meals; //TODO unsafe !!
     };
+    this.getMealsInBreakfast = function(){
+        var returnMeals = [];
+        for(var i=0;i<meals.length;i++){
+            if(meals[i].partOfDay=="breakfast"){
+                returnMeals.push(meals[i]);
+            }
+        }
+        return returnMeals;
+    };
+    this.getMealsInDinner = function(){
+        var returnMeals = [];
+        for(var i=0;i<meals.length;i++){
+            if(meals[i].partOfDay=="dinner"){
+                returnMeals.push(meals[i]);
+            }
+        }
+        return returnMeals;
+    };
+    this.getMealsInLunch = function(){
+        var returnMeals = [];
+        for(var i=0;i<meals.length;i++){
+            if(meals[i].partOfDay=="lunch"){
+                returnMeals.push(meals[i]);
+            }
+        }        
+        return returnMeals;
+    };
+    this.getMealsInSnack = function(){
+        var returnMeals = [];
+        for(var i=0;i<meals.length;i++){
+            if(meals[i].partOfDay=="snack"){
+                returnMeals.push(meals[i]);
+            }
+        }
+        return returnMeals;
+    };
     /**
      * add meal to the db (create new meal object)
      * @param meal
