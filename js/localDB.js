@@ -160,7 +160,8 @@ function parseJSONtoLocal(tempArr){
                 dayManagers["dayMeals"][j].carbohydrate,
                 dayManagers["dayMeals"][j].fat,
                 dayManagers["dayMeals"][j].kcal,
-                dayManagers["dayMeals"][j].method
+                dayManagers["dayMeals"][j].method,
+                dayManagers["dayMeals"][j].partOfDay
             ));
         }
         for(j=0;j<dayManagers['dayExercises'].length;j++){ //add all exercises to day

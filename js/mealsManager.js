@@ -23,7 +23,7 @@ function MealsManager(){
         }
         var originalMeal = meals[result];
         console.log("Meal : \n" + originalMeal + "\n was been gotten from DB");
-        var returnMeal = new Meal(originalMeal.name,originalMeal.protein,originalMeal.carbohydrate,originalMeal.fat,originalMeal.kcal,originalMeal.method);
+        var returnMeal = new Meal(originalMeal.name,originalMeal.protein,originalMeal.carbohydrate,originalMeal.fat,originalMeal.kcal,originalMeal.method,originalMeal.partOfDay);
         returnMeal.id = id;
         return returnMeal;
  //       return meals[result]; //unsafe ?? !!
@@ -46,7 +46,7 @@ function MealsManager(){
             throw "invalid argument exception";
         }
         this.addMissingValue(meal);
-        var pushMeal = new Meal(meal.name,meal.protein,meal.carbohydrate,meal.fat,meal.kcal,meal.method); //safe ?
+        var pushMeal = new Meal(meal.name,meal.protein,meal.carbohydrate,meal.fat,meal.kcal,meal.method,meal.partOfDay); //safe ?
         pushMeal.id=this.nextMealId();
         meals.push(pushMeal);
         saveLocal();
@@ -73,6 +73,7 @@ function MealsManager(){
         meals[result].fat=meal.fat;
         meals[result].kcal=meal.kcal;
         meals[result].method=meal.method;
+        meals[result].partOfDay=meal.partOfDay;
         saveLocal();
         console.log("Meal : \n" + meal + "\n was been updated DB");
     };

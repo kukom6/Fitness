@@ -232,6 +232,9 @@ function createDayMealsTable(day){
     node = document.createElement("th");
     node.appendChild(document.createTextNode("Met"));
     tr.appendChild(node);
+    node = document.createElement("th"); //TEMP part of day 
+    node.appendChild(document.createTextNode("Part"));
+    tr.appendChild(node);
     thead.appendChild(tr);
     tabMeals.appendChild(thead);
 
@@ -264,6 +267,9 @@ function createDayMealsTable(day){
         node = document.createElement("td");
         node.appendChild(document.createTextNode(array[j].method));
         tr.appendChild(node);
+        node = document.createElement("td"); //TEMP part of day
+        node.appendChild(document.createTextNode(array[j].partOfDay));
+        tr.appendChild(node);
         tbody.appendChild(tr);
     }
     tabMeals.appendChild(tbody);
@@ -286,6 +292,10 @@ function createDayMealsTable(day){
     node.appendChild(document.createTextNode(String(manager.sumKcal().toFixed(2))));
     tr.appendChild(node);
     node = document.createElement("td");
+    node.appendChild(document.createTextNode(""));
+    node.align = "middle";
+    tr.appendChild(node);
+    node = document.createElement("td"); //TEMP part of day
     node.appendChild(document.createTextNode(""));
     node.align = "middle";
     tr.appendChild(node);
@@ -407,6 +417,9 @@ function fillEditMeal(id){
     if(meal.method=="one piece"||meal.method=="100g"){
         form[5].value=meal.method;
     }
+    if(meal.partOfDay=="breakfast"||meal.partOfDay=="lunch"||meal.partOfDay=="dinner"||meal.partOfDay=="snack"){
+        form[6].value=meal.partOfDay;
+    }
     var toolbarButton = document.getElementById("deleteIconEdit");
     toolbarButton.onclick = function(){
         if (confirm("Delete meal. Are you sure ?") == false) {
@@ -443,6 +456,7 @@ function fillEditMeal(id){
             saveMeal.fat = parseFloat(form[3].value).toFixed(2);
             saveMeal.kcal = parseFloat(form[4].value).toFixed(2);
             saveMeal.method = form[5].value;
+            saveMeal.partOfDay = form[6].value;
             globalDaysManager.updateMealInDay(new Date(ids[1]),saveMeal);
         }else{
             saveMeal = globalMealsManager.getMealByID(ids[1]);
@@ -451,7 +465,7 @@ function fillEditMeal(id){
             saveMeal.carbohydrate = parseFloat(form[2].value).toFixed(2);
             saveMeal.fat = parseFloat(form[3].value).toFixed(2);
             saveMeal.kcal = parseFloat(form[4].value).toFixed(2);
-            saveMeal.method = form[5].value;
+            saveMeal.partOfDay = form[6].value;
             globalMealsManager.updateMeal(saveMeal);
         }
         saveLocal();
@@ -581,6 +595,10 @@ function validateForm(form,type){
         }
         if(form[5].value==null||form[5].value==""){
             alert("Method must be chosen!");
+            return false;
+        }
+        if(form[5].value==null||form[5].value==""){
+            alert("Part of the day must be chosen!");
             return false;
         }
     }else if(type=="exercise"){

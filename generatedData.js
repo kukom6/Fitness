@@ -1,5 +1,6 @@
 /**
  * Created by mkralik on 3/21/16.
+ * class for generated random data
  */
 function generatedData(){
     loadArrayMeals(); //meals
@@ -27,9 +28,27 @@ function generatedData(){
         }
         day = new Day(date);
         random = Math.floor((Math.random() * 13) + 1);
+        var randomPart = null;
+        var tempDay;
         for(var j=0;j<random;j++){ //meals
+            randomPart = Math.floor((Math.random() * 4) + 1);
             randomId=Math.floor((Math.random() * (globalMealsManager.nextMealId() -1)) + 1);
-            day.mealsManager.addMeal(globalMealsManager.getMealByID(randomId))
+            tempDay = globalMealsManager.getMealByID(randomId);
+            switch(randomPart) {
+                case 1:
+                    tempDay.partOfDay="dinner";
+                    break;
+                case 2:
+                    tempDay.partOfDay="lunch";
+                    break;
+                case 3:
+                    tempDay.partOfDay="breakfast";
+                    break;
+                case 4:
+                    tempDay.partOfDay="snack";
+                    break;
+            }
+            day.mealsManager.addMeal(tempDay)
         }
         random = Math.floor((Math.random() * 4) + 1);
         for(j=0;j<random;j++){ //exercises

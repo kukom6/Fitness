@@ -19,6 +19,10 @@ function DaysManager(){
             console.error("invalid date");
             throw "invalid argument exception";
         }
+        if(meal.partOfDay!="breakfast" && meal.partOfDay!="lunch" && meal.partOfDay!="dinner" && meal.partOfDay!="snack"){
+            console.error("Meal with " + id + " id does not contain part of day! Meal which not have part of day cannot add to the day.");
+            throw "invalid argument exception";
+        }
         var day=this.getDayByDate(date);
         day.mealsManager.addMeal(meal);
         console.log("Meal: "+meal+" was added to day: "+day.date.toDateString());
@@ -75,6 +79,10 @@ function DaysManager(){
         }
         if(meal==""||meal==null){
             console.error("invalid meal");
+            throw "invalid argument exception";
+        }
+        if(meal.partOfDay!="breakfast" && meal.partOfDay!="lunch" && meal.partOfDay!="dinner" && meal.partOfDay!="snack"){
+            console.error("Meal with " + id + " id does not contain part of day!");
             throw "invalid argument exception";
         }
         var day=this.getDayByDate(date);
