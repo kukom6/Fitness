@@ -1,6 +1,3 @@
-/**
- * Created by mkralik on 3/26/16.
- */
 function createDayTable(inDate){
     var dayDate;
     if(inDate instanceof Date){
@@ -44,8 +41,8 @@ function createDayTable(inDate){
         }
         var date=this.id;
         globalDaysManager.deleteDayByDate(new Date(date));
-        deleteShow("dayBoard");
-        deleteShow("daysBoard");
+        deleteShowTable("dayBoard");
+        deleteShowTable("daysBoard");
         showGlobalDays();
         revealPage(previousPages.pop());
     };
@@ -55,13 +52,13 @@ function createDayTable(inDate){
     var addB = document.getElementById("addMealButton");
     addB.setAttribute("date",date);
     addB.onclick = function() {
-        deleteShow("addFromMealsBoard");
+        deleteShowTable("addFromMealsBoard");
         showAddMealsBoard(this.getAttribute("date"));
     };
     addB = document.getElementById("addExerciseButton");
     addB.setAttribute("date",date);
     addB.onclick = function() {
-        deleteShow("addFromExercisesBoard");
+        deleteShowTable("addFromExercisesBoard");
         showAddExercisesBoard(this.getAttribute("date"));
     };
     return tabDay;
@@ -98,12 +95,6 @@ function createDayMealsTable(day){
     node = document.createElement("th");
     node.appendChild(document.createTextNode("Kcal"));
     tr.appendChild(node);
-    node = document.createElement("th");
-    node.appendChild(document.createTextNode("Met"));
-    tr.appendChild(node);
-    node = document.createElement("th"); //TEMP part of day
-    node.appendChild(document.createTextNode("Part"));
-    tr.appendChild(node);
     thead.appendChild(tr);
     tabMeals.appendChild(thead);
 
@@ -113,7 +104,7 @@ function createDayMealsTable(day){
     tr = document.createElement("tr");
     node = document.createElement("td");
     node.appendChild(document.createTextNode("Breakfast"));
-    node.setAttribute("colspan","7");
+    node.setAttribute("colspan","5");
     node.style.textAlign = "center";
     node.style.backgroundColor = "gainsboro";
     tr.appendChild(node);
@@ -139,12 +130,6 @@ function createDayMealsTable(day){
         node = document.createElement("td");
         node.appendChild(document.createTextNode(array[j].kcal));
         tr.appendChild(node);
-        node = document.createElement("td");
-        node.appendChild(document.createTextNode(array[j].method));
-        tr.appendChild(node);
-        node = document.createElement("td"); //TEMP part of day
-        node.appendChild(document.createTextNode(array[j].partOfDay));
-        tr.appendChild(node);
         tbody.appendChild(tr);
     }
 
@@ -152,7 +137,7 @@ function createDayMealsTable(day){
     tr = document.createElement("tr");
     node = document.createElement("td");
     node.appendChild(document.createTextNode("Lunch"));
-    node.setAttribute("colspan","7");
+    node.setAttribute("colspan","5");
     node.style.textAlign = "center";
     node.style.backgroundColor = "gainsboro";
     tr.appendChild(node);
@@ -177,12 +162,6 @@ function createDayMealsTable(day){
         tr.appendChild(node);
         node = document.createElement("td");
         node.appendChild(document.createTextNode(array[j].kcal));
-        tr.appendChild(node);
-        node = document.createElement("td");
-        node.appendChild(document.createTextNode(array[j].method));
-        tr.appendChild(node);
-        node = document.createElement("td"); //TEMP part of day
-        node.appendChild(document.createTextNode(array[j].partOfDay));
         tr.appendChild(node);
         tbody.appendChild(tr);
     }
@@ -191,7 +170,7 @@ function createDayMealsTable(day){
     tr = document.createElement("tr");
     node = document.createElement("td");
     node.appendChild(document.createTextNode("Dinner"));
-    node.setAttribute("colspan","7");
+    node.setAttribute("colspan","5");
     node.style.textAlign = "center";
     node.style.backgroundColor = "gainsboro";
     tr.appendChild(node);
@@ -216,12 +195,6 @@ function createDayMealsTable(day){
         tr.appendChild(node);
         node = document.createElement("td");
         node.appendChild(document.createTextNode(array[j].kcal));
-        tr.appendChild(node);
-        node = document.createElement("td");
-        node.appendChild(document.createTextNode(array[j].method));
-        tr.appendChild(node);
-        node = document.createElement("td"); //TEMP part of day
-        node.appendChild(document.createTextNode(array[j].partOfDay));
         tr.appendChild(node);
         tbody.appendChild(tr);
     }
@@ -230,7 +203,7 @@ function createDayMealsTable(day){
     tr = document.createElement("tr");
     node = document.createElement("td");
     node.appendChild(document.createTextNode("Snack"));
-    node.setAttribute("colspan","7");
+    node.setAttribute("colspan","5");
     node.style.textAlign = "center";
     node.style.backgroundColor = "gainsboro";
     tr.appendChild(node);
@@ -255,12 +228,6 @@ function createDayMealsTable(day){
         tr.appendChild(node);
         node = document.createElement("td");
         node.appendChild(document.createTextNode(array[j].kcal));
-        tr.appendChild(node);
-        node = document.createElement("td");
-        node.appendChild(document.createTextNode(array[j].method));
-        tr.appendChild(node);
-        node = document.createElement("td"); //TEMP part of day
-        node.appendChild(document.createTextNode(array[j].partOfDay));
         tr.appendChild(node);
         tbody.appendChild(tr);
     }
@@ -282,15 +249,7 @@ function createDayMealsTable(day){
     node.appendChild(document.createTextNode(manager.sumFat().toFixed(1)));
     tr.appendChild(node);
     node = document.createElement("td");
-    node.appendChild(document.createTextNode(String(manager.sumKcal().toFixed(2))));
-    tr.appendChild(node);
-    node = document.createElement("td");
-    node.appendChild(document.createTextNode(""));
-    node.align = "middle";
-    tr.appendChild(node);
-    node = document.createElement("td"); //TEMP part of day
-    node.appendChild(document.createTextNode(""));
-    node.align = "middle";
+    node.appendChild(document.createTextNode(String(manager.sumKcal().toFixed(1))));
     tr.appendChild(node);
     tfoot.appendChild(tr);
     tabMeals.appendChild(tfoot);
@@ -315,12 +274,12 @@ function createGlobalMealsTable(date){
         if(commonSort=="asc"){
             globalMealsManager.sortByNameFromA();
             commonSort = "desc";
-            deleteShow("mealsBoard");
+            deleteShowTable("mealsBoard");
             showGlobalMeals();
         }else{
             globalMealsManager.sortByNameFromZ();
             commonSort = "asc";
-            deleteShow("mealsBoard");
+            deleteShowTable("mealsBoard");
             showGlobalMeals();
         }
     };
@@ -331,12 +290,12 @@ function createGlobalMealsTable(date){
         if(commonSort=="asc"){
             globalMealsManager.sortByProteinAscending();
             commonSort = "desc";
-            deleteShow("mealsBoard");
+            deleteShowTable("mealsBoard");
             showGlobalMeals();
         }else{
             globalMealsManager.sortByProteinDescending();
             commonSort = "asc";
-            deleteShow("mealsBoard");
+            deleteShowTable("mealsBoard");
             showGlobalMeals();
         }
     };
@@ -347,12 +306,12 @@ function createGlobalMealsTable(date){
         if(commonSort=="asc"){
             globalMealsManager.sortByCarbohydrateAscending();
             commonSort = "desc";
-            deleteShow("mealsBoard");
+            deleteShowTable("mealsBoard");
             showGlobalMeals();
         }else{
             globalMealsManager.sortByCarbohydrateDescending();
             commonSort = "asc";
-            deleteShow("mealsBoard");
+            deleteShowTable("mealsBoard");
             showGlobalMeals();
         }
     };
@@ -363,12 +322,12 @@ function createGlobalMealsTable(date){
         if(commonSort=="asc"){
             globalMealsManager.sortByFatAscending();
             commonSort = "desc";
-            deleteShow("mealsBoard");
+            deleteShowTable("mealsBoard");
             showGlobalMeals();
         }else{
             globalMealsManager.sortByFatDescending();
             commonSort = "asc";
-            deleteShow("mealsBoard");
+            deleteShowTable("mealsBoard");
             showGlobalMeals();
         }
     };
@@ -379,18 +338,15 @@ function createGlobalMealsTable(date){
         if(commonSort=="asc"){
             globalMealsManager.sortByKcalAscending();
             commonSort = "desc";
-            deleteShow("mealsBoard");
+            deleteShowTable("mealsBoard");
             showGlobalMeals();
         }else{
             globalMealsManager.sortByKcalDescending();
             commonSort = "asc";
-            deleteShow("mealsBoard");
+            deleteShowTable("mealsBoard");
             showGlobalMeals();
         }
     };
-    tr.appendChild(node);
-    node = document.createElement("th");
-    node.appendChild(document.createTextNode("Met"));
     tr.appendChild(node);
     thead.appendChild(tr);
     tabMeals.appendChild(thead);
@@ -424,9 +380,6 @@ function createGlobalMealsTable(date){
         node = document.createElement("td");
         node.appendChild(document.createTextNode(array[j].kcal));
         tr.appendChild(node);
-        node = document.createElement("td");
-        node.appendChild(document.createTextNode(array[j].method));
-        tr.appendChild(node);
         tbody.appendChild(tr);
     }
     tabMeals.appendChild(tbody);
@@ -446,11 +399,7 @@ function createGlobalMealsTable(date){
     node.appendChild(document.createTextNode(manager.sumFat().toFixed(1)));
     tr.appendChild(node);
     node = document.createElement("td");
-    node.appendChild(document.createTextNode(String(manager.sumKcal().toFixed(2))));
-    tr.appendChild(node);
-    node = document.createElement("td");
-    node.appendChild(document.createTextNode(""));
-    node.align = "middle";
+    node.appendChild(document.createTextNode(String(manager.sumKcal().toFixed(1))));
     tr.appendChild(node);
     tfoot.appendChild(tr);
     tabMeals.appendChild(tfoot);
@@ -506,7 +455,7 @@ function createDayExerciseTable(day){
     node.appendChild(document.createTextNode('Total'));
     tr.appendChild(node);
     node = document.createElement("td");
-    node.appendChild(document.createTextNode('-'+manager.sumKcal().toFixed(2)));
+    node.appendChild(document.createTextNode('-'+manager.sumKcal().toFixed(1)));
     tr.appendChild(node);
     tfoot.appendChild(tr);
     tabExercises.appendChild(tfoot);
@@ -531,12 +480,12 @@ function createGlobalExercisesTable(date){
         if(commonSort=="asc"){
             globalExercisesManager.sortByNameFromA();
             commonSort = "desc";
-            deleteShow("exercisesBoard");
+            deleteShowTable("exercisesBoard");
             showGlobalExercises();
         }else{
             globalExercisesManager.sortByNameFromZ();
             commonSort = "asc";
-            deleteShow("exercisesBoard");
+            deleteShowTable("exercisesBoard");
             showGlobalExercises();
         }
     };
@@ -547,12 +496,12 @@ function createGlobalExercisesTable(date){
         if(commonSort=="asc"){
             globalExercisesManager.sortByKcalAscending();
             commonSort = "desc";
-            deleteShow("exercisesBoard");
+            deleteShowTable("exercisesBoard");
             showGlobalExercises();
         }else{
             globalExercisesManager.sortByKcalDescending();
             commonSort = "asc";
-            deleteShow("exercisesBoard");
+            deleteShowTable("exercisesBoard");
             showGlobalExercises();
         }
     };
@@ -590,7 +539,7 @@ function createGlobalExercisesTable(date){
     node.appendChild(document.createTextNode('Total'));
     tr.appendChild(node);
     node = document.createElement("td");
-    node.appendChild(document.createTextNode('-'+manager.sumKcal().toFixed(2)));
+    node.appendChild(document.createTextNode('-'+manager.sumKcal().toFixed(1)));
     tr.appendChild(node);
     tfoot.appendChild(tr);
     tabExercises.appendChild(tfoot);

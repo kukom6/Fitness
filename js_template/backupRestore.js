@@ -9,11 +9,3 @@ function loadFromFile(file){
         alert("local storage is not supported, please update your browser."); //TODO
     }
 }
-function loadFromTempleate(){
-    if (storageAvailable('localStorage')) {
-        deleteLocal();
-        loadTemplate();
-    }else {
-        alert("local storage is not supported, please update your browser."); //TODO
-    }
-}

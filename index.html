@@ -20,6 +20,7 @@
    <script type="text/javascript" src="js_template/pagebody.js"></script>
    <script type="text/javascript" src="js_template/backupRestore.js"></script>
    <script type="text/javascript" src="js_template/createTables.js"></script>
+   <script type="text/javascript" src="js_template/fillForms.js"></script>
    <script src="js/exercise.js"></script>
    <script src="js/exercisesManager.js"></script>
    <script src="js/meal.js"></script>
@@ -38,10 +39,7 @@
         <button id="sidebar_trigger" class="icon menu"></button>
         <h1>Fitness</h1>
         <ul>
-           <li class="icon day" onclick="deleteShow('homeDayBoard');showTempDay(new Date('2015-03-25'))"></li>
           <!-- <li id="install">Install</li> -->
-           <li class="icon star_on" onclick="generatedData()">rand.</li>
-           <li class="icon week" onclick="loadTemplate()">Template</li>
         </ul>
       </header>
 
@@ -113,7 +111,6 @@
          </div>
       </div>
       <div id="pageDays" class="pagebody">
-         <!-- Junkyard, only for the sake of the example - NOT for real use -->
          <div class="generalBoard">
             <h2> Days </h2>
             <div id="daysBoard">
@@ -123,7 +120,7 @@
       </div>
       <div id="pageDay" class="pagebody" aria-owns="addToolbar">
          <header>
-            <button class="icon back" onclick="deleteShow('dayBoard');deleteShow('daysBoard');showGlobalDays();revealPage(previousPages.pop());"></button>
+            <button class="icon back" onclick="deleteShowTable('dayBoard');deleteShowTable('daysBoard');showGlobalDays();revealPage(previousPages.pop());"></button>
             <h2>Day</h2>
          </header>
          <div class="generalBoard">
@@ -160,6 +157,11 @@
          <!-- Junkyard, only for the sake of the example - NOT for real use -->
          <div style="margin:0.5rem 1rem 0.5rem 1rem">
             <h3 style="text-align: center">Restore/Backup</h3>
+            <br>
+            <button onclick="deleteLocal();loadTemplate();">Load template</button><br>
+            <br>
+            <button onclick="deleteLocal();generatedData();">Load random generated data</button><br>
+            <br>
          </div>
          <!-- End of Junkyard - - - - - - - - - - - - - - - - - - - - - - - -->
       </div>
@@ -346,9 +348,9 @@
       </header>
       <div class="menulist">
          <menuitem aria-controls="homePage" type="command" label="HOME"></menuitem>
-         <menuitem aria-controls="pageDays" type="command" label="Days" onclick="deleteShow('daysBoard');showGlobalDays();"></menuitem>
-         <menuitem aria-controls="pageMeals" type="command" label="Meals" onclick="deleteShow('mealsBoard');showGlobalMeals();"></menuitem>
-         <menuitem aria-controls="pageExercises" type="command" label="Exercises" onclick="deleteShow('exercisesBoard');showGlobalExercises();"></menuitem>
+         <menuitem aria-controls="pageDays" type="command" label="Days" onclick="deleteShowTable('daysBoard');showGlobalDays();"></menuitem>
+         <menuitem aria-controls="pageMeals" type="command" label="Meals" onclick="deleteShowTable('mealsBoard');showGlobalMeals();"></menuitem>
+         <menuitem aria-controls="pageExercises" type="command" label="Exercises" onclick="deleteShowTable('exercisesBoard');showGlobalExercises();"></menuitem>
          <menuitem aria-controls="pageGraphs" type="command" label="Graph"></menuitem>
          <menuitem aria-controls="pageNotes" type="command" label="Notes"></menuitem>
          <menuitem aria-controls="pageBackup" type="command" label="Backup/Restore"></menuitem>

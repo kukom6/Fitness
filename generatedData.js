@@ -71,7 +71,12 @@ function loadArrayMeals(){
                 }else{
                     randMethod="one piece"
                 }
-                meal=new Meal(tempArr[j].name.substring(0, 10),tempArr[j].protein,tempArr[j].carbohydrate,tempArr[j].fat,tempArr[j].kcal,randMethod);
+                meal=new Meal(tempArr[j].name.substring(0, 10),
+                    parseFloat(tempArr[j].protein).toFixed(1),
+                    parseFloat(tempArr[j].carbohydrate).toFixed(1),
+                    parseFloat(tempArr[j].fat).toFixed(1),
+                    parseFloat(tempArr[j].kcal).toFixed(1),
+                    randMethod);
                 globalMealsManager.addMeal(meal);
             }
         }
