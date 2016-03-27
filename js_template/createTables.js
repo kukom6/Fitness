@@ -19,6 +19,23 @@ function createDayTable(inDate){
     tabDay.appendChild(caption);
     tabDay.appendChild(createDayMealsTable(currentDate));
     tabDay.appendChild(createDayExerciseTable(currentDate));
+
+    var tabfoot = document.createElement("table"); //create meals table
+    tabfoot.style.width = "100%";
+    tabfoot.className = "dayTable" ;
+    var tfoot = document.createElement("tfoot");
+    var tr = document.createElement("tr");
+    tr.style.background = "goldenrod";
+    var node = document.createElement("td");
+    node.appendChild(document.createTextNode("Total day kcal"));
+    tr.appendChild(node);
+    node = document.createElement("td");
+    node.appendChild(document.createTextNode(globalDaysManager.totalKcal(new Date(date))));
+    tr.appendChild(node);
+    tfoot.appendChild(tr);
+    tabfoot.appendChild(tfoot);
+    tabDay.appendChild(tabfoot);
+
     var deleteB = document.createElement("button");
     deleteB.id = date;
     deleteB.onclick = function() {
@@ -34,6 +51,7 @@ function createDayTable(inDate){
     };
     deleteB.appendChild(document.createTextNode("Delete day"+date));
     tabDay.appendChild(deleteB);
+
     var addB = document.getElementById("addMealButton");
     addB.setAttribute("date",date);
     addB.onclick = function() {

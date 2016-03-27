@@ -141,6 +141,11 @@ function DaysManager(){
         days.sort(function(day1, day2) {
             return day2.date - day1.date;
         });
+    };
+    this.totalKcal = function(date){
+        var day = this.getDayByDate(date);
+        var sum = day.mealsManager.sumKcal() - day.exercisesManager.sumKcal();
+        return sum;
     }
 }
 /**
