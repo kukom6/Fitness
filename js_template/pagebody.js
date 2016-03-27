@@ -39,6 +39,8 @@ function revealPage(id) {
 }
 function revealPageSave(id){
     savePreviousPage();
+    console.log("Page with id: "+id+" was been added");
+    console.log("Previous page contains: "+previousPages);
     revealPage(id);
 }
 function showGlobalMeals(){
@@ -111,11 +113,13 @@ function fillEditMeal(id) {
     if (ids[0] == "LM") {
         form[5].value = meal.method;
         form[5].disabled = true;
+        form[6].style.visibility = "visible";
         form[6].disabled = false;
         form[6].value = meal.partOfDay;
     }else{
         form[5].disabled = false;
         form[5].value = meal.method;
+        form[6].style.visibility = "hidden";
         form[6].disabled = true;
     }
     var toolbarButton = document.getElementById("deleteIconEdit");
@@ -256,11 +260,21 @@ function fillAddMeal(date,id){
         form[2].value = meal.carbohydrate;
         form[3].value = meal.fat;
         form[4].value = meal.kcal;
-        form[5].value = meal.method;
-        form[5].disabled = true;
-        if (meal.partOfDay == "breakfast" || meal.partOfDay == "lunch" || meal.partOfDay == "dinner" || meal.partOfDay == "snack") {
-                form[6].value = meal.partOfDay;
-        }
+        form[5].value = meal.partOfDay;
+        form[6].disabled = false;
+        form[6].style.width = "70%";
+        form[6].onkeyup = function(){  //counting
+            var form = document.getElementById("addMealForm");
+            var ids = id.split("#");
+            var meal = globalMealsManager.getMealByID(ids[1]);
+            form[1].value = meal.protein * this.value;
+            form[2].value = meal.carbohydrate * this.value;
+            form[3].value = meal.fat * this.value;
+            form[4].value = meal.kcal * this.value;
+        };
+        form[7].value = meal.method;
+        form[7].style.visibility = "visible";
+        form[7].disabled = true;
         saveButton = document.getElementById("saveButton");
         saveButton.onclick = function() {
             var form = document.getElementById("addMealForm");
@@ -273,8 +287,8 @@ function fillAddMeal(date,id){
                 parseFloat(form[2].value).toFixed(2),
                 parseFloat(form[3].value).toFixed(2),
                 parseFloat(form[4].value).toFixed(2),
-                form[5].value,
-                form[6].value);
+                form[7].value,
+                form[5].value);
             globalDaysManager.addMealToDay(new Date(date),saveMeal);
             alert("Meal was been added!");
             form.reset();
@@ -287,7 +301,9 @@ function fillAddMeal(date,id){
         };
     }else{ //fill from new meal
         saveButton = document.getElementById("saveButton");
-        form[5].disabled=false;
+        form[6].disabled = true;
+        form[6].style.width = "90%";
+        form[7].style.visibility = "hidden";
         saveButton.onclick = function() {
             var form = document.getElementById("addMealForm");
             if (!validateForm(form, "meal")) {
@@ -299,11 +315,12 @@ function fillAddMeal(date,id){
                 parseFloat(form[2].value).toFixed(2),
                 parseFloat(form[3].value).toFixed(2),
                 parseFloat(form[4].value).toFixed(2),
-                form[5].value,
-                form[6].value);
+                "one piece",
+                form[5].value);
             globalDaysManager.addMealToDay(new Date(date),saveMeal);
             alert("Meal was been added!");
             form.reset();
+            previousPages.pop();
             previousPages.pop();
             deleteShow("dayBoard");
             deleteShow("addFromMealsBoard");
@@ -311,7 +328,6 @@ function fillAddMeal(date,id){
             showDay(new Date(date));
         };
     }
-
 }
 function fillAddExercise(date,id){
     revealPageSave("addExercisePage");
@@ -322,6 +338,13 @@ function fillAddExercise(date,id){
         var exercise = globalExercisesManager.getExerciseByID(ids[1]);
         form[0].value = exercise.name;
         form[1].value = exercise.kcal;
+        form[2].disabled = false;
+        form[2].onkeyup = function(){  //counting
+            var form = document.getElementById("addExerciseForm");
+            var ids = id.split("#");
+            var exercise = globalExercisesManager.getExerciseByID(ids[1]);
+            form[1].value = exercise.kcal * this.value;
+        };
         saveButton = document.getElementById("saveButton");
         saveButton.onclick = function() {
             var form = document.getElementById("addExerciseForm");
@@ -340,6 +363,7 @@ function fillAddExercise(date,id){
             showDay(new Date(date));
         };
     }else{ //fill from new exercise
+        form[2].disabled = true;
         saveButton = document.getElementById("saveButton");
         saveButton.onclick = function() {
             var form = document.getElementById("addExerciseForm");
@@ -350,6 +374,7 @@ function fillAddExercise(date,id){
             globalDaysManager.addExerciseToDay(new Date(date),saveExercise);
             alert("Exercise was been added!");
             form.reset();
+            previousPages.pop();
             previousPages.pop();
             deleteShow("dayBoard");
             deleteShow("addFromExercisesBoard");
@@ -406,14 +431,21 @@ function validateForm(form,type){
             alert("Kcal must contains only numbers!");
             return false;
         }
-        if(form[5].value==null||form[5].value==""){
+        var placePOD = 5;
+        var placeMethod = 7;
+        if(form.id == "editMealForm"){ //because 'part of day' and 'method' have other order or edit form either add form
+            placePOD = 6;
+            placeMethod = 5;
+        }
+        if(form[placeMethod].value==null||form[placeMethod].value==""){
             alert("Method must be chosen!");
             return false;
         }
-        if(form[5].value==null||form[5].value==""){
+        if(form[placePOD].value==null||form[placePOD].value==""){
             alert("Part of the day must be chosen!");
             return false;
         }
+
     }else if(type=="exercise"){
         if(form[1].value==null||form[1].value==""){
             alert("Kcal must be filled!");
