@@ -1,79 +1,9 @@
-/**
- * Created by mkralik on 2/14/16.
- */
-var globalMealsManager = new MealsManager(); //TODO move to init()
+var globalMealsManager = new MealsManager(); 
 
 function MealsManager(){
     var meals = [];
     /**
-     * Get meal by ID form DB
-     * @param id - meal id
-     * @returns {Meal} - return new copy meal from DB
-     */
-    this.getMealByID = function(id){
-        console.log("getMealById: "+id);
-        if(id==""||id==null){
-            console.error("invalid ID");
-            throw "invalid argument exception";
-        }
-        var result = this.indexMealInArrayById(id);
-        if(result == -1){
-            console.error("Meal with " + id + " id is not in the DB");
-            throw "Meal with " + id + " id is not in the DB";
-        }
-        var originalMeal = meals[result];
-        console.log("Meal : \n" + originalMeal + "\n was been gotten from DB");
-        var returnMeal = new Meal(originalMeal.name,originalMeal.protein,originalMeal.carbohydrate,originalMeal.fat,originalMeal.kcal,originalMeal.method,originalMeal.partOfDay);
-        returnMeal.id = id;
-        return returnMeal;
- //       return meals[result]; //unsafe ?? !!
-    };
-    /**
-     * Get all meals from DB
-     * @returns {Array} - array meals from DB
-     */
-    this.getAllMeals = function(){
-        console.log("getAllMeals");
-        return meals; //TODO unsafe !!
-    };
-    this.getMealsInBreakfast = function(){
-        var returnMeals = [];
-        for(var i=0;i<meals.length;i++){
-            if(meals[i].partOfDay=="breakfast"){
-                returnMeals.push(meals[i]);
-            }
-        }
-        return returnMeals;
-    };
-    this.getMealsInDinner = function(){
-        var returnMeals = [];
-        for(var i=0;i<meals.length;i++){
-            if(meals[i].partOfDay=="dinner"){
-                returnMeals.push(meals[i]);
-            }
-        }
-        return returnMeals;
-    };
-    this.getMealsInLunch = function(){
-        var returnMeals = [];
-        for(var i=0;i<meals.length;i++){
-            if(meals[i].partOfDay=="lunch"){
-                returnMeals.push(meals[i]);
-            }
-        }        
-        return returnMeals;
-    };
-    this.getMealsInSnack = function(){
-        var returnMeals = [];
-        for(var i=0;i<meals.length;i++){
-            if(meals[i].partOfDay=="snack"){
-                returnMeals.push(meals[i]);
-            }
-        }
-        return returnMeals;
-    };
-    /**
-     * add meal to the db (create new meal object)
+     * Add meal to the meal manager
      * @param meal
      */
     this.addMeal = function(meal){
@@ -89,12 +19,12 @@ function MealsManager(){
         console.log("Meal : \n" + meal + "\n was been added to DB");
     };
     /**
-     * Update meal in the DB
+     * Update meal in the meal manager
      * @param meal - updated meal
      */
     this.updateMeal = function(meal){
         console.log("updateMeal" + meal);
-        if(!this.correctArgument(meal)){ //TODO correct if id is not incorrect
+        if(!this.correctArgument(meal)){
             throw "invalid argument exception";
         }
         this.addMissingValue(meal);
@@ -114,8 +44,8 @@ function MealsManager(){
         console.log("Meal : \n" + meal + "\n was been updated DB");
     };
     /**
-     * Delete meal from DB
-     * @param id - meal id
+     * Delete meal from meal manager
+     * @param id - id particular meal
      */
     this.deleteMealByID = function(id){
         console.log("deleteMealById: "+id);
@@ -129,6 +59,89 @@ function MealsManager(){
         console.log("Meal was deleted from DB");
     };
     /**
+     * Get meal by ID form meal manager
+     * @param id - meal id
+     * @returns {Meal} - return from meal manager
+     */
+    this.getMealByID = function(id){
+        console.log("getMealById: "+id);
+        if(id==""||id==null){
+            console.error("invalid ID");
+            throw "invalid argument exception";
+        }
+        var result = this.indexMealInArrayById(id);
+        if(result == -1){
+            console.error("Meal with " + id + " id is not in the DB");
+            throw "Meal with " + id + " id is not in the DB";
+        }
+        var originalMeal = meals[result];
+        console.log("Meal : \n" + originalMeal + "\n was been gotten from DB");
+        var returnMeal = new Meal(originalMeal.name,originalMeal.protein,originalMeal.carbohydrate,originalMeal.fat,originalMeal.kcal,originalMeal.method,originalMeal.partOfDay);
+        returnMeal.id = id;
+        return returnMeal;
+        //       return meals[result]; //unsafe ?? !!
+    };
+    /**
+     * Get all meals from meal manager
+     * @returns {Array} - array meals from meal manager
+     */
+    this.getAllMeals = function(){
+        console.log("getAllMeals");
+        return meals;
+    };
+    /**
+     * Get all meals which have breakfast in the part of day
+     * @returns {Array}
+     */
+    this.getMealsInBreakfast = function(){
+        var returnMeals = [];
+        for(var i=0;i<meals.length;i++){
+            if(meals[i].partOfDay=="breakfast"){
+                returnMeals.push(meals[i]);
+            }
+        }
+        return returnMeals;
+    };
+    /**
+     * Get all meals which have dinner in the part of day
+     * @returns {Array}
+     */
+    this.getMealsInDinner = function(){
+        var returnMeals = [];
+        for(var i=0;i<meals.length;i++){
+            if(meals[i].partOfDay=="dinner"){
+                returnMeals.push(meals[i]);
+            }
+        }
+        return returnMeals;
+    };
+    /**
+     * Get all meals which have lunch in the part of day
+     * @returns {Array}
+     */
+    this.getMealsInLunch = function(){
+        var returnMeals = [];
+        for(var i=0;i<meals.length;i++){
+            if(meals[i].partOfDay=="lunch"){
+                returnMeals.push(meals[i]);
+            }
+        }
+        return returnMeals;
+    };
+    /**
+     * Get all meals which have snack in the part of day
+     * @returns {Array}
+     */
+    this.getMealsInSnack = function(){
+        var returnMeals = [];
+        for(var i=0;i<meals.length;i++){
+            if(meals[i].partOfDay=="snack"){
+                returnMeals.push(meals[i]);
+            }
+        }
+        return returnMeals;
+    };
+    /**
      * Next free ID for new meal
      * @returns {number} - free ID
      */
@@ -140,7 +153,7 @@ function MealsManager(){
         }
     };
     /**
-     * If meal is in the DB
+     * If meal is in the meal manager
      * @param id - meal id
      * @returns {boolean}
      */
@@ -152,14 +165,16 @@ function MealsManager(){
         return this.indexMealInArrayById(id) != -1 ;
     };
     /**
+     * If meals manager is empty
      * @returns {boolean} - if meals array is empty
      */
     this.isEmpty = function(){
         return meals.length==0;
     };
     /**
+     * Index particular meal in the exercise manager
      * @param id - meal id
-     * @return index meal in the array
+     * @return {number} index meal in the array
      */
     this.indexMealInArrayById = function(id){
         return meals.findIndex(function(meal){
@@ -167,7 +182,7 @@ function MealsManager(){
         });
     };
     /**
-     * Chech if the arguments are correct
+     * Check if the arguments are correct
      * @param meal
      * @returns {boolean}
      */
@@ -191,8 +206,8 @@ function MealsManager(){
         return true;
     };
     /**
-     * fill missing optionally values
-     * @param meal
+     * Fill missing optionally values
+     * @param meal 
      */
     this.addMissingValue = function(meal){
         if(meal.protein==null||meal.protein==""||meal.protein=="NaN"){
@@ -209,7 +224,7 @@ function MealsManager(){
         }
     };
     /**
-     * sum of protein
+     * Sum of protein in meal manager
      * @returns {number} sum
      */
     this.sumProtein = function(){
@@ -220,7 +235,7 @@ function MealsManager(){
         return sum;
     };
     /**
-     * sum of carbohydrate
+     * Sum of carbohydrate in meal manager
      * @returns {number} sum
      */
     this.sumCarbohydrate = function(){
@@ -231,7 +246,7 @@ function MealsManager(){
         return sum;
     };
     /**
-     * sum of fat
+     * Sum of fat in meal manager
      * @returns {number} sum
      */
     this.sumFat = function(){
@@ -242,7 +257,7 @@ function MealsManager(){
         return sum;
     };
     /**
-     * sum of kcal
+     * Sum of kcal in meal manager
      * @returns {number} sum
      */
     this.sumKcal = function(){
@@ -252,62 +267,97 @@ function MealsManager(){
         }
         return sum;
     };
-    //TODO sort, this way ?
+    /**
+     * Sort meals in the meal manager by Id - descending
+     */
     this.sortByIdDescending = function(){
         meals.sort(function(meal1, meal2) {
             return meal1.id - meal2.id;
         });
     };
+    /**
+     * Sort meals in the meal manager by Id - ascending
+     */
     this.sortByIdAscending = function(){
         meals.sort(function(meal1, meal2) {
             return meal2.id - meal1.id;
         });
     };
+    /**
+     * Sort meals in the meal manager by name - from A
+     */
     this.sortByNameFromA = function(){
         meals.sort(function(meal1, meal2) {
             return meal1.name.localeCompare(meal2.name);
         });
     };
+    /**
+     * Sort meals in the meal manager by name - from Z
+     */
     this.sortByNameFromZ = function(){
         meals.sort(function(meal1, meal2) {
             return meal2.name.localeCompare(meal1.name);
         });
     };
+    /**
+     * Sort meals in the meal manager by protein - descending
+     */
     this.sortByProteinDescending = function(){
         meals.sort(function(meal1, meal2) {
             return meal1.protein - meal2.protein;
         });
     };
+    /**
+     * Sort meals in the meal manager by protein - ascending
+     */
     this.sortByProteinAscending = function(){
         meals.sort(function(meal1, meal2) {
             return meal2.protein - meal1.protein;
         });
     };
+    /**
+     * Sort meals in the meal manager by carbohydrate - descending
+     */
     this.sortByCarbohydrateDescending = function(){
         meals.sort(function(meal1, meal2) {
             return meal1.carbohydrate - meal2.carbohydrate;
         });
     };
+    /**
+     * Sort meals in the meal manager by carbohydrate - ascending
+     */
     this.sortByCarbohydrateAscending = function(){
         meals.sort(function(meal1, meal2) {
             return meal2.carbohydrate - meal1.carbohydrate;
         });
     };
+    /**
+     * Sort meals in the meal manager by fat - descending
+     */
     this.sortByFatDescending = function(){
         meals.sort(function(meal1, meal2) {
             return meal1.fat - meal2.fat;
         });
     };
+    /**
+     * Sort meals in the meal manager by fat - ascending
+     */
     this.sortByFatAscending = function(){
         meals.sort(function(meal1, meal2) {
             return meal2.fat - meal1.fat;
         });
     };
+    /**
+     * Sort meals in the meal manager by kcal - descending
+     */
     this.sortByKcalDescending = function(){
         meals.sort(function(meal1, meal2) {
             return meal1.kcal - meal2.kcal;
         });
     };
+    /**
+     * Sort meals in the meal manager by kcal - ascending
+     */
     this.sortByKcalAscending = function(){
         meals.sort(function(meal1, meal2) {
             return meal2.kcal - meal1.kcal;

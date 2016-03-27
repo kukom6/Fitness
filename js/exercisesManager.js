@@ -1,12 +1,59 @@
-/**
- * Created by mkralik on 2/14/16.
- */
-var globalExercisesManager = new ExercisesManager(); //TODO move to init()
+var globalExercisesManager = new ExercisesManager();
 
 function ExercisesManager(){
     var exercises = [];
     /**
-     * Get exercise by ID form DB
+     * Add exercise to the exercise manager
+     * @param exercise
+     */
+    this.addExercise = function(exercise){
+        console.log("addExercise" + exercise);
+        if(!this.correctArgument(exercise)){
+            throw "invalid argument exception";
+        }
+        var pushExercise = new Exercise(exercise.name,exercise.kcal);
+        pushExercise.id = this.nextExerciseId();
+        exercises.push(pushExercise);
+        saveLocal();
+        console.log("Exercise : \n" + exercise + "\n was been added to DB");
+    };
+    /**
+     * Update exercise in the exercise manager
+     * @param exercise - updated exercise
+     */
+    this.updateExercise = function(exercise){
+        console.log("updateExercise" + exercise);
+        if(!this.correctArgument(exercise)){ //TODO correct if id is not incorrect
+            throw "invalid argument exception";
+        }
+        var result = this.indexExerciseInArrayById(exercise.id);
+        if(result == -1){
+            console.error("Exercise with " + id + " id is not in the DB use add function!");
+            throw "Exercise with " + id + " id is not in the DB use add function!";
+        }
+        exercises[result].name=exercise.name;
+        exercises[result].protein=exercise.protein;
+        exercises[result].kcal=exercise.kcal;
+        saveLocal();
+        console.log("Exercise : \n" + exercise + "\n was been updated DB");
+    };
+    /**
+     * Delete exercise from exercise manager
+     * @param id - exercise id
+     */
+    this.deleteExerciseByID = function(id){
+        console.log("deleteExerciseById: "+id);
+        var index= this.indexExerciseInArrayById(id);
+        if(index == -1){
+            console.error("Exercise with " + id + " id is not in the DB");
+            throw "Exercise with " + id + " id is not in the DB" ;
+        }
+        exercises.splice(index,1);
+        saveLocal();
+        console.log("Exercise was deleted from DB");
+    };
+    /**
+     * Get exercise by ID form exercise manager
      * @param id - exercise id
      * @returns {Exercise} - return new copy exercise from DB
      */
@@ -28,62 +75,12 @@ function ExercisesManager(){
         return returnExercise;
     };
     /**
-     * Get all exercises from DB
-     * @returns {Array} - array exercises from DB
+     * Get all exercises from exercise manager
+     * @returns {Array} - array exercise manager
      */
     this.getAllExercises = function(){
         console.log("getAllExercises");
-        return exercises; //TODO unsafe !!
-    };
-    /**
-     * add exercise to the db (create new exercise object)
-     * @param exercise
-     */
-    this.addExercise = function(exercise){
-        console.log("addExercise" + exercise);
-        if(!this.correctArgument(exercise)){
-            throw "invalid argument exception";
-        }
-        var pushExercise = new Exercise(exercise.name,exercise.kcal); //safe ?
-        pushExercise.id = this.nextExerciseId();
-        exercises.push(pushExercise);
-        saveLocal();
-        console.log("Exercise : \n" + exercise + "\n was been added to DB");
-    };
-    /**
-     * Update exercise in the DB
-     * @param exercise - updated exercise
-     */
-    this.updateExercise = function(exercise){
-        console.log("updateExercise" + exercise);
-        if(!this.correctArgument(exercise)){ //TODO correct if id is not incorrect
-            throw "invalid argument exception";
-        }
-        var result = this.indexExerciseInArrayById(exercise.id);
-        if(result == -1){
-            console.error("Exercise with " + id + " id is not in the DB use add function!");
-            throw "Exercise with " + id + " id is not in the DB use add function!";
-        }
-        exercises[result].name=exercise.name;
-        exercises[result].protein=exercise.protein;
-        exercises[result].kcal=exercise.kcal;
-        saveLocal();
-        console.log("Exercise : \n" + exercise + "\n was been updated DB");
-    };
-    /**
-     * Delete exercise from DB
-     * @param id - exercise id
-     */
-    this.deleteExerciseByID = function(id){
-        console.log("deleteExerciseById: "+id);
-        var index= this.indexExerciseInArrayById(id);
-        if(index == -1){
-            console.error("Exercise with " + id + " id is not in the DB");
-            throw "Exercise with " + id + " id is not in the DB" ;
-        }
-        exercises.splice(index,1);
-        saveLocal();
-        console.log("Exercise was deleted from DB");
+        return exercises;
     };
     /**
      * Next free ID for new exercise
@@ -97,7 +94,7 @@ function ExercisesManager(){
         }
     };
     /**
-     * If exercise is in the DB
+     * If exercise is in the exercise manager
      * @param id - exercise id
      * @returns {boolean}
      */
@@ -109,14 +106,16 @@ function ExercisesManager(){
         return this.indexExerciseInArrayById(id) != -1 ;
     };
     /**
+     * If exercise manager is empty
      * @returns {boolean} - if exercises array is empty
      */
     this.isEmpty = function(){
         return exercises.length==0;
     };
     /**
+     * Index particular exercise in the exercise manager
      * @param id - exercise id
-     * @return index exercise in the array
+     * @return {number} index exercise in the array
      */
     this.indexExerciseInArrayById = function(id){
         return exercises.findIndex(function(exercise){
@@ -124,7 +123,7 @@ function ExercisesManager(){
         });
     };
     /**
-     * Chech if the arguments are correct
+     * Check if the arguments are correct
      * @param exercise
      * @returns {boolean}
      */
@@ -140,8 +139,8 @@ function ExercisesManager(){
         return true;
     };
     /**
-     * sum of kcal
-     * @returns {number} sum
+     * Return sum of kcal in the exercise manager
+     * @returns {number} sum of kcal
      */
     this.sumKcal = function(){
         var sum=0;
@@ -150,31 +149,49 @@ function ExercisesManager(){
         }
         return sum;
     };
+    /**
+     * Sort exercises in the exercise manager by Id - descending
+     */
     this.sortByIdDescending = function(){
         exercises.sort(function(exercise1, exercise2) {
             return exercise1.id - exercise2.id;
         });
     };
+    /**
+     * Sort exercises in the exercise manager by Id - ascending
+     */
     this.sortByIdAscending = function(){
         exercises.sort(function(exercise1, exercise2) {
             return exercise2.id - exercise1.id;
         });
     };
+    /**
+     * Sort exercises in the exercise manager by name - from A
+     */
     this.sortByNameFromA = function(){
         exercises.sort(function(exercise1, exercise2) {
             return exercise1.name.localeCompare(exercise2.name);
         });
     };
+    /**
+     * Sort exercises in the exercise manager by name - from Z
+     */
     this.sortByNameFromZ = function(){
         exercises.sort(function(exercise1, exercise2) {
             return exercise2.name.localeCompare(exercise1.name);
         });
     };
+    /**
+     * Sort exercises in the exercise manager by kcal - descending
+     */
     this.sortByKcalDescending = function(){
         exercises.sort(function(exercise1, exercise2) {
             return exercise1.kcal - exercise2.kcal;
         });
     };
+    /**
+     * Sort exercises in the exercise manager by kcal - ascending
+     */
     this.sortByKcalAscending = function(){
         exercises.sort(function(exercise1, exercise2) {
             return exercise2.kcal - exercise1.kcal;

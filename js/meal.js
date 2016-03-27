@@ -1,8 +1,4 @@
 /**
- * Created by mkralik on 2/13/16.
- */
-
-/**
  *  Type Meal
  * @param name - name of meal
  * @param protein - count of protein

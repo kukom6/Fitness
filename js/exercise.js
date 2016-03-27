@@ -1,8 +1,4 @@
 /**
- * Created by mkralik on 2/13/16.
- */
-
-/**
  * Type of exercise
  * @param name - name of exercise
  * @param kcal - count of exercise

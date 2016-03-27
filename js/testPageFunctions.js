@@ -1,32 +1,27 @@
-/**
- * Created by mkralik on 2/20/16.
- */
-
-function loadDB(file){  //TODO temp function
+function loadDB(file) {
     if (storageAvailable('localStorage')) {
-        if(localStorage.getItem('isInLocal')){
-            if(loadLocal()){
-                document.getElementById("loadButton").disabled=true;
-                document.getElementById("input").disabled=true;
+        if (localStorage.getItem('isInLocal')) {
+            if (loadLocal()) {
+                document.getElementById("loadButton").disabled = true;
+                document.getElementById("input").disabled = true;
                 showAllDB();
             }
-        }else if(file != null){
+        } else if (file != null) {
             loadJSONasFile(file);
-            document.getElementById("loadButton").disabled=true;
-            document.getElementById("input").disabled=true;
+            document.getElementById("loadButton").disabled = true;
+            document.getElementById("input").disabled = true;
         }
-        else{ //first start
+        else { //first start
             if (confirm("Local storage is empty, please load backup JSON file! \n Load template DB?") == true) {
                 loadTemplate();
-                document.getElementById("loadButton").disabled=true;
-                document.getElementById("input").disabled=true;
+                document.getElementById("loadButton").disabled = true;
+                document.getElementById("input").disabled = true;
             }
         }
-    }else {
-        alert("local storage is not supported, please update your browser."); //TODO
+    } else {
+        alert("local storage is not supported, please update your browser.");
     }
 }
-
 /**
  * show all db as table
  */
@@ -355,19 +350,19 @@ function createDayMealsTab(day){
     node.align = "middle";
     tr.appendChild(node);
     node = document.createElement("td");
-    node.appendChild(document.createTextNode(manager.sumProtein()));
+    node.appendChild(document.createTextNode(manager.sumProtein().toFixed(5)));
     node.align = "middle";
     tr.appendChild(node);
     node = document.createElement("td");
-    node.appendChild(document.createTextNode(manager.sumCarbohydrate()));
+    node.appendChild(document.createTextNode(manager.sumCarbohydrate().toFixed(5)));
     node.align = "middle";
     tr.appendChild(node);
     node = document.createElement("td");
-    node.appendChild(document.createTextNode(manager.sumFat()));
+    node.appendChild(document.createTextNode(manager.sumFat().toFixed(5)));
     node.align = "middle";
     tr.appendChild(node);
     node = document.createElement("td");
-    node.appendChild(document.createTextNode(String(manager.sumKcal())));
+    node.appendChild(document.createTextNode(manager.sumKcal().toFixed(5)));
     node.align = "middle";
     tr.appendChild(node);
     node = document.createElement("td");
@@ -452,12 +447,11 @@ function createDayExerciseTab(day){
     tabExercises.appendChild(tr);
     return tabExercises;
 }
-
 /**
  * refresh table.
  * (remove table elements and call showAllDB function)
  */
-function refreshShowDB(){  // TODO remove up element
+function refreshShowDB(){  
     var table = document.getElementById("mealsTable");
     while (table.firstChild) {
         table.removeChild(table.firstChild);
@@ -473,7 +467,10 @@ function refreshShowDB(){  // TODO remove up element
     showAllDB();
     document.getElementById("refreshButton").disabled=false;
 }
-
+/**
+ * add exercise by id in button
+ * @param button
+ */
 function addExercise(button){
     var id = button.id.split("#");
     var idDate = "DE#"+id[1];
@@ -489,7 +486,10 @@ function addExercise(button){
     globalDaysManager.addExerciseToDay(new Date(date),globalExercisesManager.getExerciseByID(id[1]));
     refreshShowDB();
 }
-
+/**
+ * add meal by id in button
+ * @param button
+ */
 function addMeal(button){
     var id = button.id.split("#");
     var idDate = "DM#"+id[1];
@@ -505,7 +505,10 @@ function addMeal(button){
     globalDaysManager.addMealToDay(new Date(date),globalMealsManager.getMealByID(id[1]));
     refreshShowDB();
 }
-
+/**
+ * delete exercise by id in button
+ * @param button
+ */
 function deleteExercise(button){
     if (confirm("Are you sure ?") == false) {
         return;
@@ -519,7 +522,10 @@ function deleteExercise(button){
         refreshShowDB();
     }
 }
-
+/**
+ * delete meal by id in button
+ * @param button
+ */
 function deleteMeal(button){
     if (confirm("Are you sure ?") == false) {
         return;
@@ -533,7 +539,10 @@ function deleteMeal(button){
         refreshShowDB();
     }
 }
-
+/**
+ * delete day by id in button
+ * @param button
+ */
 function deleteDayFromHTML(button){
     if (confirm("Are you sure ?") == false) {
         return;
@@ -543,7 +552,6 @@ function deleteDayFromHTML(button){
     globalDaysManager.deleteDayByDate(deleteDate);
     refreshShowDB();
 }
-
 /**
  * add value to current date
  * @param form
@@ -565,7 +573,6 @@ function addDB(form){
     }
     form.reset();
 }
-
 /**
  * add value to DB with form
  * @param mode - type of value
@@ -590,14 +597,12 @@ function addToDB(mode,form){
     refreshShowDB();
     saveLocal();
 }
-
-/** TODO
+/** 
  * add new meal or exercise to the new or exist day
  * @param mode - type of value
  * @param form - form from html
  */
 function addToDay(mode,form){
-    //TODO if current date or setted day
     var dateElement=document.getElementById("setDate");
     var date=dateElement.value;
     if(date==""){
@@ -626,4 +631,29 @@ function addToDay(mode,form){
     }
     refreshShowDB();
     saveLocal();
+}
+/**
+ * Show day as string 
+ */
+function showDays(){
+    var days = globalDaysManager.getAllDays();
+    var results = "";
+    var allMeals,allExercises;
+    for(var i=0;i < days.length;i++){
+        results+= "<b> Day " + days[i].date +"</b><br>";
+        results += "<b>Meals: </b><br>";
+        allMeals=days[i].mealsManager.getAllMeals();
+        for(var j=0;j<allMeals.length;j++){
+            results+=allMeals[j];
+            results+="<br>";
+        }
+        results += "<b>Exercises: </b><br>";
+        allExercises=days[i].exercisesManager.getAllExercises();
+        for(j=0;j<allExercises.length;j++){
+            results+=allExercises[j];
+            results+="<br>";
+        }
+        results+="<hr>";
+    }
+    document.getElementById("showDB").innerHTML = results;
 }

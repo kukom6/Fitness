@@ -1,8 +1,4 @@
 /**
- * Created by mkralik on 2/17/16.
- */
-
-/**
  * Type of day
  * @param date - date of day
  * @constructor

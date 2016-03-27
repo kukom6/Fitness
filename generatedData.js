@@ -17,7 +17,6 @@ function generatedData(){
                 date=new Date("2015-04-0"+h);
             }else{
                 date=new Date("2015-04-"+h);
-
             }
         }else{
             if(i<10){
