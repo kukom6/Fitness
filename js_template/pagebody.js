@@ -45,9 +45,15 @@ function revealPageSave(id){
 }
 function showGlobalMeals(){
     document.getElementById("mealsBoard").appendChild(createGlobalMealsTable());
+    document.getElementById("addNewMealButton").onclick = function(){
+        fillAddMeal();
+    }
 }
 function showGlobalExercises(){
     document.getElementById("exercisesBoard").appendChild(createGlobalExercisesTable());
+    document.getElementById("addNewExerciseButton").onclick = function(){
+        fillAddExercise();
+    }
 }
 function showGlobalDays(){
     var manager = globalDaysManager.getAllDays();
@@ -249,22 +255,34 @@ function fillEditExercise(id){
     };
 }
 function fillAddMeal(date,id){
-    revealPageSave("addMealPage");
-    var form = document.getElementById("addMealForm");
-    var saveButton = null;
+
+    var saveButton,form = null;
     if(id){ //fill from global meal
+        revealPageSave("addMealFromGlobalPage");
+        form = document.getElementById("addMealFromGlobalForm");
         var ids = id.split("#");
         var meal = globalMealsManager.getMealByID(ids[1]);
+        form[0].disabled = true;
         form[0].value = meal.name;
+        form[1].disabled = true;
         form[1].value = meal.protein;
+        form[2].disabled = true;
         form[2].value = meal.carbohydrate;
+        form[3].disabled = true;
         form[3].value = meal.fat;
+        form[4].disabled = true;
         form[4].value = meal.kcal;
-        form[5].value = meal.partOfDay;
-        form[6].disabled = false;
-        form[6].style.width = "70%";
-        form[6].onkeyup = function(){  //counting
-            var form = document.getElementById("addMealForm");
+        form[5].onclick = function () {
+            form[0].disabled = false;
+            form[1].disabled = false;
+            form[2].disabled = false;
+            form[3].disabled = false;
+            form[4].disabled = false;
+            return false; //because after true web page will be reloaded
+        };
+        form[6].value = meal.partOfDay;
+        form[7].onkeyup = function(){  //counting
+            var form = document.getElementById("addMealFromGlobalForm");
             var ids = id.split("#");
             var meal = globalMealsManager.getMealByID(ids[1]);
             form[1].value = meal.protein * this.value;
@@ -272,12 +290,11 @@ function fillAddMeal(date,id){
             form[3].value = meal.fat * this.value;
             form[4].value = meal.kcal * this.value;
         };
-        form[7].value = meal.method;
-        form[7].style.visibility = "visible";
-        form[7].disabled = true;
+        form[8].value = meal.method;
+        form[8].disabled = true;
         saveButton = document.getElementById("saveButton");
         saveButton.onclick = function() {
-            var form = document.getElementById("addMealForm");
+            var form = document.getElementById("addMealFromGlobalForm");
             if (!validateForm(form, "meal")) {
                 return;
             }
@@ -287,8 +304,8 @@ function fillAddMeal(date,id){
                 parseFloat(form[2].value).toFixed(2),
                 parseFloat(form[3].value).toFixed(2),
                 parseFloat(form[4].value).toFixed(2),
-                form[7].value,
-                form[5].value);
+                form[8].value,
+                form[6].value);
             globalDaysManager.addMealToDay(new Date(date),saveMeal);
             alert("Meal was been added!");
             form.reset();
@@ -299,13 +316,17 @@ function fillAddMeal(date,id){
             revealPage("pageDay");
             showDay(new Date(date));
         };
-    }else{ //fill from new meal
+    }else if(date){ //fill from new meal
+        revealPageSave("addNewMealPage");
         saveButton = document.getElementById("saveButton");
-        form[6].disabled = true;
-        form[6].style.width = "90%";
-        form[7].style.visibility = "hidden";
+        form = document.getElementById("addNewMealForm");
+        form[5].onclick = function () {
+            var form = document.getElementById("addNewMealForm");
+            form[4].value= form[1].value*4 + form[2].value*4 + form[3].value*9;
+            return false; //because after true web page will be reloaded
+        };
         saveButton.onclick = function() {
-            var form = document.getElementById("addMealForm");
+            var form = document.getElementById("addNewMealForm");
             if (!validateForm(form, "meal")) {
                 return;
             }
@@ -316,7 +337,7 @@ function fillAddMeal(date,id){
                 parseFloat(form[3].value).toFixed(2),
                 parseFloat(form[4].value).toFixed(2),
                 "one piece",
-                form[5].value);
+                form[6].value);
             globalDaysManager.addMealToDay(new Date(date),saveMeal);
             alert("Meal was been added!");
             form.reset();
@@ -326,6 +347,35 @@ function fillAddMeal(date,id){
             deleteShow("addFromMealsBoard");
             revealPage("pageDay");
             showDay(new Date(date));
+        };
+    }else{ //fill to the global
+        revealPageSave("addNewMealToGlobalPage");
+        form = document.getElementById("addNewMealToGlobalForm");
+        form[5].onclick = function () {
+            var form = document.getElementById("addNewMealToGlobalForm");
+            form[4].value= form[1].value*4 + form[2].value*4 + form[3].value*9;
+            return false; //because after true web page will be reloaded
+        };
+        saveButton = document.getElementById("saveButton");
+        saveButton.onclick = function() {
+            var form = document.getElementById("addNewMealToGlobalForm");
+            if (!validateForm(form, "meal")) {
+                return;
+            }
+            var saveMeal = new Meal(
+                form[0].value,
+                parseFloat(form[1].value).toFixed(2),
+                parseFloat(form[2].value).toFixed(2),
+                parseFloat(form[3].value).toFixed(2),
+                parseFloat(form[4].value).toFixed(2),
+                form[6].value);
+            globalMealsManager.addMeal(saveMeal);
+            alert("Meal was been added!");
+            form.reset();
+            previousPages.pop();
+            deleteShow("mealsBoard");
+            revealPage("pageMeals");
+            showGlobalMeals();
         };
     }
 }
@@ -362,7 +412,7 @@ function fillAddExercise(date,id){
             revealPage("pageDay");
             showDay(new Date(date));
         };
-    }else{ //fill from new exercise
+    }else if(date){ //fill from new exercise
         form[2].disabled = true;
         saveButton = document.getElementById("saveButton");
         saveButton.onclick = function() {
@@ -380,6 +430,23 @@ function fillAddExercise(date,id){
             deleteShow("addFromExercisesBoard");
             revealPage("pageDay");
             showDay(new Date(date));
+        };
+    }else{
+        form[2].disabled = true;
+        saveButton = document.getElementById("saveButton");
+        saveButton.onclick = function() {
+            var form = document.getElementById("addExerciseForm");
+            if (!validateForm(form, "exercise")) {
+                return;
+            }
+            var saveExercise = new Exercise(form[0].value, form[1].value);
+            globalExercisesManager.addExercise(saveExercise);
+            alert("Exercise was been added!");
+            form.reset();
+            previousPages.pop();
+            deleteShow("exercisesBoard");
+            revealPage("pageExercises");
+            showGlobalExercises();
         };
     }
 }
@@ -431,19 +498,26 @@ function validateForm(form,type){
             alert("Kcal must contains only numbers!");
             return false;
         }
-        var placePOD = 5;
-        var placeMethod = 7;
-        if(form.id == "editMealForm"){ //because 'part of day' and 'method' have other order or edit form either add form
-            placePOD = 6;
-            placeMethod = 5;
-        }
-        if(form[placeMethod].value==null||form[placeMethod].value==""){
-            alert("Method must be chosen!");
-            return false;
-        }
-        if(form[placePOD].value==null||form[placePOD].value==""){
-            alert("Part of the day must be chosen!");
-            return false;
+        // which form it is ? 
+        if(form.id=="addNewMealToGlobalForm"){
+            if(form[6].value==null||form[6].value==""){
+                alert("Method must be chosen!");
+                return false;
+            }
+        }else if(form.id=="addMealFromGlobalForm"){
+            if(form[6].value==null||form[6].value==""){
+                alert("Part of the day must be chosen!");
+                return false;
+            }
+            if(form[8].value==null||form[8].value==""){
+                alert("Method must be chosen!");
+                return false;
+            }
+        }else{ // addNewMealForm
+            if(form[6].value==null||form[6].value==""){
+                alert("Part of the day must be chosen!");
+                return false;
+            }
         }
 
     }else if(type=="exercise"){

@@ -94,14 +94,14 @@
             </div>
          </div>
       </div>
-      <div id="pageMeals" class="pagebody">
+      <div id="pageMeals" class="pagebody" aria-owns="addNewMeal">
          <div class="generalBoard" >
             <h2> Meals </h2>
             <div id="mealsBoard">
             </div>
          </div>
       </div>
-      <div id="pageExercises" class="pagebody">
+      <div id="pageExercises" class="pagebody" aria-owns="addNewExercise">
          <div class="generalBoard" >
             <h2> Exercises </h2>
             <div id="exercisesBoard">
@@ -201,7 +201,7 @@
          <!-- An autarchic page -->
          <header>
             <button class="icon back" onclick="revealPage(previousPages.pop());"></button>
-            <h2>Add meal</h2>
+            <h2>Choose meal from database</h2>
          </header>
          <div class="generalBoard" >
             <h2> Meals </h2>
@@ -213,7 +213,7 @@
          <!-- An autarchic page -->
          <header>
             <button class="icon back" onclick="revealPage(previousPages.pop());"></button>
-            <h2>Add exercise</h2>
+            <h2>Choose exercise from database</h2>
          </header>
          <div class="generalBoard" >
             <h2> Exercises </h2>
@@ -221,26 +221,21 @@
             </div>
          </div>
       </div>
-      <div id="addMealPage" class="pagebody" aria-owns="saveToolbar">
+      <div id="addNewMealToGlobalPage" class="pagebody" aria-owns="saveToolbar">
          <header>
-            <button class="icon back" onclick="document.getElementById('addMealForm').reset();revealPage(previousPages.pop())"></button>
-            <h2>Add meal to the day</h2>
+            <button class="icon back" onclick="document.getElementById('addNewMealToGlobalForm').reset();revealPage(previousPages.pop())"></button>
+            <h2>Add new meal to the database</h2>
          </header>
          <div class="generalBoard" >
-            <form id="addMealForm">
+            <form id="addNewMealToGlobalForm">
                Name: <br><input type="text" name="nameM" /> <br>
                Protein: <br><input type="text" name="protein" /> <br>
                Carbohydrate: <br><input type="text" name="carbohydrate" /> <br>
                Fat:<br><input type="text" name="fat"/> <br>
                Kcal: <br><input type="text" name="kcal"/> <br>
-               Part of day: <br><select>
-               <option value="breakfast">Breakfast</option>
-               <option value="lunch">Lunch</option>
-               <option value="dinner">Dinner</option>
-               <option value="snack">Snack</option>
-            </select>
+               <button>Calculate kcal according other values.</button><br>
                <br>
-               Count: <br><input type="text" name="count"/>
+               Method:<br>
                <select>
                   <option value="100g">100g</option>
                   <option value="one piece">one piece</option>
@@ -248,10 +243,60 @@
             </form>
          </div>
       </div>
+      <div id="addMealFromGlobalPage" class="pagebody" aria-owns="saveToolbar">
+         <header>
+            <button class="icon back" onclick="document.getElementById('addMealFromGlobalForm').reset();revealPage(previousPages.pop())"></button>
+            <h2>Add meal from database</h2>
+         </header>
+         <div class="generalBoard" >
+            <form id="addMealFromGlobalForm">
+               Name: <br><input type="text" name="nameM" /> <br>
+               Protein: <br><input type="text" name="protein" /> <br>
+               Carbohydrate: <br><input type="text" name="carbohydrate" /> <br>
+               Fat:<br><input type="text" name="fat"/> <br>
+               Kcal: <br><input type="text" name="kcal"/> <br>
+               <button>Edit values</button><br>
+               Part of day: <br><select>
+               <option value="breakfast">Breakfast</option>
+               <option value="lunch">Lunch</option>
+               <option value="dinner">Dinner</option>
+               <option value="snack">Snack</option>
+            </select>
+               <br>
+               Count: <br><input type="text" name="count" style="width:70%;"/>
+               <select>
+                  <option value="100g">100g</option>
+                  <option value="one piece">one piece</option>
+               </select>
+            </form>
+         </div>
+      </div>
+      <div id="addNewMealPage" class="pagebody" aria-owns="saveToolbar">
+         <header>
+            <button class="icon back" onclick="document.getElementById('addNewMealForm').reset();revealPage(previousPages.pop())"></button>
+            <h2>Add new meal to the day</h2>
+         </header>
+         <div class="generalBoard" >
+            <form id="addNewMealForm">
+               Name: <br><input type="text" name="nameM" /> <br>
+               Protein: <br><input type="text" name="protein" /> <br>
+               Carbohydrate: <br><input type="text" name="carbohydrate" /> <br>
+               Fat:<br><input type="text" name="fat"/> <br>
+               Kcal: <br><input type="text" name="kcal"/> <br>
+               <button>Calculate kcal according other values.</button><br>
+               Part of day: <br><select>
+               <option value="breakfast">Breakfast</option>
+               <option value="lunch">Lunch</option>
+               <option value="dinner">Dinner</option>
+               <option value="snack">Snack</option>
+            </select>
+            </form>
+         </div>
+      </div>
       <div id="addExercisePage" class="pagebody" aria-owns="saveToolbar">
          <header>
             <button class="icon back" onclick="document.getElementById('addExerciseForm').reset();revealPage(previousPages.pop())"></button>
-            <h2>Add exercise to the day</h2>
+            <h2>Add exercise</h2>
          </header>
          <div class="generalBoard" >
             <form id="addExerciseForm">
