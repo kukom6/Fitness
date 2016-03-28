@@ -1,3 +1,10 @@
+/**
+ * Fill form for edit meal
+ * @param id - id edited meal, id contains more string separate by #
+ * First string is controls (how manager will be use):
+ * GM - meal from global manager  For example : id = GM#[id]
+ * LM - meal from manager from particular date For example = LM#[date]#[id] 
+ */
 function fillEditMeal(id) {
     revealPageSave("editMealPage");
     var ids = id.split("#");
@@ -37,7 +44,7 @@ function fillEditMeal(id) {
         }
         saveLocal();
         if(ids[0]=="LM"){
-            deleteShowTable("homeDayBoard"); //TODO temp
+            deleteShowTable("homeDayBoard");
             deleteShowTable("dayBoard");
             showDay(new Date(ids[1]));
         }else{
@@ -87,6 +94,13 @@ function fillEditMeal(id) {
         revealPage(previousPages.pop());
     };
 }
+/**
+ * Fill form for edit exercise
+ * @param id - id edited exercise, id contains more string separate by #
+ * First string is controls (how manager will be use):
+ * GE - exercise from global manager  For example : id = GE#[id]
+ * LE - exercise from manager from particular date For example = LE#[date]#[id]
+ */
 function fillEditExercise(id){
     revealPageSave("editExercisePage");
     var ids = id.split("#");
@@ -111,7 +125,6 @@ function fillEditExercise(id){
         }
         saveLocal();
         if(ids[0]=="LE"){
-            deleteShowTable("homeDayBoard"); //TODO temp
             deleteShowTable("dayBoard");
             showDay(new Date(ids[1]));
         }else{
@@ -151,6 +164,12 @@ function fillEditExercise(id){
         revealPage(previousPages.pop());
     };
 }
+/**
+ * Fill form for add meal, parameters determine how way of form will be use (
+ * @param date optional, when new meal will be added to the particular day (date parameter) , id mustn't be set
+ * @param id optional, when meal will be added from the global manager to the particular day (date parameter) , date must be set
+ * when function haven't any parameters, new meal will be added to the global manager
+ */
 function fillAddMeal(date,id){
 
     var saveButton,form = null;
@@ -213,7 +232,7 @@ function fillAddMeal(date,id){
             revealPage("pageDay");
             showDay(new Date(date));
         };
-    }else if(date){ //fill from new meal
+    }else if(date){ 
         revealPageSave("addNewMealPage");
         saveButton = document.getElementById("saveButton");
         form = document.getElementById("addNewMealForm");
@@ -245,7 +264,7 @@ function fillAddMeal(date,id){
             revealPage("pageDay");
             showDay(new Date(date));
         };
-    }else{ //fill to the global
+    }else{ 
         revealPageSave("addNewMealToGlobalPage");
         form = document.getElementById("addNewMealToGlobalForm");
         form[5].onclick = function () {
@@ -276,6 +295,12 @@ function fillAddMeal(date,id){
         };
     }
 }
+/**
+ * Fill form for add exercise, parameters determine how way of form will be use (
+ * @param date optional, when new exercise will be added to the particular day (date parameter) , id mustn't be set
+ * @param id optional, when exercise will be added from the global manager to the particular day (date parameter) , date must be set
+ * when function haven't any parameters, new exercise will be added to the global manager
+ */
 function fillAddExercise(date,id){
     revealPageSave("addExercisePage");
     var form = document.getElementById("addExerciseForm");
@@ -347,17 +372,20 @@ function fillAddExercise(date,id){
         };
     }
 }
+/**
+ * Validate form if all parameters are set correctly
+ * @param form - HTML form
+ * @param type - type of form (meal or exercise)
+ * @returns {boolean}
+ */
 function validateForm(form,type){
-
     var isOnlyNumber = function(str){ //test if value from form is only number
         return (/^[0-9.]*$/).test(str) ;
     };
-
-    var containsComma = function(str){ //test if value from form contains comma in the decimal number
+    var containsComma = function(str){ 
         return str.indexOf(',') !== -1;
 
     };
-
     if(form[0].value==null||form[0].value==""){
         alert("Name must be filled!");
         return false;
@@ -395,7 +423,7 @@ function validateForm(form,type){
             alert("Kcal must contains only numbers!");
             return false;
         }
-        // which form it is ? 
+        // which form it is ? ( because add meal have 3 types of from
         if(form.id=="addNewMealToGlobalForm"){
             if(form[6].value==null||form[6].value==""){
                 alert("Method must be chosen!");
@@ -416,7 +444,6 @@ function validateForm(form,type){
                 return false;
             }
         }
-
     }else if(type=="exercise"){
         if(form[1].value==null||form[1].value==""){
             alert("Kcal must be filled!");

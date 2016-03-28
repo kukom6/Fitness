@@ -1,3 +1,8 @@
+/**
+ * Create table for particular day
+ * @param inDate - date of the day
+ * @returns {Element} HTML table
+ */
 function createDayTable(inDate){
     var dayDate;
     if(inDate instanceof Date){
@@ -17,7 +22,7 @@ function createDayTable(inDate){
     tabDay.appendChild(createDayMealsTable(currentDate));
     tabDay.appendChild(createDayExerciseTable(currentDate));
 
-    var tabfoot = document.createElement("table"); //create meals table
+    var tabfoot = document.createElement("table");
     tabfoot.style.width = "100%";
     tabfoot.className = "dayTable" ;
     var tfoot = document.createElement("tfoot");
@@ -27,7 +32,7 @@ function createDayTable(inDate){
     node.appendChild(document.createTextNode("Total day kcal"));
     tr.appendChild(node);
     node = document.createElement("td");
-    node.appendChild(document.createTextNode(globalDaysManager.totalKcal(new Date(date))));
+    node.appendChild(document.createTextNode(globalDaysManager.totalKcal(new Date(date)).toFixed(1)));
     tr.appendChild(node);
     tfoot.appendChild(tr);
     tabfoot.appendChild(tfoot);
@@ -63,21 +68,27 @@ function createDayTable(inDate){
     };
     return tabDay;
 }
+/**
+ * Create meals table for particular day
+ * @param day - particular day
+ * @returns {Element} - HTML table
+ */
 function createDayMealsTable(day){
     var manager = null;
     if(day){
         manager = day.mealsManager;
     }else{
-        return;
+        console.error("Date must be set!");
+        throw "invalid argument exception";
     }
-    var tabMeals = document.createElement("table"); //create meals table
+    var tabMeals = document.createElement("table"); 
     tabMeals.style.width = "100%";
     tabMeals.className = "dayTable" ;
     var caption = document.createElement("caption");
     caption.appendChild(document.createTextNode("Meals"));
     caption.style.textAlign = "center";
     tabMeals.appendChild(caption);
-    //create head table
+
     var thead = document.createElement("thead");
     var tr = document.createElement("tr");
     var node = document.createElement("th");
@@ -100,7 +111,7 @@ function createDayMealsTable(day){
 
     var tbody = document.createElement("tbody");
 
-    var array = manager.getMealsInBreakfast(); //show all meals in the breakfast
+    var array = manager.getMealsInBreakfast(); 
     tr = document.createElement("tr");
     node = document.createElement("td");
     node.appendChild(document.createTextNode("Breakfast"));
@@ -133,7 +144,7 @@ function createDayMealsTable(day){
         tbody.appendChild(tr);
     }
 
-    array = manager.getMealsInLunch(); //show all meals in the dinner
+    array = manager.getMealsInLunch(); 
     tr = document.createElement("tr");
     node = document.createElement("td");
     node.appendChild(document.createTextNode("Lunch"));
@@ -166,7 +177,7 @@ function createDayMealsTable(day){
         tbody.appendChild(tr);
     }
 
-    array = manager.getMealsInDinner(); //show all meals in the dinner
+    array = manager.getMealsInDinner();
     tr = document.createElement("tr");
     node = document.createElement("td");
     node.appendChild(document.createTextNode("Dinner"));
@@ -199,7 +210,7 @@ function createDayMealsTable(day){
         tbody.appendChild(tr);
     }
 
-    array = manager.getMealsInSnack(); //show all meals in the snack
+    array = manager.getMealsInSnack();
     tr = document.createElement("tr");
     node = document.createElement("td");
     node.appendChild(document.createTextNode("Snack"));
@@ -249,16 +260,21 @@ function createDayMealsTable(day){
     node.appendChild(document.createTextNode(manager.sumFat().toFixed(1)));
     tr.appendChild(node);
     node = document.createElement("td");
-    node.appendChild(document.createTextNode(String(manager.sumKcal().toFixed(1))));
+    node.appendChild(document.createTextNode(manager.sumKcal().toFixed(1)));
     tr.appendChild(node);
     tfoot.appendChild(tr);
     tabMeals.appendChild(tfoot);
     return tabMeals;
 }
+/**
+ * Create meals table from global meals manager
+ * @param date - optional, date of day when we can show global table and choice meals to this day.
+ * @returns {Element} - HTML table
+ */
 function createGlobalMealsTable(date){
     var manager = globalMealsManager;
     var array = manager.getAllMeals();
-    var tabMeals = document.createElement("table"); //create meals table
+    var tabMeals = document.createElement("table");
     tabMeals.style.width = "100%";
     tabMeals.className = "dayTable" ;
     var caption = document.createElement("caption");
@@ -405,22 +421,28 @@ function createGlobalMealsTable(date){
     tabMeals.appendChild(tfoot);
     return tabMeals;
 }
+/**
+ * Create exercises table for particular day
+ * @param day - particular day
+ * @returns {Element} - HTML table
+ */
 function createDayExerciseTable(day){
     var manager = null;
     if(day){
         manager = day.exercisesManager;
     }else{
-        return;
+        console.error("Date must be set!");
+        throw "invalid argument exception";
     }
     var array = manager.getAllExercises();
-    var tabExercises = document.createElement("table"); //create exercises table
+    var tabExercises = document.createElement("table"); 
     tabExercises.style.width = "100%";
     tabExercises.className = "dayTable" ;
     var caption = document.createElement("caption");
     caption.appendChild(document.createTextNode("Exercises"));
     caption.style.textAlign = "center";
     tabExercises.appendChild(caption);
-    //create head table
+
     var thead = document.createElement("thead");
     var tr = document.createElement("tr");
     var node = document.createElement("th");
@@ -433,7 +455,7 @@ function createDayExerciseTable(day){
     tabExercises.appendChild(thead);
 
     var tbody = document.createElement("tbody");
-    for(var j=0;j<array.length;j++){ //show all exercises in the day
+    for(var j=0;j<array.length;j++){ 
         tr = document.createElement("tr");
         tr.setAttribute("idExercise","LE#"+day.date+"#"+array[j].id);
         tr.onclick = function(){
@@ -461,10 +483,15 @@ function createDayExerciseTable(day){
     tabExercises.appendChild(tfoot);
     return tabExercises;
 }
+/**
+ * Create exercises table from global exercises manager
+ * @param date - optional, date of day when we can show global table and choice exercise to this day.
+ * @returns {Element} - HTML table
+ */
 function createGlobalExercisesTable(date){
     var manager = globalExercisesManager;
     var array = manager.getAllExercises();
-    var tabExercises = document.createElement("table"); //create exercises table
+    var tabExercises = document.createElement("table"); 
     tabExercises.style.width = "100%";
     tabExercises.className = "dayTable" ;
     var caption = document.createElement("caption");
@@ -510,7 +537,7 @@ function createGlobalExercisesTable(date){
     tabExercises.appendChild(thead);
 
     var tbody = document.createElement("tbody");
-    for(var j=0;j<array.length;j++){ //show all exercises in the day
+    for(var j=0;j<array.length;j++){
         tr = document.createElement("tr");
         tr.setAttribute("idExercise","GE#"+array[j].id);
         if(date){

@@ -12,13 +12,27 @@ window.addEventListener(
        }
    }
 );
+/**
+ * Save previous pages (for back button)
+ * @type {Array}
+ */
 var previousPages =[];
+/**
+ * Start sorting by 
+ * @type {string}
+ */
 var commonSort = "asc";
-//previousPages.push("homePage"); //first start
+/**
+ * Save page which is activated (expanded) to the previous pages array
+ */
 function savePreviousPage(){
     var activePage=document.querySelector(".principal > div.pagebody[aria-expanded=true]");
     previousPages.push(activePage.getAttribute("id"));
 }
+/**
+ * Show particular page without saving previous activated page
+ * @param id - id page
+ */
 function revealPage(id) {
    var elt = document.getElementById(id);
    var nodeName = elt.nodeName; // expect "DIV" (.pagebody)
@@ -37,24 +51,37 @@ function revealPage(id) {
        closeAllToolbar();
    }
 }
+/**
+ * Show particular page with saving previous activated page
+ * @param id - id page
+ */
 function revealPageSave(id){
     savePreviousPage();
     console.log("Page with id: "+id+" was been added");
     console.log("Previous page contains: "+previousPages);
     revealPage(id);
 }
+/**
+ * Show global meals page
+ */
 function showGlobalMeals(){
     document.getElementById("mealsBoard").appendChild(createGlobalMealsTable());
     document.getElementById("addNewMealButton").onclick = function(){
         fillAddMeal();
     }
 }
+/**
+ * Show global exercises page
+ */
 function showGlobalExercises(){
     document.getElementById("exercisesBoard").appendChild(createGlobalExercisesTable());
     document.getElementById("addNewExerciseButton").onclick = function(){
         fillAddExercise();
     }
 }
+/**
+ * Show global days page
+ */
 function showGlobalDays(){
     var manager = globalDaysManager.getAllDays();
     var daysBoard = document.getElementById('daysBoard');
@@ -73,9 +100,17 @@ function showGlobalDays(){
     }
     daysBoard.appendChild(ul);
 }
+/**
+ * Show particular day
+ * @param dayDate - date of particular day
+ */
 function showDay(dayDate){
     document.getElementById("dayBoard").appendChild(createDayTable(dayDate));
 }
+/**
+ * Show global meals board for add meal to the particular day
+ * @param date - date of particular day
+ */
 function showAddMealsBoard(date){
     document.getElementById("addFromMealsBoard").appendChild(createGlobalMealsTable(date));
     document.getElementById("addNewMealButton").onclick = function(){
@@ -83,12 +118,20 @@ function showAddMealsBoard(date){
     }
 
 }
+/**
+ * Show global exercise board for add exercise to the particular day
+ * @param date - date of particular day
+ */
 function showAddExercisesBoard(date){
     document.getElementById("addFromExercisesBoard").appendChild(createGlobalExercisesTable(date));
     document.getElementById("addNewExerciseButton").onclick = function(){
         fillAddExercise(date);
     }
 }
+/**
+ * Delete table from HTML
+ * @param name - name of table
+ */
 function deleteShowTable(name){
     var table = document.getElementById(name);
     if(table==null){

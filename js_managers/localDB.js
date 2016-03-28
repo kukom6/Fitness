@@ -1,5 +1,5 @@
 /**
- * load DB from upload file, next time data will be on the local storage
+ * load global managers from upload file
  * @param jsonFiles
  */
 function loadJSONasFile(jsonFiles){
@@ -68,7 +68,7 @@ function loadTemplate() { //TODO temp function ?
     xmlhttp.send();
 }
 /**
- * Load from local storage
+ * Load all global managers from local storage
  */
 function loadLocal(){
     var data = localStorage.getItem('jsonData');
@@ -83,7 +83,7 @@ function loadLocal(){
     return true;
 }
 /**
- * Save DB(changed) to local storage
+ * Save global managers to local storage
  */
 function saveLocal(){
     var saveJSON = {
@@ -109,7 +109,7 @@ function saveLocal(){
     console.log("DB was saved");
 }
 /**
- * Export DB to JSON file
+ * Export global managers to JSON file
  */
 function saveJSON(){ //TODO download file, right way ?
     var saveJSON = {
@@ -138,7 +138,7 @@ function saveJSON(){ //TODO download file, right way ?
     a.click();
 }
 /**
- * delete DB in the local storage
+ * delete all data in the local storage and clean global managers
  */
 function deleteLocal(){
     if (confirm("Delete local storage! Are you sure?") == true) {
