@@ -4,14 +4,18 @@ window.addEventListener(
         var elt = document.querySelector(".principal > div.pagebody[aria-expanded=true]");
         if (elt) {
             var toolbarId = elt.getAttribute("aria-owns");
-            if (toolbarId) showToolbar(toolbarId);
+        if (toolbarId) showToolbar(toolbarId);
         }
-       if(localStorage.getItem('isInLocal')){
-           loadLocal();
-           alert("load from local"); //TODO temp
-       }
-   }
+        if(localStorage.getItem('isInLocal')){
+            loadLocal();
+            alert("load from local"); //TODO temp
+        }
+        showHomepage();
+        picker = new Pikaday({ field: document.getElementById('datepicker')});
+        picker.setDate(new Date());
+    }
 );
+var picker = null;
 /**
  * Save previous pages (for back button)
  * @type {Array}
@@ -80,32 +84,43 @@ function showGlobalExercises(){
     }
 }
 /**
- * Show global days page
- */
-function showGlobalDays(){
-    var manager = globalDaysManager.getAllDays();
-    var daysBoard = document.getElementById('daysBoard');
-    var ul = document.createElement('ul');
-    var li = null;
-    for(var i=0;i<manager.length;i++){
-        li=document.createElement('li');
-        li.setAttribute("idDay","GD#"+manager[i].date);
-        li.onclick = function(){
-            var id = this.getAttribute("idDay").split("#");
-            revealPageSave("pageDay");
-            showDay(id[1]);
-        };
-        li.appendChild(document.createTextNode(manager[i].date.toDateString()));
-        ul.appendChild(li);
-    }
-    daysBoard.appendChild(ul);
-}
-/**
  * Show particular day
  * @param dayDate - date of particular day
  */
-function showDay(dayDate){
-    document.getElementById("dayBoard").appendChild(createDayTable(dayDate));
+function showDay(){
+    var pick = document.getElementById('datepicker');
+    var date = picker.getDate();
+    try{
+        document.getElementById("dayBoard").appendChild(createDayTable(new Date(date)));
+    }catch(ex){ //if day is not in the DB manager will create new empty day and show it
+        globalDaysManager.addDay(new Day(new Date(date)));
+        document.getElementById("dayBoard").appendChild(createDayTable(new Date(date)));
+    }
+    pick.onblur = function () { //click to other day
+        var date = picker.getDate();
+        deleteShowTable("dayBoard");
+        try{
+            document.getElementById("dayBoard").appendChild(createDayTable(new Date(date)));
+        }catch(ex){ //if day is not in the DB manager will create new empty day and show it
+            globalDaysManager.addDay(new Day(new Date(date)));
+            document.getElementById("dayBoard").appendChild(createDayTable(new Date(date)));
+        }
+    }
+}
+/**
+ * Show homepage, if today is empty, show message
+ */
+function showHomepage(){
+    try{
+        var empty = globalDaysManager.getDayByDate(new Date()).isEmpty();
+        if(empty){
+            emptyDay("homeBoard");
+        }else{
+            document.getElementById("homeBoard").appendChild(createDayTable(new Date()));
+        }
+    }catch(ex){ //if day is not in the DB manager will create new empty day and show it
+        emptyDay("homeBoard");
+    }
 }
 /**
  * Show global meals board for add meal to the particular day
@@ -140,4 +155,41 @@ function deleteShowTable(name){
     while (table.firstChild) {
         table.removeChild(table.firstChild);
     }
+}
+/**
+ * Show global days page , only test function
+ */
+function showGlobalDays(){
+    var manager = globalDaysManager.getAllDays();
+    var daysBoard = document.getElementById('daysBoard');
+    var ul = document.createElement('ul');
+    var li = null;
+    for(var i=0;i<manager.length;i++){
+        li=document.createElement('li');
+        li.setAttribute("idDay","GD#"+manager[i].date);
+        li.onclick = function(){
+            var id = this.getAttribute("idDay").split("#");
+            revealPageSave("pageDayTest");
+            document.getElementById("dayBoardTest").appendChild(createDayTable(id[1]));
+        };
+        li.appendChild(document.createTextNode(manager[i].date.toDateString()));
+        ul.appendChild(li);
+    }
+    daysBoard.appendChild(ul);
+}
+/**
+ * Show message to the empty day
+ * @param nameElement name of element for whom message will be appended
+ */
+function emptyDay(nameElement){
+    var element=document.getElementById(nameElement);
+    var icon = document.createElement("img");
+    icon.src = "style/images/hungry.png";
+    icon.style.width = "90%";
+    element.appendChild(icon);
+    var text=document.createElement("p");
+    text.appendChild(document.createTextNode("Day is empty! You should eat something"));
+    text.style.font = "italic bold 20px arial,serif";
+    element.appendChild(text);
+
 }

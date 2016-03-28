@@ -3,6 +3,7 @@
 <head>
    <meta charset="utf-8">
    <meta name="viewport" content="width=device-width">
+   <script>"use strict";</script> <!-- TODO use this? -->
    <link rel="shortcut icon" type="image/x-icon" href="logos/icon32.png"/>
    <link rel="stylesheet" type="text/css" href="style/icons.css"/>
    <link rel="stylesheet" type="text/css" href="style/principal.css"/>
@@ -12,6 +13,7 @@
    <link rel="stylesheet" type="text/css" href="style/menulist.css"/>
    <link rel="stylesheet" type="text/css" href="style/pagebody.css"/>
    <link rel="stylesheet" type="text/css" href="style/table.css"/>
+   <link rel="stylesheet" type="text/css" href="style/pikaday.css"/>
    <script type="text/javascript" src="js/dispatcher.js"></script>
    <script type="text/javascript" src="js/install.js"></script>
    <script type="text/javascript" src="js/toolbar.js"></script>
@@ -21,6 +23,7 @@
    <script type="text/javascript" src="js/backupRestore.js"></script>
    <script type="text/javascript" src="js/createTables.js"></script>
    <script type="text/javascript" src="js/fillForms.js"></script>
+   <script type="text/javascript" src="js/pikaday.js"></script>
    <script src="js_managers/exercise.js"></script>
    <script src="js_managers/exercisesManager.js"></script>
    <script src="js_managers/meal.js"></script>
@@ -39,61 +42,17 @@
         <button id="sidebar_trigger" class="icon menu"></button>
         <h1>Fitness</h1>
         <ul>
-          <!-- <li id="install">Install</li> -->
+           <li class="icon star_on" onclick="deleteLocal();generatedData()">rand.</li>
+           <!-- <li id="install">Install</li> -->
         </ul>
       </header>
 
-      <div id="homePage" class="pagebody" aria-expanded="true">
-         <div class="" > <!-- TODO rewrite home page -->
-            <h2 id="todayBoard">Home Page</h2>
-            <p>After first start you must load either template (button at the top right) or db from JSON file (backup/restore page). Next start db will be loaded from local storage</p>
-            <p>What is already implemented?</p>
-            <ol style="text-align:left">
-               <li><b>Meals page</b>
-                  <ul>
-                     <li>Show table with all meals in localDB</li>
-                     <li>Click to the meals will open meals editor</li>
-                     <li>Delete meal via meals editor</li>
-                     <li>Update meal via meals editor</li>
-                     <li>Add meal to the database</li>
-                  </ul>
-               </li>
-               <li><b>Exercises page</b>
-                  <ul>
-                     <li>Show table with all exercises in localDB</li>
-                     <li>Click to the exercises will open exercises editor</li>
-                     <li>Delete exercise via exercises editor</li>
-                     <li>Update exercise via exercises editor</li>
-                     <li>Add exercise to the database</li>
-                  </ul>
-               </li>
-               <li><b>Days page</b>
-                  <ul>
-                     <li>Show all days </li>
-                     <li>Click to the day will open selected day page</li>
-                  </ul>
-               </li>
-               <li><b>Day page</b>
-                  <ul>
-                     <li>Show meals and exercises table in the day</li>
-                     <li>Click to the exercise or meal will open theirs editor</li>
-                     <li>Delete meal/exercise from the day</li>
-                     <li>Update meal/exercise from the day</li>
-                     <li>Add meal/exercise to the day either set from database or set new values</li>
-                  </ul>
-               </li>
-               <li><b>Backup/Restore</b>
-                  <ul>
-                     <li>Import local DB as JSON</li>
-                     <li>Export local DB as JSON (issue on windows phone browser and firefox os simulator)</li>
-                     <li>Delete local storage</li>
-                  </ul>
-               </li>
-
-            </ol>
-            <div id="homeDayBoard"> <!-- Temp day -->
-            </div>
-         </div>
+      <div id="homePage" class="pagebody" >
+          <div class="generalBoard" >
+              <h2> Today </h2>
+              <div id="homeBoard">
+              </div>
+          </div>
       </div>
       <div id="pageMeals" class="pagebody" aria-owns="addNewMeal">
          <div class="generalBoard" >
@@ -110,20 +69,9 @@
 
          </div>
       </div>
-      <div id="pageDays" class="pagebody">
-         <div class="generalBoard">
-            <h2> Days </h2>
-            <div id="daysBoard">
-            </div>
-         </div>
-         <!-- End of Junkyard - - - - - - - - - - - - - - - - - - - - - - - -->
-      </div>
       <div id="pageDay" class="pagebody" aria-owns="addToolbar">
-         <header>
-            <button class="icon back" onclick="deleteShowTable('dayBoard');deleteShowTable('daysBoard');showGlobalDays();revealPage(previousPages.pop());"></button>
-            <h2>Day</h2>
-         </header>
          <div class="generalBoard">
+            <input style="width: 240px;" type="text" id="datepicker" value="Choose day" title="datePicker">
             <div id="dayBoard">
             </div>
          </div>
@@ -142,10 +90,50 @@
          </div>
          <!-- End of Junkyard - - - - - - - - - - - - - - - - - - - - - - - -->
       </div>
-      <div id="pageAbout" class="pagebody">
+      <div id="pageAbout" class="pagebody" aria-expanded="true">
          <!-- Junkyard, only for the sake of the example - NOT for real use -->
          <div style="margin:0.5rem 1rem 0.5rem 1rem">
             <h3 style="text-align: center">About</h3>
+             <p>After first start you might load either template or from JSON file (backup/restore page). You can
+                 generate random data by button on the homepage (rand.) (time-consuming !)</p>
+             <p>What is already implemented?</p>
+             <ol style="text-align:left">
+                 <li><b>Meals page</b>
+                     <ul>
+                         <li>Show table with all meals in localDB</li>
+                         <li>Click to the meals will open meals editor</li>
+                         <li>Delete meal via meals editor</li>
+                         <li>Update meal via meals editor</li>
+                         <li>Add meal to the database</li>
+                     </ul>
+                 </li>
+                 <li><b>Exercises page</b>
+                     <ul>
+                         <li>Show table with all exercises in localDB</li>
+                         <li>Click to the exercises will open exercises editor</li>
+                         <li>Delete exercise via exercises editor</li>
+                         <li>Update exercise via exercises editor</li>
+                         <li>Add exercise to the database</li>
+                     </ul>
+                 </li>
+                 <li><b>Day page</b>
+                     <ul>
+                         <li>By data picker you can choose the day</li>
+                         <li>Show meals and exercises table in the day</li>
+                         <li>Click to the exercise or meal will open theirs editor</li>
+                         <li>Delete meal/exercise from the day</li>
+                         <li>Update meal/exercise from the day</li>
+                         <li>Add meal/exercise to the day either set from database or set new values</li>
+                     </ul>
+                 </li>
+                 <li><b>Backup/Restore</b>
+                     <ul>
+                         <li>Import local DB as JSON</li>
+                         <li>Export local DB as JSON (issue on windows phone browser and firefox os simulator)</li>
+                         <li>Delete local storage</li>
+                     </ul>
+                 </li>
+             </ol>
          </div>
          <!-- End of Junkyard - - - - - - - - - - - - - - - - - - - - - - - -->
       </div>
@@ -158,9 +146,7 @@
          <div style="margin:0.5rem 1rem 0.5rem 1rem">
             <h3 style="text-align: center">Restore/Backup</h3>
             <br>
-            <button onclick="deleteLocal();loadTemplate();">Load template</button><br>
-            <br>
-            <button onclick="deleteLocal();generatedData();">Load random generated data</button><br>
+            <button onclick="deleteLocal();loadTemplate();">Load template (test)</button><br>
             <br>
          </div>
          <!-- End of Junkyard - - - - - - - - - - - - - - - - - - - - - - - -->
@@ -312,6 +298,26 @@
             </form>
          </div>
       </div>
+      <!-- for picker test will be deleted-->
+      <div id="pageDays" class="pagebody">
+         <div class="generalBoard">
+            <h2> Days </h2>
+            <div id="daysBoard">
+            </div>
+         </div>
+         <!-- End of Junkyard - - - - - - - - - - - - - - - - - - - - - - - -->
+      </div>
+      <!-- for picker test will be deleted-->
+      <div id="pageDayTest" class="pagebody" aria-owns="addToolbar">
+         <header>
+            <button class="icon back" onclick="deleteShowTable('dayBoardTest');deleteShowTable('daysBoard');showGlobalDays();revealPage(previousPages.pop());"></button>
+            <h2>Day</h2>
+         </header>
+         <div class="generalBoard">
+            <div id="dayBoardTest">
+            </div>
+         </div>
+      </div>
 
       <footer class="toolbar">
          <menu id="addToolbar" type="toolbar">
@@ -348,14 +354,15 @@
       </header>
       <div class="menulist">
         <menu>
-            <menuitem aria-controls="homePage" type="command" label="HOME"></menuitem>
-            <menuitem aria-controls="pageDays" type="command" label="Days" onclick="deleteShowTable('daysBoard');showGlobalDays();"></menuitem>
+            <menuitem aria-controls="homePage" type="command" label="HOME" onclick="deleteShowTable('homeBoard');showHomepage()"></menuitem>
             <menuitem aria-controls="pageMeals" type="command" label="Meals" onclick="deleteShowTable('mealsBoard');showGlobalMeals();"></menuitem>
             <menuitem aria-controls="pageExercises" type="command" label="Exercises" onclick="deleteShowTable('exercisesBoard');showGlobalExercises();"></menuitem>
-            <menuitem aria-controls="pageGraphs" type="command" label="Graph"></menuitem>
+           <menuitem aria-controls="pageDay" type="command" label="History" onclick="deleteShowTable('dayBoard');showDay();"></menuitem>
+           <menuitem aria-controls="pageGraphs" type="command" label="Graph"></menuitem>
             <menuitem aria-controls="pageNotes" type="command" label="Notes"></menuitem>
             <menuitem aria-controls="pageBackup" type="command" label="Backup/Restore"></menuitem>
             <menuitem aria-controls="pageAbout" type="command" label="About"></menuitem>
+           <menuitem aria-controls="pageDays" type="command" label="All Days(test)" onclick="deleteShowTable('daysBoard');showGlobalDays();"></menuitem>
         </menu>
       </div>
    </section>

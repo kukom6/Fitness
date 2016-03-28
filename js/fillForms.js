@@ -42,9 +42,9 @@ function fillEditMeal(id) {
         }else{
             globalMealsManager.deleteMealByID(ids[1]);
         }
-        saveLocal();
         if(ids[0]=="LM"){
-            deleteShowTable("homeDayBoard");
+            deleteShowTable("homeBoard");
+            showHomepage();
             deleteShowTable("dayBoard");
             showDay(new Date(ids[1]));
         }else{
@@ -81,10 +81,11 @@ function fillEditMeal(id) {
             saveMeal.partOfDay = form[6].value;
             globalMealsManager.updateMeal(saveMeal);
         }
-        saveLocal();
         alert("Meal was been updated");
         form.reset();
         if(ids[0]=="LM"){
+            deleteShowTable("homeBoard");
+            showHomepage();
             deleteShowTable("dayBoard");
             showDay(new Date(ids[1]));
         }else{
@@ -125,6 +126,8 @@ function fillEditExercise(id){
         }
         saveLocal();
         if(ids[0]=="LE"){
+            deleteShowTable("homeBoard");
+            showHomepage();
             deleteShowTable("dayBoard");
             showDay(new Date(ids[1]));
         }else{
@@ -155,6 +158,8 @@ function fillEditExercise(id){
         alert("Exercise was been updated");
         form.reset();
         if(ids[0]=="LE"){
+            deleteShowTable("homeBoard");
+            showHomepage();
             deleteShowTable("dayBoard");
             showDay(new Date(ids[1]));
         }else{

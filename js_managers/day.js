@@ -8,6 +8,10 @@ function Day(date){
     this.mealsManager = new MealsManager();
     this.exercisesManager = new ExercisesManager();
 
+    this.isEmpty = function(){
+        return this.mealsManager.isEmpty()&&this.exercisesManager.isEmpty();
+    };
+    
     this.toString = function () {
         var result = "";
         result += "Date " +this.date.toLocaleString()+ ":\n";
