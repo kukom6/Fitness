@@ -1,6 +1,3 @@
-/**
- * Created by mkralik on 2/24/16.
- */
 QUnit.test( "test add day", function( assert ) {
     assert.ok(globalDaysManager.isEmpty(),"days array is empty");
     globalDaysManager.addDay(new Day(new Date()));

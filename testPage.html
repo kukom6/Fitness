@@ -20,7 +20,7 @@
     </head>
     <body>
         LOAD DB : <button id="loadButton" onclick="loadDB()"> LoadDB  </button> <input type="file" id="input" onchange="loadDB(this.files)">
-        <button id="refreshButton" onclick="this.disabled=true; refreshShowDB()"> RefreshDB  </button>
+        <button id="refreshButton" onclick="refreshShowDB()"> RefreshDB  </button>
         <button id="saveButton" onclick="saveJSON()"> DownloadDB  </button>
         !TEST FUNCTION (don't use their)!
         <button onclick="saveLocal()"> SaveLocal </button>
@@ -39,21 +39,21 @@
                 <input type="text" placeholder="carbohydrate" name="carbohydrate" />
                 <input type="text" placeholder="fat" name="fat"/>
                 <input type="text" placeholder="kcal" name="kcal"/>
-                <select>
+                <select title="method">
                     <option value="100g">100g</option>
                     <option value="one piece">one piece</option>
                 </select>
                 <input type="submit" value="Submit"/>
-                Save to DB<input type="checkbox" name="addToDB" value="saveDB" checked>
-                Save to day<input type="checkbox" name="addToDay" value="saveDB" >
+                Save to DB<input title="saveDB" type="checkbox" name="addToDB" value="saveDB" checked>
+                Save to day<input title="saveL" type="checkbox" name="addToDay" value="saveDB" >
             </form>
             <form name="addExercise" onsubmit="addDB(this);return false" method="post">
                 Enter exercise: <br>
                 <input type="text" placeholder="Name" name="nameE" required/>
                 <input type="text" placeholder="kcal" name="kcal" />
                 <input type="submit" value="Submit"/>
-                Save to DB<input type="checkbox" name="addToDB" value="saveDB" checked>
-                Save to day<input type="checkbox" name="addToDay" value="saveDB" >
+                Save to DB<input title="saveDB" type="checkbox" name="addToDB" value="saveDB" checked>
+                Save to day<input title="saveL" type="checkbox" name="addToDay" value="saveDB" >
             </form>
         </div>
         <br>

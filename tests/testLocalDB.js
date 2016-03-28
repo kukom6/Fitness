@@ -1,6 +1,3 @@
-/**
- * Created by mkralik on 2/24/16.
- */
 QUnit.test( "test local db", function( assert ) {
     globalMealsManager.addMeal(new Meal("steakGlobal",30,0,10,600,"one piece"));
     globalMealsManager.addMeal(new Meal("steak2Global",10,0,5,300,"100g"));
