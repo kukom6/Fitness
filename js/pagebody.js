@@ -68,19 +68,19 @@ function revealPageSave(id){
 /**
  * Show global meals page
  */
-function showGlobalMeals(){
-    document.getElementById("mealsBoard").appendChild(createGlobalMealsTable());
+function showGlobalMeals(homePage){
+    document.getElementById("mealsBoard").appendChild(createGlobalMealsTable(homePage));
     document.getElementById("addNewMealButton").onclick = function(){
-        fillAddMeal();
+        fillAddMeal(homePage);
     }
 }
 /**
  * Show global exercises page
  */
-function showGlobalExercises(){
-    document.getElementById("exercisesBoard").appendChild(createGlobalExercisesTable());
+function showGlobalExercises(homePage){
+    document.getElementById("exercisesBoard").appendChild(createGlobalExercisesTable(homePage));
     document.getElementById("addNewExerciseButton").onclick = function(){
-        fillAddExercise();
+        fillAddExercise(homePage);
     }
 }
 /**
@@ -91,19 +91,19 @@ function showDay(){
     var pick = document.getElementById('datepicker');
     var date = picker.getDate();
     try{
-        document.getElementById("dayBoard").appendChild(createDayTable(new Date(date)));
+        document.getElementById("dayBoard").appendChild(createDayTable(false,new Date(date)));
     }catch(ex){ //if day is not in the DB manager will create new empty day and show it
         globalDaysManager.addDay(new Day(new Date(date)));
-        document.getElementById("dayBoard").appendChild(createDayTable(new Date(date)));
+        document.getElementById("dayBoard").appendChild(createDayTable(false,new Date(date)));
     }
     pick.onblur = function () { //click to other day
         var date = picker.getDate();
         deleteShowTable("dayBoard");
         try{
-            document.getElementById("dayBoard").appendChild(createDayTable(new Date(date)));
+            document.getElementById("dayBoard").appendChild(createDayTable(false,new Date(date)));
         }catch(ex){ //if day is not in the DB manager will create new empty day and show it
             globalDaysManager.addDay(new Day(new Date(date)));
-            document.getElementById("dayBoard").appendChild(createDayTable(new Date(date)));
+            document.getElementById("dayBoard").appendChild(createDayTable(false,new Date(date)));
         }
     }
 }
@@ -116,7 +116,7 @@ function showHomepage(){
         if(empty){
             emptyDay("homeBoard");
         }else{
-            document.getElementById("homeBoard").appendChild(createDayTable(new Date()));
+            document.getElementById("homeBoard").appendChild(createDayTable(true,new Date()));
         }
     }catch(ex){ //if day is not in the DB manager will create new empty day and show it
         emptyDay("homeBoard");
@@ -124,12 +124,13 @@ function showHomepage(){
 }
 /**
  * Show global meals board for add meal to the particular day
+ * @param homePage - if is true, meals table will be on homePage
  * @param date - date of particular day
  */
-function showAddMealsBoard(date){
-    document.getElementById("addFromMealsBoard").appendChild(createGlobalMealsTable(date));
+function showAddMealsBoard(homePage,date){
+    document.getElementById("addFromMealsBoard").appendChild(createGlobalMealsTable(homePage,date));
     document.getElementById("addNewMealButton").onclick = function(){
-        fillAddMeal(date);
+        fillAddMeal(homePage,date);
     }
 
 }
@@ -137,10 +138,10 @@ function showAddMealsBoard(date){
  * Show global exercise board for add exercise to the particular day
  * @param date - date of particular day
  */
-function showAddExercisesBoard(date){
-    document.getElementById("addFromExercisesBoard").appendChild(createGlobalExercisesTable(date));
+function showAddExercisesBoard(homePage,date){
+    document.getElementById("addFromExercisesBoard").appendChild(createGlobalExercisesTable(homePage,date));
     document.getElementById("addNewExerciseButton").onclick = function(){
-        fillAddExercise(date);
+        fillAddExercise(homePage,date);
     }
 }
 /**
@@ -170,7 +171,7 @@ function showGlobalDays(){
         li.onclick = function(){
             var id = this.getAttribute("idDay").split("#");
             revealPageSave("pageDayTest");
-            document.getElementById("dayBoardTest").appendChild(createDayTable(id[1]));
+            document.getElementById("dayBoardTest").appendChild(false,createDayTable(id[1]));
         };
         li.appendChild(document.createTextNode(manager[i].date.toDateString()));
         ul.appendChild(li);

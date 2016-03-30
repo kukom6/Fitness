@@ -1,9 +1,10 @@
 /**
  * Create table for particular day
  * @param inDate - date of the day
+ * @param homePage - if is true, day table will be on homePage
  * @returns {Element} HTML table
  */
-function createDayTable(inDate){
+function createDayTable(homePage,inDate){
     var dayDate;
     if(inDate instanceof Date){
         dayDate=inDate;
@@ -19,8 +20,8 @@ function createDayTable(inDate){
     caption.appendChild(document.createTextNode(date));
     caption.style.fontWeight = "bold";
     tabDay.appendChild(caption);
-    tabDay.appendChild(createDayMealsTable(currentDate));
-    tabDay.appendChild(createDayExerciseTable(currentDate));
+    tabDay.appendChild(createDayMealsTable(homePage,currentDate));
+    tabDay.appendChild(createDayExerciseTable(homePage,currentDate));
 
     var tabfoot = document.createElement("table");
     tabfoot.style.width = "100%";
@@ -46,10 +47,16 @@ function createDayTable(inDate){
         }
         var date=this.id;
         globalDaysManager.deleteDayByDate(new Date(date));
-        deleteShowTable("dayBoard");
-        deleteShowTable("daysBoard");
-        showGlobalDays();
-        revealPage(previousPages.pop());
+        if(homePage){
+            deleteShowTable("homeBoard");
+            showHomepage();
+            revealPage(previousPages.pop());
+        }else{
+            deleteShowTable("dayBoard");
+            deleteShowTable("daysBoard");
+            showGlobalDays();
+            revealPage(previousPages.pop());
+        }
     };
     deleteB.appendChild(document.createTextNode("Delete day"+date));
     tabDay.appendChild(deleteB);
@@ -58,13 +65,13 @@ function createDayTable(inDate){
     addB.setAttribute("date",date);
     addB.onclick = function() {
         deleteShowTable("addFromMealsBoard");
-        showAddMealsBoard(this.getAttribute("date"));
+        showAddMealsBoard(homePage,this.getAttribute("date"));
     };
     addB = document.getElementById("addExerciseButton");
     addB.setAttribute("date",date);
     addB.onclick = function() {
         deleteShowTable("addFromExercisesBoard");
-        showAddExercisesBoard(this.getAttribute("date"));
+        showAddExercisesBoard(homePage,this.getAttribute("date"));
     };
     return tabDay;
 }
@@ -73,7 +80,7 @@ function createDayTable(inDate){
  * @param day - particular day
  * @returns {Element} - HTML table
  */
-function createDayMealsTable(day){
+function createDayMealsTable(homePage,day){
     var manager = null;
     if(day){
         manager = day.mealsManager;
@@ -124,7 +131,7 @@ function createDayMealsTable(day){
         tr = document.createElement("tr");
         tr.setAttribute("idMeal","LM#"+day.date+"#"+array[j].id);
         tr.onclick = function(){
-            fillEditMeal(this.getAttribute("idMeal"));
+            fillEditMeal(homePage,this.getAttribute("idMeal"));
         };
         node = document.createElement("td");
         node.appendChild(document.createTextNode(array[j].name));
@@ -157,7 +164,7 @@ function createDayMealsTable(day){
         tr = document.createElement("tr");
         tr.setAttribute("idMeal","LM#"+day.date+"#"+array[j].id);
         tr.onclick = function(){
-            fillEditMeal(this.getAttribute("idMeal"));
+            fillEditMeal(homePage,this.getAttribute("idMeal"));
         };
         node = document.createElement("td");
         node.appendChild(document.createTextNode(array[j].name));
@@ -190,7 +197,7 @@ function createDayMealsTable(day){
         tr = document.createElement("tr");
         tr.setAttribute("idMeal","LM#"+day.date+"#"+array[j].id);
         tr.onclick = function(){
-            fillEditMeal(this.getAttribute("idMeal"));
+            fillEditMeal(homePage,this.getAttribute("idMeal"));
         };
         node = document.createElement("td");
         node.appendChild(document.createTextNode(array[j].name));
@@ -223,7 +230,7 @@ function createDayMealsTable(day){
         tr = document.createElement("tr");
         tr.setAttribute("idMeal","LM#"+day.date+"#"+array[j].id);
         tr.onclick = function(){
-            fillEditMeal(this.getAttribute("idMeal"));
+            fillEditMeal(homePage,this.getAttribute("idMeal"));
         };
         node = document.createElement("td");
         node.appendChild(document.createTextNode(array[j].name));
@@ -268,10 +275,11 @@ function createDayMealsTable(day){
 }
 /**
  * Create meals table from global meals manager
+ * @param homePage - if is true, m table will be on homePage
  * @param date - optional, date of day when we can show global table and choice meals to this day.
  * @returns {Element} - HTML table
  */
-function createGlobalMealsTable(date){
+function createGlobalMealsTable(homePage,date){
     var manager = globalMealsManager;
     var array = manager.getAllMeals();
     var tabMeals = document.createElement("table");
@@ -291,12 +299,12 @@ function createGlobalMealsTable(date){
             globalMealsManager.sortByNameFromA();
             commonSort = "desc";
             deleteShowTable("mealsBoard");
-            showGlobalMeals();
+            showGlobalMeals(homePage);
         }else{
             globalMealsManager.sortByNameFromZ();
             commonSort = "asc";
             deleteShowTable("mealsBoard");
-            showGlobalMeals();
+            showGlobalMeals(homePage);
         }
     };
     tr.appendChild(node);
@@ -307,12 +315,12 @@ function createGlobalMealsTable(date){
             globalMealsManager.sortByProteinAscending();
             commonSort = "desc";
             deleteShowTable("mealsBoard");
-            showGlobalMeals();
+            showGlobalMeals(homePage);
         }else{
             globalMealsManager.sortByProteinDescending();
             commonSort = "asc";
             deleteShowTable("mealsBoard");
-            showGlobalMeals();
+            showGlobalMeals(homePage);
         }
     };
     tr.appendChild(node);
@@ -323,12 +331,12 @@ function createGlobalMealsTable(date){
             globalMealsManager.sortByCarbohydrateAscending();
             commonSort = "desc";
             deleteShowTable("mealsBoard");
-            showGlobalMeals();
+            showGlobalMeals(homePage);
         }else{
             globalMealsManager.sortByCarbohydrateDescending();
             commonSort = "asc";
             deleteShowTable("mealsBoard");
-            showGlobalMeals();
+            showGlobalMeals(homePage);
         }
     };
     tr.appendChild(node);
@@ -339,12 +347,12 @@ function createGlobalMealsTable(date){
             globalMealsManager.sortByFatAscending();
             commonSort = "desc";
             deleteShowTable("mealsBoard");
-            showGlobalMeals();
+            showGlobalMeals(homePage);
         }else{
             globalMealsManager.sortByFatDescending();
             commonSort = "asc";
             deleteShowTable("mealsBoard");
-            showGlobalMeals();
+            showGlobalMeals(homePage);
         }
     };
     tr.appendChild(node);
@@ -355,12 +363,12 @@ function createGlobalMealsTable(date){
             globalMealsManager.sortByKcalAscending();
             commonSort = "desc";
             deleteShowTable("mealsBoard");
-            showGlobalMeals();
+            showGlobalMeals(homePage);
         }else{
             globalMealsManager.sortByKcalDescending();
             commonSort = "asc";
             deleteShowTable("mealsBoard");
-            showGlobalMeals();
+            showGlobalMeals(homePage);
         }
     };
     tr.appendChild(node);
@@ -374,11 +382,11 @@ function createGlobalMealsTable(date){
         if(date){
             tr.setAttribute("dateMeal",date);
             tr.onclick = function(){
-                fillAddMeal(this.getAttribute("dateMeal"),this.getAttribute("idMeal"));
+                fillAddMeal(homePage,this.getAttribute("dateMeal"),this.getAttribute("idMeal"));
             };
         }else{
             tr.onclick = function(){
-                fillEditMeal(this.getAttribute("idMeal"));
+                fillEditMeal(homePage,this.getAttribute("idMeal"));
             };
         }
         node = document.createElement("td");
@@ -426,7 +434,7 @@ function createGlobalMealsTable(date){
  * @param day - particular day
  * @returns {Element} - HTML table
  */
-function createDayExerciseTable(day){
+function createDayExerciseTable(homePage,day){
     var manager = null;
     if(day){
         manager = day.exercisesManager;
@@ -459,7 +467,7 @@ function createDayExerciseTable(day){
         tr = document.createElement("tr");
         tr.setAttribute("idExercise","LE#"+day.date+"#"+array[j].id);
         tr.onclick = function(){
-            fillEditExercise(this.getAttribute("idExercise"));
+            fillEditExercise(homePage,this.getAttribute("idExercise"));
         };
         node = document.createElement("td");
         node.appendChild(document.createTextNode(array[j].name));
@@ -488,7 +496,7 @@ function createDayExerciseTable(day){
  * @param date - optional, date of day when we can show global table and choice exercise to this day.
  * @returns {Element} - HTML table
  */
-function createGlobalExercisesTable(date){
+function createGlobalExercisesTable(homePage,date){
     var manager = globalExercisesManager;
     var array = manager.getAllExercises();
     var tabExercises = document.createElement("table"); 
@@ -508,12 +516,12 @@ function createGlobalExercisesTable(date){
             globalExercisesManager.sortByNameFromA();
             commonSort = "desc";
             deleteShowTable("exercisesBoard");
-            showGlobalExercises();
+            showGlobalExercises(homePage);
         }else{
             globalExercisesManager.sortByNameFromZ();
             commonSort = "asc";
             deleteShowTable("exercisesBoard");
-            showGlobalExercises();
+            showGlobalExercises(homePage);
         }
     };
     tr.appendChild(node);
@@ -524,12 +532,12 @@ function createGlobalExercisesTable(date){
             globalExercisesManager.sortByKcalAscending();
             commonSort = "desc";
             deleteShowTable("exercisesBoard");
-            showGlobalExercises();
+            showGlobalExercises(homePage);
         }else{
             globalExercisesManager.sortByKcalDescending();
             commonSort = "asc";
             deleteShowTable("exercisesBoard");
-            showGlobalExercises();
+            showGlobalExercises(homePage);
         }
     };
     tr.appendChild(node);
@@ -543,11 +551,11 @@ function createGlobalExercisesTable(date){
         if(date){
             tr.setAttribute("dateExercise",date);
             tr.onclick = function(){
-                fillAddExercise(this.getAttribute("dateExercise"),this.getAttribute("idExercise"));
+                fillAddExercise(homePage,this.getAttribute("dateExercise"),this.getAttribute("idExercise"));
             };
         }else{
             tr.onclick = function(){
-                fillEditExercise(this.getAttribute("idExercise"));
+                fillEditExercise(homePage,this.getAttribute("idExercise"));
             };
         }
         node = document.createElement("td");

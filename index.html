@@ -42,12 +42,12 @@
         <button id="sidebar_trigger" class="icon menu"></button>
         <h1>Fitness</h1>
         <ul>
-           <li class="icon star_on" onclick="deleteLocal();generatedData()">rand.</li>
+           <li class="icon star_on" onclick="generatedData()">rand.</li>
            <!-- <li id="install">Install</li> -->
         </ul>
       </header>
 
-      <div id="homePage" class="pagebody" >
+      <div id="homePage" class="pagebody" aria-owns="addToolbar" >
           <div class="generalBoard" >
               <h2> Today </h2>
               <div id="homeBoard">
@@ -355,8 +355,8 @@
       <div class="menulist">
         <menu>
             <menuitem aria-controls="homePage" type="command" label="HOME" onclick="deleteShowTable('homeBoard');showHomepage()"></menuitem>
-            <menuitem aria-controls="pageMeals" type="command" label="Meals" onclick="deleteShowTable('mealsBoard');showGlobalMeals();"></menuitem>
-            <menuitem aria-controls="pageExercises" type="command" label="Exercises" onclick="deleteShowTable('exercisesBoard');showGlobalExercises();"></menuitem>
+            <menuitem aria-controls="pageMeals" type="command" label="Meals" onclick="deleteShowTable('mealsBoard');showGlobalMeals(false);"></menuitem>
+            <menuitem aria-controls="pageExercises" type="command" label="Exercises" onclick="deleteShowTable('exercisesBoard');showGlobalExercises(false);"></menuitem>
            <menuitem aria-controls="pageDay" type="command" label="History" onclick="deleteShowTable('dayBoard');showDay();"></menuitem>
            <menuitem aria-controls="pageGraphs" type="command" label="Graph"></menuitem>
             <menuitem aria-controls="pageNotes" type="command" label="Notes"></menuitem>

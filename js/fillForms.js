@@ -1,11 +1,12 @@
 /**
  * Fill form for edit meal
+ * @param homePage - if is true,form will be on homePage
  * @param id - id edited meal, id contains more string separate by #
  * First string is controls (how manager will be use):
  * GM - meal from global manager  For example : id = GM#[id]
  * LM - meal from manager from particular date For example = LM#[date]#[id] 
  */
-function fillEditMeal(id) {
+function fillEditMeal(homePage,id) {
     revealPageSave("editMealPage");
     var ids = id.split("#");
     var form = document.getElementById("editMealForm");
@@ -43,13 +44,17 @@ function fillEditMeal(id) {
             globalMealsManager.deleteMealByID(ids[1]);
         }
         if(ids[0]=="LM"){
-            deleteShowTable("homeBoard");
-            showHomepage();
-            deleteShowTable("dayBoard");
-            showDay(new Date(ids[1]));
+            if(homePage){
+                deleteShowTable("homeBoard");
+                revealPage("homePage");
+                showHomepage();
+            }else{
+                deleteShowTable("dayBoard");
+                showDay(new Date(ids[1]));
+            }
         }else{
             deleteShowTable("mealsBoard");
-            showGlobalMeals();
+            showGlobalMeals(homePage);
         }
         form.reset();
         revealPage(previousPages.pop());
@@ -84,25 +89,29 @@ function fillEditMeal(id) {
         alert("Meal was been updated");
         form.reset();
         if(ids[0]=="LM"){
-            deleteShowTable("homeBoard");
-            showHomepage();
-            deleteShowTable("dayBoard");
-            showDay(new Date(ids[1]));
+            if(homePage){
+                deleteShowTable("homeBoard");
+                showHomepage();
+            }else{
+                deleteShowTable("dayBoard");
+                showDay(new Date(ids[1]));
+            }
         }else{
             deleteShowTable("mealsBoard");
-            showGlobalMeals();
+            showGlobalMeals(homePage);
         }
         revealPage(previousPages.pop());
     };
 }
 /**
  * Fill form for edit exercise
+ * @param homePage - if is true,form will be on homePage
  * @param id - id edited exercise, id contains more string separate by #
  * First string is controls (how manager will be use):
  * GE - exercise from global manager  For example : id = GE#[id]
  * LE - exercise from manager from particular date For example = LE#[date]#[id]
  */
-function fillEditExercise(id){
+function fillEditExercise(homePage,id){
     revealPageSave("editExercisePage");
     var ids = id.split("#");
     var form = document.getElementById("editExerciseForm");
@@ -126,13 +135,17 @@ function fillEditExercise(id){
         }
         saveLocal();
         if(ids[0]=="LE"){
-            deleteShowTable("homeBoard");
-            showHomepage();
-            deleteShowTable("dayBoard");
-            showDay(new Date(ids[1]));
+            if(homePage){
+                deleteShowTable("homeBoard");
+                revealPage("homePage");
+                showHomepage();
+            }else{
+                deleteShowTable("dayBoard");
+                showDay(new Date(ids[1]));
+            }
         }else{
             deleteShowTable("exercisesBoard");
-            showGlobalExercises();
+            showGlobalExercises(homePage);
         }
         revealPage(previousPages.pop());
     };
@@ -158,24 +171,29 @@ function fillEditExercise(id){
         alert("Exercise was been updated");
         form.reset();
         if(ids[0]=="LE"){
-            deleteShowTable("homeBoard");
-            showHomepage();
-            deleteShowTable("dayBoard");
-            showDay(new Date(ids[1]));
+            if(homePage){
+                deleteShowTable("homeBoard");
+                revealPage("homePage");
+                showHomepage();
+            }else{
+                deleteShowTable("dayBoard");
+                showDay(new Date(ids[1]));
+            }
         }else{
             deleteShowTable("exercisesBoard");
-            showGlobalExercises();
+            showGlobalExercises(homePage);
         }
         revealPage(previousPages.pop());
     };
 }
 /**
- * Fill form for add meal, parameters determine how way of form will be use (
+ * Fill form for add meal, parameters determine how way of form will be use 
+ * @param homePage - if is true,form will be on homePage
  * @param date optional, when new meal will be added to the particular day (date parameter) , id mustn't be set
  * @param id optional, when meal will be added from the global manager to the particular day (date parameter) , date must be set
  * when function haven't any parameters, new meal will be added to the global manager
  */
-function fillAddMeal(date,id){
+function fillAddMeal(homePage,date,id){
 
     var saveButton,form = null;
     if(id){ //fill from global meal
@@ -232,10 +250,16 @@ function fillAddMeal(date,id){
             form.reset();
             previousPages.pop();
             previousPages.pop();
-            deleteShowTable("dayBoard");
             deleteShowTable("addFromMealsBoard");
-            revealPage("pageDay");
-            showDay(new Date(date));
+            if(homePage){
+                deleteShowTable("homeBoard");
+                revealPage("homePage");
+                showHomepage();
+            }else{
+                deleteShowTable("dayBoard");
+                revealPage("pageDay");
+                showDay(new Date(date));
+            }
         };
     }else if(date){ 
         revealPageSave("addNewMealPage");
@@ -264,10 +288,15 @@ function fillAddMeal(date,id){
             form.reset();
             previousPages.pop();
             previousPages.pop();
-            deleteShowTable("dayBoard");
             deleteShowTable("addFromMealsBoard");
-            revealPage("pageDay");
-            showDay(new Date(date));
+            if(homePage){
+                deleteShowTable("homeBoard");
+                showHomepage()
+            }else{
+                deleteShowTable("dayBoard");
+                revealPage("pageDay");
+                showDay(new Date(date));
+            }
         };
     }else{ 
         revealPageSave("addNewMealToGlobalPage");
@@ -296,17 +325,18 @@ function fillAddMeal(date,id){
             previousPages.pop();
             deleteShowTable("mealsBoard");
             revealPage("pageMeals");
-            showGlobalMeals();
+            showGlobalMeals(homePage);
         };
     }
 }
 /**
- * Fill form for add exercise, parameters determine how way of form will be use (
+ * Fill form for add exercise, parameters determine how way of form will be use 
+ * @param homePage - if is true,form will be on homePage
  * @param date optional, when new exercise will be added to the particular day (date parameter) , id mustn't be set
  * @param id optional, when exercise will be added from the global manager to the particular day (date parameter) , date must be set
  * when function haven't any parameters, new exercise will be added to the global manager
  */
-function fillAddExercise(date,id){
+function fillAddExercise(homePage,date,id){
     revealPageSave("addExercisePage");
     var form = document.getElementById("addExerciseForm");
     var saveButton = null;
@@ -334,10 +364,16 @@ function fillAddExercise(date,id){
             form.reset();
             previousPages.pop();
             previousPages.pop();
-            deleteShowTable("dayBoard");
             deleteShowTable("addFromExercisesBoard");
-            revealPage("pageDay");
-            showDay(new Date(date));
+            if(homePage){
+                deleteShowTable("homeBoard");
+                revealPage("homePage");
+                showHomepage();
+            }else{
+                deleteShowTable("dayBoard");
+                revealPage("pageDay");
+                showDay(new Date(date));
+            }
         };
     }else if(date){ //fill from new exercise
         form[2].disabled = true;
@@ -353,10 +389,16 @@ function fillAddExercise(date,id){
             form.reset();
             previousPages.pop();
             previousPages.pop();
-            deleteShowTable("dayBoard");
             deleteShowTable("addFromExercisesBoard");
-            revealPage("pageDay");
-            showDay(new Date(date));
+            if(homePage){
+                deleteShowTable("homeBoard");
+                revealPage("homePage");
+                showHomepage();
+            }else{
+                deleteShowTable("dayBoard");
+                revealPage("pageDay");
+                showDay(new Date(date));
+            }
         };
     }else{ //fill to the global
         form[2].disabled = true;
@@ -373,7 +415,7 @@ function fillAddExercise(date,id){
             previousPages.pop();
             deleteShowTable("exercisesBoard");
             revealPage("pageExercises");
-            showGlobalExercises();
+            showGlobalExercises(homePage);
         };
     }
 }
