@@ -77,6 +77,7 @@ function createDayTable(homePage,inDate){
 }
 /**
  * Create meals table for particular day
+ * @param homePage - if is true, table will be on homePage
  * @param day - particular day
  * @returns {Element} - HTML table
  */
@@ -275,7 +276,7 @@ function createDayMealsTable(homePage,day){
 }
 /**
  * Create meals table from global meals manager
- * @param homePage - if is true, m table will be on homePage
+ * @param homePage - if is true, table will be on homePage
  * @param date - optional, date of day when we can show global table and choice meals to this day.
  * @returns {Element} - HTML table
  */
@@ -431,6 +432,7 @@ function createGlobalMealsTable(homePage,date){
 }
 /**
  * Create exercises table for particular day
+ * @param homePage - if is true, table will be on homePage
  * @param day - particular day
  * @returns {Element} - HTML table
  */
@@ -493,6 +495,7 @@ function createDayExerciseTable(homePage,day){
 }
 /**
  * Create exercises table from global exercises manager
+ * @param homePage - if is true, table will be on homePage
  * @param date - optional, date of day when we can show global table and choice exercise to this day.
  * @returns {Element} - HTML table
  */

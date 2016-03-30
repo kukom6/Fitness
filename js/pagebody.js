@@ -10,7 +10,6 @@ window.addEventListener(
             loadLocal();
             alert("load from local"); //TODO temp
         }
-        showHomepage();
         picker = new Pikaday({ field: document.getElementById('datepicker')});
         picker.setDate(new Date());
     }
@@ -67,6 +66,7 @@ function revealPageSave(id){
 }
 /**
  * Show global meals page
+ * @param homePage - if is true, board will be on homePage
  */
 function showGlobalMeals(homePage){
     document.getElementById("mealsBoard").appendChild(createGlobalMealsTable(homePage));
@@ -76,6 +76,7 @@ function showGlobalMeals(homePage){
 }
 /**
  * Show global exercises page
+ * @param homePage - if is true, board will be on homePage
  */
 function showGlobalExercises(homePage){
     document.getElementById("exercisesBoard").appendChild(createGlobalExercisesTable(homePage));
@@ -84,8 +85,7 @@ function showGlobalExercises(homePage){
     }
 }
 /**
- * Show particular day
- * @param dayDate - date of particular day
+ * Show particular day (day will be chosen in the datapicker)
  */
 function showDay(){
     var pick = document.getElementById('datepicker');
@@ -115,16 +115,29 @@ function showHomepage(){
         var empty = globalDaysManager.getDayByDate(new Date()).isEmpty();
         if(empty){
             emptyDay("homeBoard");
+            var addB = document.getElementById("addMealButton");
+            addB.setAttribute("date",String(new Date()));
+            addB.onclick = function() {
+                deleteShowTable("addFromMealsBoard");
+                showAddMealsBoard(true,this.getAttribute("date"));
+            };
+            addB = document.getElementById("addExerciseButton");
+            addB.setAttribute("date",String(new Date()));
+            addB.onclick = function() {
+                deleteShowTable("addFromExercisesBoard");
+                showAddExercisesBoard(true,this.getAttribute("date"));
+            };
         }else{
             document.getElementById("homeBoard").appendChild(createDayTable(true,new Date()));
         }
     }catch(ex){ //if day is not in the DB manager will create new empty day and show it
+        globalDaysManager.addDay(new Day(new Date()));
         emptyDay("homeBoard");
     }
 }
 /**
  * Show global meals board for add meal to the particular day
- * @param homePage - if is true, meals table will be on homePage
+ * @param homePage - if is true, board will be on homePage
  * @param date - date of particular day
  */
 function showAddMealsBoard(homePage,date){
@@ -136,6 +149,7 @@ function showAddMealsBoard(homePage,date){
 }
 /**
  * Show global exercise board for add exercise to the particular day
+ * @param homePage - if is true, board will be on homePage
  * @param date - date of particular day
  */
 function showAddExercisesBoard(homePage,date){
@@ -171,7 +185,7 @@ function showGlobalDays(){
         li.onclick = function(){
             var id = this.getAttribute("idDay").split("#");
             revealPageSave("pageDayTest");
-            document.getElementById("dayBoardTest").appendChild(false,createDayTable(id[1]));
+            document.getElementById("dayBoardTest").appendChild(createDayTable(false,id[1]));
         };
         li.appendChild(document.createTextNode(manager[i].date.toDateString()));
         ul.appendChild(li);

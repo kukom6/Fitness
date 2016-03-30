@@ -291,7 +291,7 @@ function fillAddMeal(homePage,date,id){
             deleteShowTable("addFromMealsBoard");
             if(homePage){
                 deleteShowTable("homeBoard");
-                showHomepage()
+                showHomepage();
             }else{
                 deleteShowTable("dayBoard");
                 revealPage("pageDay");

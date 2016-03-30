@@ -159,6 +159,7 @@ function DaysManager(){
         }
         days.splice(index,1);
         console.log("Day was deleted from DB");
+        saveLocal();
     };
     /**
      * If day is in day manager

@@ -354,7 +354,7 @@
       </header>
       <div class="menulist">
         <menu>
-            <menuitem aria-controls="homePage" type="command" label="HOME" onclick="deleteShowTable('homeBoard');showHomepage()"></menuitem>
+            <menuitem aria-controls="homePage" type="command" label="HOME" onclick="deleteShowTable('homeBoard');previousPages.push('homePage');showHomepage()"></menuitem>
             <menuitem aria-controls="pageMeals" type="command" label="Meals" onclick="deleteShowTable('mealsBoard');showGlobalMeals(false);"></menuitem>
             <menuitem aria-controls="pageExercises" type="command" label="Exercises" onclick="deleteShowTable('exercisesBoard');showGlobalExercises(false);"></menuitem>
            <menuitem aria-controls="pageDay" type="command" label="History" onclick="deleteShowTable('dayBoard');showDay();"></menuitem>
@@ -362,7 +362,7 @@
             <menuitem aria-controls="pageNotes" type="command" label="Notes"></menuitem>
             <menuitem aria-controls="pageBackup" type="command" label="Backup/Restore"></menuitem>
             <menuitem aria-controls="pageAbout" type="command" label="About"></menuitem>
-           <menuitem aria-controls="pageDays" type="command" label="All Days(test)" onclick="deleteShowTable('daysBoard');showGlobalDays();"></menuitem>
+           <menuitem aria-controls="pageDays" type="command" label="All Days(test,NOT USE!)" onclick="deleteShowTable('daysBoard');showGlobalDays();"></menuitem>
         </menu>
       </div>
    </section>
