@@ -254,7 +254,7 @@
                <option value="snack">Snack</option>
             </select>
                <br>
-               Count: <br><input type="text" name="count" style="width:70%;" title="counting"/>
+               Count: <br><input type="text" name="count" style="width:70%;" title="counting" value="1"/>
                <select title="method">
                   <option value="100g">100g</option>
                   <option value="one piece">one piece</option>
@@ -294,7 +294,7 @@
                Name:<br> <input type="text" name="nameE" title="NameE"/> <br>
                Kcal:<br> <input type="text" name="kcal" title="kcal"/> <br>
                <br>
-               Count: <br><input type="text" name="count" title="counting"/> <br>
+               Count: <br><input type="text" name="count" title="counting" value="1"/> <br>
             </form>
          </div>
       </div>
@@ -355,9 +355,9 @@
       <div class="menulist">
         <menu>
             <menuitem aria-controls="homePage" type="command" label="HOME" onclick="deleteShowTable('homeBoard');previousPages.push('homePage');showHomepage()"></menuitem>
-            <menuitem aria-controls="pageMeals" type="command" label="Meals" onclick="deleteShowTable('mealsBoard');showGlobalMeals(false);"></menuitem>
-            <menuitem aria-controls="pageExercises" type="command" label="Exercises" onclick="deleteShowTable('exercisesBoard');showGlobalExercises(false);"></menuitem>
-           <menuitem aria-controls="pageDay" type="command" label="History" onclick="deleteShowTable('dayBoard');showDay();"></menuitem>
+            <menuitem aria-controls="pageMeals" type="command" label="Meals" onclick="deleteShowTable('mealsBoard');previousPages.push('pageMeals');showGlobalMeals(false);"></menuitem>
+            <menuitem aria-controls="pageExercises" type="command" label="Exercises" onclick="deleteShowTable('exercisesBoard');previousPages.push('pageExercises');showGlobalExercises(false);"></menuitem>
+           <menuitem aria-controls="pageDay" type="command" label="History" onclick="deleteShowTable('dayBoard');previousPages.push('pageDay');showDay();"></menuitem>
            <menuitem aria-controls="pageGraphs" type="command" label="Graph"></menuitem>
             <menuitem aria-controls="pageNotes" type="command" label="Notes"></menuitem>
             <menuitem aria-controls="pageBackup" type="command" label="Backup/Restore"></menuitem>

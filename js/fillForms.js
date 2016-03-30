@@ -224,10 +224,10 @@ function fillAddMeal(homePage,date,id){
             var form = document.getElementById("addMealFromGlobalForm");
             var ids = id.split("#");
             var meal = globalMealsManager.getMealByID(ids[1]);
-            form[1].value = meal.protein * this.value;
-            form[2].value = meal.carbohydrate * this.value;
-            form[3].value = meal.fat * this.value;
-            form[4].value = meal.kcal * this.value;
+            form[1].value = parseFloat(meal.protein * this.value).toFixed(1);
+            form[2].value = parseFloat(meal.carbohydrate * this.value).toFixed(1);
+            form[3].value = parseFloat(meal.fat * this.value).toFixed(1);
+            form[4].value = parseFloat(meal.kcal * this.value).toFixed(1);
         };
         form[8].value = meal.method;
         form[8].disabled = true;
@@ -350,7 +350,7 @@ function fillAddExercise(homePage,date,id){
             var form = document.getElementById("addExerciseForm");
             var ids = id.split("#");
             var exercise = globalExercisesManager.getExerciseByID(ids[1]);
-            form[1].value = exercise.kcal * this.value;
+            form[1].value = parseFloat(exercise.kcal * this.value).toFixed(1);
         };
         saveButton = document.getElementById("saveButton");
         saveButton.onclick = function() {
