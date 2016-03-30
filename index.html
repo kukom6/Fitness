@@ -139,7 +139,7 @@
       </div>
       <div id="pageBackup" class="pagebody" aria-owns="backupRestore">
          <header>
-            <button class="icon back" onclick="revealPage('homePage');"></button>
+            <button class="icon day" onclick="deleteShowTable('homeBoard');revealPage('homePage');showHomepage();"></button>
             <h2>Backup and Restore</h2>
          </header>
          <!-- Junkyard, only for the sake of the example - NOT for real use -->
@@ -354,10 +354,10 @@
       </header>
       <div class="menulist">
         <menu>
-            <menuitem aria-controls="homePage" type="command" label="HOME" onclick="deleteShowTable('homeBoard');previousPages.push('homePage');showHomepage()"></menuitem>
-            <menuitem aria-controls="pageMeals" type="command" label="Meals" onclick="deleteShowTable('mealsBoard');previousPages.push('pageMeals');showGlobalMeals(false);"></menuitem>
-            <menuitem aria-controls="pageExercises" type="command" label="Exercises" onclick="deleteShowTable('exercisesBoard');previousPages.push('pageExercises');showGlobalExercises(false);"></menuitem>
-           <menuitem aria-controls="pageDay" type="command" label="History" onclick="deleteShowTable('dayBoard');previousPages.push('pageDay');showDay();"></menuitem>
+            <menuitem aria-controls="homePage" type="command" label="HOME" onclick="deleteShowTable('homeBoard');previousPages=[];previousPages.push('homePage');showHomepage()"></menuitem>
+            <menuitem aria-controls="pageMeals" type="command" label="Meals" onclick="deleteShowTable('mealsBoard');previousPages=[];previousPages.push('pageMeals');showGlobalMeals(false);"></menuitem>
+            <menuitem aria-controls="pageExercises" type="command" label="Exercises" onclick="deleteShowTable('exercisesBoard');previousPages=[];previousPages.push('pageExercises');showGlobalExercises(false);"></menuitem>
+           <menuitem aria-controls="pageDay" type="command" label="History" onclick="deleteShowTable('dayBoard');previousPages=[];previousPages.push('pageDay');showDay();"></menuitem>
            <menuitem aria-controls="pageGraphs" type="command" label="Graph"></menuitem>
             <menuitem aria-controls="pageNotes" type="command" label="Notes"></menuitem>
             <menuitem aria-controls="pageBackup" type="command" label="Backup/Restore"></menuitem>
