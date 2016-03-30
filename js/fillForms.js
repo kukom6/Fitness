@@ -21,17 +21,22 @@ function fillEditMeal(homePage,id) {
     form[2].value = meal.carbohydrate;
     form[3].value = meal.fat;
     form[4].value = meal.kcal;
+    form[5].onclick = function () {
+        var form = document.getElementById("editMealForm");
+        form[4].value= parseFloat(form[1].value*4 + form[2].value*4 + form[3].value*9).toFixed(1);
+        return false; //because after true web page will be reloaded
+    };
     if (ids[0] == "LM") {
-        form[5].value = meal.method;
-        form[5].disabled = true;
-        form[6].style.visibility = "visible";
-        form[6].disabled = false;
-        form[6].value = meal.partOfDay;
-    }else{
-        form[5].disabled = false;
-        form[5].value = meal.method;
-        form[6].style.visibility = "hidden";
+        form[6].value = meal.method;
         form[6].disabled = true;
+        form[7].style.visibility = "visible";
+        form[7].disabled = false;
+        form[7].value = meal.partOfDay;
+    }else{
+        form[6].disabled = false;
+        form[6].value = meal.method;
+        form[7].style.visibility = "hidden";
+        form[7].disabled = true;
     }
     var toolbarButton = document.getElementById("deleteIconEdit");
     toolbarButton.onclick = function(){
@@ -73,7 +78,7 @@ function fillEditMeal(homePage,id) {
             saveMeal.carbohydrate = parseFloat(form[2].value).toFixed(2);
             saveMeal.fat = parseFloat(form[3].value).toFixed(2);
             saveMeal.kcal = parseFloat(form[4].value).toFixed(2);
-            saveMeal.partOfDay = form[6].value;
+            saveMeal.partOfDay = form[7].value;
             globalDaysManager.updateMealInDay(new Date(ids[1]),saveMeal);
         }else{
             saveMeal = globalMealsManager.getMealByID(ids[1]);
@@ -82,8 +87,8 @@ function fillEditMeal(homePage,id) {
             saveMeal.carbohydrate = parseFloat(form[2].value).toFixed(2);
             saveMeal.fat = parseFloat(form[3].value).toFixed(2);
             saveMeal.kcal = parseFloat(form[4].value).toFixed(2);
-            saveMeal.method = form[5].value;
-            saveMeal.partOfDay = form[6].value;
+            saveMeal.method = form[6].value;
+            saveMeal.partOfDay = form[7].value;
             globalMealsManager.updateMeal(saveMeal);
         }
         alert("Meal was been updated");
@@ -211,16 +216,23 @@ function fillAddMeal(homePage,date,id){
         form[3].value = meal.fat;
         form[4].disabled = true;
         form[4].value = meal.kcal;
+        form[5].disabled = true;
         form[5].onclick = function () {
+            var form = document.getElementById("addMealFromGlobalForm");
+            form[4].value= parseFloat(form[1].value*4 + form[2].value*4 + form[3].value*9).toFixed(1);
+            return false; //because after true web page will be reloaded
+        };
+        form[6].onclick = function () {
             form[0].disabled = false;
             form[1].disabled = false;
             form[2].disabled = false;
             form[3].disabled = false;
             form[4].disabled = false;
+            form[5].disabled = false;
             return false; //because after true web page will be reloaded
         };
-        form[6].value = meal.partOfDay;
-        form[7].onkeyup = function(){  //counting
+        form[7].value = meal.partOfDay;
+        form[8].onkeyup = function(){  //counting
             var form = document.getElementById("addMealFromGlobalForm");
             var ids = id.split("#");
             var meal = globalMealsManager.getMealByID(ids[1]);
@@ -229,8 +241,8 @@ function fillAddMeal(homePage,date,id){
             form[3].value = parseFloat(meal.fat * this.value).toFixed(1);
             form[4].value = parseFloat(meal.kcal * this.value).toFixed(1);
         };
-        form[8].value = meal.method;
-        form[8].disabled = true;
+        form[9].value = meal.method;
+        form[9].disabled = true;
         saveButton = document.getElementById("saveButton");
         saveButton.onclick = function() {
             var form = document.getElementById("addMealFromGlobalForm");
@@ -243,8 +255,8 @@ function fillAddMeal(homePage,date,id){
                 parseFloat(form[2].value).toFixed(1),
                 parseFloat(form[3].value).toFixed(1),
                 parseFloat(form[4].value).toFixed(1),
-                form[8].value,
-                form[6].value);
+                form[9].value,
+                form[7].value);
             globalDaysManager.addMealToDay(new Date(date),saveMeal);
             alert("Meal was been added!");
             form.reset();
@@ -267,7 +279,7 @@ function fillAddMeal(homePage,date,id){
         form = document.getElementById("addNewMealForm");
         form[5].onclick = function () {
             var form = document.getElementById("addNewMealForm");
-            form[4].value= form[1].value*4 + form[2].value*4 + form[3].value*9;
+            form[4].value= parseFloat(form[1].value*4 + form[2].value*4 + form[3].value*9).toFixed(1);
             return false; //because after true web page will be reloaded
         };
         saveButton.onclick = function() {
@@ -303,7 +315,7 @@ function fillAddMeal(homePage,date,id){
         form = document.getElementById("addNewMealToGlobalForm");
         form[5].onclick = function () {
             var form = document.getElementById("addNewMealToGlobalForm");
-            form[4].value= form[1].value*4 + form[2].value*4 + form[3].value*9;
+            form[4].value= parseFloat(form[1].value*4 + form[2].value*4 + form[3].value*9).toFixed(1);
             return false; //because after true web page will be reloaded
         };
         saveButton = document.getElementById("saveButton");
@@ -477,16 +489,21 @@ function validateForm(form,type){
                 return false;
             }
         }else if(form.id=="addMealFromGlobalForm"){
+            if(form[7].value==null||form[7].value==""){
+                alert("Part of the day must be chosen!");
+                return false;
+            }
+            if(form[9].value==null||form[9].value==""){
+                alert("Method must be chosen!");
+                return false;
+            }
+        }else if(form.id=="addNewMealForm"){
             if(form[6].value==null||form[6].value==""){
                 alert("Part of the day must be chosen!");
                 return false;
             }
-            if(form[8].value==null||form[8].value==""){
-                alert("Method must be chosen!");
-                return false;
-            }
-        }else{ // addNewMealForm
-            if(form[6].value==null||form[6].value==""){
+        }else{
+            if(form[7].value==null||form[7].value==""){
                 alert("Part of the day must be chosen!");
                 return false;
             }
