@@ -281,8 +281,7 @@ function createDayMealsTable(homePage,day){
  * @returns {Element} - HTML table
  */
 function createGlobalMealsTable(homePage,date){
-    var manager = globalMealsManager;
-    var array = manager.getAllMeals();
+    var array = globalMealsManager.getAllMeals();
     var tabMeals = document.createElement("table");
     tabMeals.style.width = "100%";
     tabMeals.className = "dayTable" ;
@@ -408,26 +407,6 @@ function createGlobalMealsTable(homePage,date){
         tbody.appendChild(tr);
     }
     tabMeals.appendChild(tbody);
-
-    var tfoot = document.createElement("tfoot");
-    tr = document.createElement("tr");
-    node = document.createElement("td");
-    node.appendChild(document.createTextNode("Total"));
-    tr.appendChild(node);
-    node = document.createElement("td");
-    node.appendChild(document.createTextNode(manager.sumProtein().toFixed(1)));
-    tr.appendChild(node);
-    node = document.createElement("td");
-    node.appendChild(document.createTextNode(manager.sumCarbohydrate().toFixed(1)));
-    tr.appendChild(node);
-    node = document.createElement("td");
-    node.appendChild(document.createTextNode(manager.sumFat().toFixed(1)));
-    tr.appendChild(node);
-    node = document.createElement("td");
-    node.appendChild(document.createTextNode(String(manager.sumKcal().toFixed(1))));
-    tr.appendChild(node);
-    tfoot.appendChild(tr);
-    tabMeals.appendChild(tfoot);
     return tabMeals;
 }
 /**
@@ -500,8 +479,7 @@ function createDayExerciseTable(homePage,day){
  * @returns {Element} - HTML table
  */
 function createGlobalExercisesTable(homePage,date){
-    var manager = globalExercisesManager;
-    var array = manager.getAllExercises();
+    var array = globalExercisesManager.getAllExercises();
     var tabExercises = document.createElement("table"); 
     tabExercises.style.width = "100%";
     tabExercises.className = "dayTable" ;
@@ -570,16 +548,5 @@ function createGlobalExercisesTable(homePage,date){
         tbody.appendChild(tr);
     }
     tabExercises.appendChild(tbody);
-
-    var tfoot = document.createElement("tfoot");
-    tr = document.createElement("tr");
-    node = document.createElement("td");
-    node.appendChild(document.createTextNode('Total'));
-    tr.appendChild(node);
-    node = document.createElement("td");
-    node.appendChild(document.createTextNode('-'+manager.sumKcal().toFixed(1)));
-    tr.appendChild(node);
-    tfoot.appendChild(tr);
-    tabExercises.appendChild(tfoot);
     return tabExercises;
 }
