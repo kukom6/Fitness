@@ -50,12 +50,12 @@ function createDayTable(homePage,inDate){
         if(homePage){
             deleteShowTable("homeBoard");
             showHomepage();
-            revealPage("dayBoard");
+            revealPage("homePage");
         }else{
             deleteShowTable("dayBoard");
             deleteShowTable("daysBoard");
-            showGlobalDays();
-            revealPage("dayBoard");
+            showDay();
+            revealPage("dayPage");
         }
     };
     deleteB.appendChild(document.createTextNode("Delete day"+date));
