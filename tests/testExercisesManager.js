@@ -82,9 +82,9 @@ QUnit.test( "delete exercises", function( assert ) {
     assert.ok( globalExercisesManager.nextExerciseId()==1 , "Passed! next free Id after delete" );
 });
 QUnit.test( "delete exercise with incorrect parameter", function( assert ) {
-    assert.throws(function() {globalExercisesManager.deleteExercise("");},"throws, delete exercise with id (\"\")");
-    assert.throws(function() {globalExercisesManager.deleteExercise(null);},"throws, delete exercise with id (null)");
-    assert.throws(function() {globalExercisesManager.deleteExercise(10);},"throws, delete exercise with wrong id");
+    assert.throws(function() {globalExercisesManager.deleteExerciseByID("");},"throws, delete exercise with id (\"\")");
+    assert.throws(function() {globalExercisesManager.deleteExerciseByID(null);},"throws, delete exercise with id (null)");
+    assert.throws(function() {globalExercisesManager.deleteExerciseByID(10);},"throws, delete exercise with wrong id");
 });
 QUnit.test( "delete storage", function( assert ) {
     localStorage.clear();

@@ -1,0 +1,64 @@
+div.generalBoard {
+    background: ghostwhite;
+    border-radius: 8px;
+    margin: 0.5rem 0.5rem 0.5rem 0.5rem;
+    position: relative;
+    overflow-y: auto;
+    height: 90%;
+    color: black;
+    text-align: center;
+}
+
+div.generalBoard li{
+    background: deepskyblue;
+    border-radius: 8px;
+    margin: 1rem 1rem 1rem -3rem;
+    font-size: larger;
+    list-style-type: none;
+    line-height: 400%;
+}
+
+div.generalBoard input{
+    width : 90%;
+    text-align: center;
+    font-size: large;
+}
+table.dayTable table {
+    font-family: "Helvetica Neue", Helvetica, sans-serif
+}
+
+table.dayTable caption {
+    text-align: left;
+    color: silver;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 5px;
+}
+
+table.dayTable thead {
+    background: SteelBlue;
+    color: white;
+}
+
+table.dayTable th,
+table.dayTable td {
+    padding: 5px 10px;
+}
+
+table.dayTable tbody tr:nth-child(even) {
+    background: WhiteSmoke;
+}
+
+table.dayTable tbody tr td {
+    text-align:center;
+}
+
+table.dayTable tfoot {
+    background: SeaGreen;
+    color: white;
+    text-align: right;
+}
+
+table.dayTable tfoot tr th:last-child {
+    font-family: monospace;
+}

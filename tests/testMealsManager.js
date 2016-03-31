@@ -61,13 +61,24 @@ QUnit.test( "get meal by id with incorrect parameter", function( assert ) {
     assert.throws(function() {globalMealsManager.getMealByID("");},"throws, get meal with incorect id (\"\")");
     assert.throws(function() {globalMealsManager.getMealByID(null);},"throws, get meal with incorect id (null)");
 });
+QUnit.test( "get meals by part of day", function( assert ) {
+    globalMealsManager.addMeal(new Meal("steakB1",20,0,0,0,"100g","breakfast"));
+    globalMealsManager.addMeal(new Meal("steakB2",20,0,0,0,"100g","breakfast"));
+    globalMealsManager.addMeal(new Meal("steakB3",20,0,0,0,"100g","breakfast"));
+    globalMealsManager.addMeal(new Meal("steakL1",20,0,0,0,"100g","lunch"));
+    globalMealsManager.addMeal(new Meal("steakL2",20,0,0,0,"100g","lunch"));
+    globalMealsManager.addMeal(new Meal("steakL3",20,0,0,0,"100g","lunch"));
+    globalMealsManager.addMeal(new Meal("steakL4",20,0,0,0,"100g","lunch"));
+    globalMealsManager.addMeal(new Meal("steakD1",20,0,0,0,"100g","dinner"));
+    globalMealsManager.addMeal(new Meal("steakD2",20,0,0,0,"100g","dinner"));
+    globalMealsManager.addMeal(new Meal("steakS1",20,0,0,0,"100g","snack"));
+    assert.equal(3,globalMealsManager.getMealsInBreakfast().length,"All meals in the breakfast");
+    assert.equal(4,globalMealsManager.getMealsInLunch().length,"All meals in the lunch");
+    assert.equal(2,globalMealsManager.getMealsInDinner().length,"All meals in the dinner");
+    assert.equal(1,globalMealsManager.getMealsInSnack().length,"All meals in the snack");
+});
 QUnit.test( "update meal", function( assert ) {
     var updateMeal = globalMealsManager.getMealByID(2);
-/*  updateMeal.id=8; //TODO repair
-    globalMealsManager.updateMeal(updateMeal);
-    assert.equal(2,globalMealsManager.nextMealId(),"Id updated meal is free");
-    updateMeal.id=2;
-    globalMealsManager.updateMeal(updateMeal);*/
     updateMeal.name="2steak2";
     globalMealsManager.updateMeal(updateMeal);
     assert.equal(updateMeal.name,globalMealsManager.getMealByID(2).name,"Name was been updated");
@@ -94,9 +105,6 @@ QUnit.test( "update meal with incorrect parameter", function( assert ) {
     assert.throws(function() {globalMealsManager.updateMeal(updateMeal);},"throws, meal with incorrect id (empty string)");
     updateMeal.id=null;
     assert.throws(function() {globalMealsManager.updateMeal(updateMeal);},"throws, meal with incorrect id (null)");
-/*  updateMeal.id=5;
-    assert.throws(function() {globalMealsManager.updateMeal(updateMeal);},"throws, meal with incorrect id(id is in the db)"); //TODO not updated another meal
-    updateMeal.id=2;*/
     updateMeal.name="";
     assert.throws(function() {globalMealsManager.updateMeal(updateMeal);},"throws, meal with incorrect name (empty string)");
     updateMeal.name=null;
@@ -114,22 +122,23 @@ QUnit.test( "update meal with incorrect parameter", function( assert ) {
     assert.throws(function() {globalMealsManager.addMeal(updateMeal);},"throws, meal with all empty optional parameters");
 });
 QUnit.test( "test number function", function( assert ) {
-    assert.equal(116,globalMealsManager.sumProtein(),"sum of protein");
+    assert.equal(316,globalMealsManager.sumProtein(),"sum of protein");
     assert.equal(109,globalMealsManager.sumCarbohydrate(),"sum of carbohydrate");
     assert.equal(89,globalMealsManager.sumFat(),"sum of fat");
-    assert.equal(4581,globalMealsManager.sumKcal(),"sum of kcal");
+    assert.equal(5381,globalMealsManager.sumKcal(),"sum of kcal");
 });
 QUnit.test( "delete meals", function( assert ) {
-    for(var i=1;i<=7;i++){
+    var max = globalMealsManager.nextMealId();
+    for(var i=1;i<max;i++){
         globalMealsManager.deleteMealByID(i);
     }
     assert.ok( globalMealsManager.isEmpty() , "DB is empty" );
     assert.ok( globalMealsManager.nextMealId()==1 , "Passed! next free Id after delete" );
 });
 QUnit.test( "delete meal with incorrect parameter", function( assert ) {
-    assert.throws(function() {globalMealsManager.deleteMeal("");},"throws, delete meal with id (\"\")");
-    assert.throws(function() {globalMealsManager.deleteMeal(null);},"throws, delete meal with id (null)");
-    assert.throws(function() {globalMealsManager.deleteMeal(10);},"throws, delete meal with wrong id");
+    assert.throws(function() {globalMealsManager.deleteMealByID("");},"throws, delete meal with id (\"\")");
+    assert.throws(function() {globalMealsManager.deleteMealByID(null);},"throws, delete meal with id (null)");
+    assert.throws(function() {globalMealsManager.deleteMealByID(10);},"throws, delete meal with wrong id");
 });
 QUnit.test( "delete storage", function( assert ) {
     localStorage.clear();

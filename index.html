@@ -1,96 +1,369 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
-    <head>
-        <meta charset="UTF-8">
-        <title>Fitness</title>
-    <!--    <script>
-            document.addEventListener("DOMContentLoaded", function(event) {
-                localDB();
-            });
-        </script> -->
-        <script src="js/exercise.js"></script>
-        <script src="js/exercisesManager.js"></script>
-        <script src="js/meal.js"></script>
-        <script src="js/mealsManager.js"></script>
-        <script src="js/day.js"></script>
-        <script src="js/daysManager.js"></script>
-        <script src="js/displayManager.js"></script>
-        <script src="js/localDB.js"></script>
+<html>
+<head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width">
+   <script>"use strict";</script> <!-- TODO use this? -->
+   <link rel="shortcut icon" type="image/x-icon" href="logos/icon32.png"/>
+   <link rel="stylesheet" type="text/css" href="style/icons.css"/>
+   <link rel="stylesheet" type="text/css" href="style/principal.css"/>
+   <link rel="stylesheet" type="text/css" href="style/header.css"/>
+   <link rel="stylesheet" type="text/css" href="style/toolbar.css"/>
+   <link rel="stylesheet" type="text/css" href="style/sidebar.css"/>
+   <link rel="stylesheet" type="text/css" href="style/menulist.css"/>
+   <link rel="stylesheet" type="text/css" href="style/pagebody.css"/>
+   <link rel="stylesheet" type="text/css" href="style/table.css"/>
+   <link rel="stylesheet" type="text/css" href="style/pikaday.css"/>
+   <script type="text/javascript" src="js/dispatcher.js"></script>
+   <script type="text/javascript" src="js/install.js"></script>
+   <script type="text/javascript" src="js/toolbar.js"></script>
+   <script type="text/javascript" src="js/sidebar.js"></script>
+   <script type="text/javascript" src="js/menulist.js"></script>
+   <script type="text/javascript" src="js/pagebody.js"></script>
+   <script type="text/javascript" src="js/backupRestore.js"></script>
+   <script type="text/javascript" src="js/createTables.js"></script>
+   <script type="text/javascript" src="js/fillForms.js"></script>
+   <script type="text/javascript" src="js/pikaday.js"></script>
+   <script src="js_managers/exercise.js"></script>
+   <script src="js_managers/exercisesManager.js"></script>
+   <script src="js_managers/meal.js"></script>
+   <script src="js_managers/mealsManager.js"></script>
+   <script src="js_managers/day.js"></script>
+   <script src="js_managers/daysManager.js"></script>
+   <script src="js_managers/localDB.js"></script>
+   <script src="js_managers/testPageFunctions.js"></script>
+   <script src="generatedData.js"></script>
+   <title>Fitness</title>
+</head>
+<body>
+   <div id="downloadVisible"></div>
+   <section class="principal">
+      <header>
+        <button id="sidebar_trigger" class="icon menu"></button>
+        <h1>Fitness</h1>
+        <ul>
+           <!-- <li class="icon star_on" onclick="generatedData()">rand.</li> -->
+           <!-- <li id="install">Install</li> -->
+        </ul>
+      </header>
 
-    </head>
-    <body>
-        LOAD DB : <button id="loadButton" onclick="loadDB()"> LoadDB  </button> <input type="file" id="input" onchange="loadDB(this.files)">
-        <button id="refreshButton" onclick="this.disabled=true; refreshShowDB()"> RefreshDB  </button>
-        <button id="saveButton" onclick="saveJSON()"> DownloadDB  </button>
-        !TEST FUNCTION (don't use their)!
-        <button onclick="saveLocal()"> SaveLocal </button>
-        <button onclick="deleteLocal()" style="color:red"> Delete localStorage  </button>
-        <button onclick="loadDB()" style="color:red"> Load Storage Again  </button>
-        <button onclick="storageTest()" style="color:red"> Max value in local storage (Wipe all DB!)  </button>
-        <div id="downloadVisible"></div>
-        <br><hr><br>
-        <div style="border-radius: 5px; border-color: #EEEEEE; background-color: #CCCCCC;">
-            <h3>New entry (fill values and choose where it to save)</h3>
-            <p><label>Date :<input id="setDate" type="date" value="2000-05-05"></label> if entry save to specific day</p>
-            <form name="addMeal" onsubmit="addDB(this);return false" method="post">
-                Enter meal: <br>
-                <input type="text" placeholder="Name" name="nameM" required/>
-                <input type="text" placeholder="protein" name="protein" />
-                <input type="text" placeholder="carbohydrate" name="carbohydrate" />
-                <input type="text" placeholder="fat" name="fat"/>
-                <input type="text" placeholder="kcal" name="kcal"/>
-                <select>
-                    <option value="100g">100g</option>
-                    <option value="one piece">one piece</option>
-                </select>
-                <input type="submit" value="Submit"/>
-                Save to DB<input type="checkbox" name="addToDB" value="saveDB" checked>
-                Save to day<input type="checkbox" name="addToDay" value="saveDB" >
+      <div id="homePage" class="pagebody" aria-owns="addToolbar" aria-expanded="true" >
+          <div class="generalBoard" >
+              <h2> Today </h2>
+              <div id="homeBoard">
+              </div>
+          </div>
+      </div>
+      <div id="pageMeals" class="pagebody" aria-owns="addNewMeal">
+         <div class="generalBoard" >
+            <h2> Meals </h2>
+            <div id="mealsBoard">
+            </div>
+         </div>
+      </div>
+      <div id="pageExercises" class="pagebody" aria-owns="addNewExercise">
+         <div class="generalBoard" >
+            <h2> Exercises </h2>
+            <div id="exercisesBoard">
+            </div>
+
+         </div>
+      </div>
+      <div id="pageDay" class="pagebody" aria-owns="addToolbar">
+         <div class="generalBoard">
+            <input style="width: 240px;" type="text" id="datepicker" value="Choose day" title="datePicker">
+            <div id="dayBoard">
+            </div>
+         </div>
+      </div>
+      <div id="pageGraphs" class="pagebody">
+         <!-- Junkyard, only for the sake of the example - NOT for real use -->
+         <div style="margin:0.5rem 1rem 0.5rem 1rem">
+            <h3 style="text-align: center">Graphs</h3>
+         </div>
+         <!-- End of Junkyard - - - - - - - - - - - - - - - - - - - - - - - -->
+      </div>
+      <div id="pageNotes" class="pagebody">
+         <!-- Junkyard, only for the sake of the example - NOT for real use -->
+         <div style="margin:0.5rem 1rem 0.5rem 1rem">
+            <h3 style="text-align: center">Notes</h3>
+         </div>
+         <!-- End of Junkyard - - - - - - - - - - - - - - - - - - - - - - - -->
+      </div>
+      <div id="pageAbout" class="pagebody" >
+         <!-- Junkyard, only for the sake of the example - NOT for real use -->
+         <div style="margin:0.5rem 1rem 0.5rem 1rem; overflow-y: auto; height: 99%;">
+            <h3 style="text-align: center">About (DR_1)</h3>
+             <p>What is already implemented?</p>
+             <ol style="text-align:left">
+                 <li><b>Meals page</b>
+                     <ul>
+                        <li>Show table with all meals in localDB</li>
+                        <li>Click to the meals will open meals editor</li>
+                        <li>Click on the table header sort values</li>
+                        <li>Add meal to the database</li>
+                        <li>Delete meal via meals editor</li>
+                        <li>Update meal via meals editor</li>
+                     </ul>
+                 </li>
+                 <li><b>Exercises page</b>
+                     <ul>
+                        <li>Show table with all exercises in localDB</li>
+                        <li>Click to the exercises will open exercises editor</li>
+                        <li>Click on the table header sort values</li>
+                        <li>Add exercise to the database</li>
+                        <li>Delete exercise via exercises editor</li>
+                        <li>Update exercise via exercises editor</li>
+                     </ul>
+                 </li>
+                 <li><b>History page</b>
+                     <ul>
+                        <li>By data picker you can choose the day</li>
+                        <li>Show meals and exercises table in the day</li>
+                        <li>Click to the exercise or meal will open theirs editor</li>
+                        <li>Add meal/exercise to the day either set from database or set new values</li>
+                        <li>Delete meal/exercise from the day</li>
+                        <li>Update meal/exercise from the day</li>
+                     </ul>
+                 </li>
+                 <li><b>Backup/Restore</b>
+                     <ul>
+                         <li>Import local DB as JSON</li>
+                         <li>Export local DB as JSON (issue on windows phone browser and firefox os simulator)</li>
+                         <li>Delete local storage</li>
+                     </ul>
+                 </li>
+             </ol>
+         </div>
+         <!-- End of Junkyard - - - - - - - - - - - - - - - - - - - - - - - -->
+      </div>
+      <div id="pageBackup" class="pagebody" aria-owns="backupRestore">
+         <header>
+            <button class="icon day" onclick="deleteShowTable('homeBoard');revealPage('homePage');showHomepage();"></button>
+            <h2>Backup and Restore</h2>
+         </header>
+         <!-- Junkyard, only for the sake of the example - NOT for real use -->
+         <div style="margin:0.5rem 1rem 0.5rem 1rem">
+            <h3 style="text-align: center">Restore/Backup</h3>
+            <br>
+            <button onclick="deleteLocal();loadTemplate();">Load template (test)</button><br>
+            <br>
+         </div>
+         <!-- End of Junkyard - - - - - - - - - - - - - - - - - - - - - - - -->
+      </div>
+      <div id="editMealPage" class="pagebody" aria-owns="editToolbar">
+         <header>
+            <button class="icon back" onclick="revealPage(previousPages.pop())"></button>
+            <h2>Edit Meal</h2>
+         </header>
+         <div class="generalBoard" >
+            <form id="editMealForm">
+               Name: <br><input type="text" name="nameM" title="NameM"/> <br>
+               Protein: <br><input type="text" name="protein" title="Protein"/> <br>
+               Carbohydrate: <br><input type="text" name="carbohydrate" title="Carbohydrate"/> <br>
+               Fat:<br><input type="text" name="fat" title="Fat"/> <br>
+               Kcal: <br><input type="text" name="kcal" title="kcal" style="width:72%"/><button>Calculate</button><br>
+               Method: <br><select title="method">
+                  <option value="100g">100g</option>
+                  <option value="one piece">one piece</option>
+               </select> <br>
+               Part of day: <br><select title="partOfDay">
+               <option value="breakfast">Breakfast</option>
+               <option value="lunch">Lunch</option>
+               <option value="dinner">Dinner</option>
+               <option value="snack">Snack</option>
+            </select>
             </form>
-            <form name="addExercise" onsubmit="addDB(this);return false" method="post">
-                Enter exercise: <br>
-                <input type="text" placeholder="Name" name="nameE" required/>
-                <input type="text" placeholder="kcal" name="kcal" />
-                <input type="submit" value="Submit"/>
-                Save to DB<input type="checkbox" name="addToDB" value="saveDB" checked>
-                Save to day<input type="checkbox" name="addToDay" value="saveDB" >
+         </div>
+      </div>
+      <div id="editExercisePage" class="pagebody" aria-owns="editToolbar">
+         <header>
+            <button class="icon back" onclick="revealPage(previousPages.pop())"></button>
+            <h2>Edit Exercise</h2>
+         </header>
+         <div class="generalBoard" >
+            <form id="editExerciseForm">
+               Name:<br> <input type="text" name="nameE" title="NameE"/> <br>
+               Kcal:<br> <input type="text" name="kcal" title="kcal"/> <br>
             </form>
-        </div>
-        <br>
-        <button onclick="globalMealsManager.sortByIdAscending();refreshShowDB()"> Sort Meals by ID (Vzestupne) </button>
-        <button onclick="globalMealsManager.sortByIdDescending();refreshShowDB()"> Sort Meals by ID (Zestupne) </button>
-        <button onclick="globalMealsManager.sortByNameFromA();refreshShowDB()"> Sort Meals by Name (from A) </button>
-        <button onclick="globalMealsManager.sortByNameFromZ();refreshShowDB()"> Sort Meals by Name (from Z) </button>
-        <button onclick="globalMealsManager.sortByProteinAscending();refreshShowDB()"> Sort Meals by Protein (Vzestupne) </button>
-        <button onclick="globalMealsManager.sortByProteinDescending();refreshShowDB()"> Sort Meals by Protein (Zestupne) </button>
-        <button onclick="globalMealsManager.sortByCarbohydrateAscending();refreshShowDB()"> Sort Meals by Carbohydrate (Vzestupne) </button>
-        <button onclick="globalMealsManager.sortByCarbohydrateDescending();refreshShowDB()"> Sort Meals by Carbohydrate (Zestupne) </button>
-        <button onclick="globalMealsManager.sortByFatAscending();refreshShowDB()"> Sort Meals by Fat (Vzestupne) </button>
-        <button onclick="globalMealsManager.sortByFatDescending();refreshShowDB()"> Sort Meals by Fat (Zestupne) </button>
-        <button onclick="globalMealsManager.sortByKcalAscending();refreshShowDB()"> Sort Meals by Kcal (Vzestupne) </button>
-        <button onclick="globalMealsManager.sortByKcalDescending();refreshShowDB()"> Sort Meals by Kcal (Zestupne) </button>
-        <button onclick="globalMealsManager.sortByMethodFromA();refreshShowDB()"> Sort Meals by Method (from A) </button>
-        <button onclick="globalMealsManager.sortByMethodFromZ();refreshShowDB()"> Sort Meals by Method (from Z) </button>
-        <div id="mealsTable"></div>
-        <br><hr><br>
-        <button onclick="globalExercisesManager.sortByIdAscending();refreshShowDB()"> Sort Exercises by ID (Vzestupne) </button>
-        <button onclick="globalExercisesManager.sortByIdDescending();refreshShowDB()"> Sort Exercises by ID (Zestupne) </button>
-        <button onclick="globalExercisesManager.sortByNameFromA();refreshShowDB()"> Sort Exercises by Name (from A) </button>
-        <button onclick="globalExercisesManager.sortByNameFromZ();refreshShowDB()"> Sort Exercises by Name (from Z) </button>
-        <button onclick="globalExercisesManager.sortByKcalAscending();refreshShowDB()"> Sort Exercises by Kcal (Vzestupne) </button>
-        <button onclick="globalExercisesManager.sortByKcalDescending();refreshShowDB()"> Sort Exercises by Kcal (Zestupne) </button>
-        <div id="exercisesTable"></div>
-        <br><hr><br>
-        <button onclick="globalDaysManager.sortByDataAscending();refreshShowDB()"> Sort Day (Vzestupne) </button>
-        <button onclick="globalDaysManager.sortByDataDescending();refreshShowDB()"> Sort Day (Zestupne) </button>
-        <div id="daysTable"></div>
-        <br><hr><br>
-        <button onclick="showDays()" > Shows days as string:  </button>
-        <div id="showDB"></div>
-    </body>
-    <footer>
-        <p>Create by: Matej Kralik</p>
-        <p>Test version Pre-Alpha</p>
-        <p>Contact me: <a href="mailto:matejkralik@hotmail.com">matejkralik@hotmail.com</a>.</p>
-    </footer>
+         </div>
+      </div>
+      <div id="pageMealsToAdd" class="pagebody" aria-owns="addNewMeal">
+         <!-- An autarchic page -->
+         <header>
+            <button class="icon back" onclick="revealPage(previousPages.pop());"></button>
+            <h2>Choose meal from database</h2>
+         </header>
+         <div class="generalBoard" >
+            <h2> Meals </h2>
+            <div id="addFromMealsBoard">
+            </div>
+         </div>
+      </div>
+      <div id="pageExercisesToAdd" class="pagebody" aria-owns="addNewExercise">
+         <!-- An autarchic page -->
+         <header>
+            <button class="icon back" onclick="revealPage(previousPages.pop());"></button>
+            <h2>Choose exercise from database</h2>
+         </header>
+         <div class="generalBoard" >
+            <h2> Exercises </h2>
+            <div id="addFromExercisesBoard">
+            </div>
+         </div>
+      </div>
+      <div id="addNewMealToGlobalPage" class="pagebody" aria-owns="saveToolbar">
+         <header>
+            <button class="icon back" onclick="document.getElementById('addNewMealToGlobalForm').reset();revealPage(previousPages.pop())"></button>
+            <h2>Add new meal to the database</h2>
+         </header>
+         <div class="generalBoard" >
+            <form id="addNewMealToGlobalForm">
+               Name: <br><input type="text" name="nameM" title="NameM"/> <br>
+               Protein: <br><input type="text" name="protein" title="Protein"/> <br>
+               Carbohydrate: <br><input type="text" name="carbohydrate" title="Carbohydrate"/> <br>
+               Fat:<br><input type="text" name="fat" title="Fat"/> <br>
+               Kcal: <br><input type="text" name="kcal" title="kcal" style="width:72%"/><button>Calculate</button>
+               <br>
+               Method:<br>
+               <select title="method">
+                  <option value="100g">100g</option>
+                  <option value="one piece">one piece</option>
+               </select>
+            </form>
+         </div>
+      </div>
+      <div id="addMealFromGlobalPage" class="pagebody" aria-owns="saveToolbar">
+         <header>
+            <button class="icon back" onclick="document.getElementById('addMealFromGlobalForm').reset();revealPage(previousPages.pop())"></button>
+            <h2>Add meal from database</h2>
+         </header>
+         <div class="generalBoard" >
+            <form id="addMealFromGlobalForm">
+               Name: <br><input type="text" name="nameM" title="NameM"/> <br>
+               Protein: <br><input type="text" name="protein" title="Protein"/> <br>
+               Carbohydrate: <br><input type="text" name="carbohydrate" title="Carbohydrate"/> <br>
+               Fat:<br><input type="text" name="fat" title="Fat"/> <br>
+               Kcal: <br><input type="text" name="kcal" title="kcal" style="width:72%"/><button>Calculate</button><br>
+               <button>Edit values</button><br>
+               Part of day: <br><select title="partOfDay">
+               <option value="breakfast">Breakfast</option>
+               <option value="lunch">Lunch</option>
+               <option value="dinner">Dinner</option>
+               <option value="snack">Snack</option>
+            </select>
+               <br>
+               Count: <br><input type="text" name="count" style="width:70%;" title="counting" value="1"/>
+               <select title="method">
+                  <option value="100g">100g</option>
+                  <option value="one piece">one piece</option>
+               </select>
+            </form>
+         </div>
+      </div>
+      <div id="addNewMealPage" class="pagebody" aria-owns="saveToolbar">
+         <header>
+            <button class="icon back" onclick="document.getElementById('addNewMealForm').reset();revealPage(previousPages.pop())"></button>
+            <h2>Add new meal to the day</h2>
+         </header>
+         <div class="generalBoard" >
+            <form id="addNewMealForm">
+               Name: <br><input type="text" name="nameM" title="NameM"/> <br>
+               Protein: <br><input type="text" name="protein" title="Protein"/> <br>
+               Carbohydrate: <br><input type="text" name="carbohydrate" title="Carbohydrate"/> <br>
+               Fat:<br><input type="text" name="fat" title="Fat"/> <br>
+               Kcal: <br><input type="text" name="kcal" title="kcal" style="width:72%"/><button>Calculate</button><br>
+               Part of day: <br><select title="partOfDay">
+               <option value="breakfast">Breakfast</option>
+               <option value="lunch">Lunch</option>
+               <option value="dinner">Dinner</option>
+               <option value="snack">Snack</option>
+            </select>
+            </form>
+         </div>
+      </div>
+      <div id="addExercisePage" class="pagebody" aria-owns="saveToolbar">
+         <header>
+            <button class="icon back" onclick="document.getElementById('addExerciseForm').reset();revealPage(previousPages.pop())"></button>
+            <h2>Add exercise</h2>
+         </header>
+         <div class="generalBoard" >
+            <form id="addExerciseForm">
+               Name:<br> <input type="text" name="nameE" title="NameE"/> <br>
+               Kcal:<br> <input type="text" name="kcal" title="kcal"/> <br>
+               <br>
+               Count: <br><input type="text" name="count" title="counting" value="1"/> <br>
+            </form>
+         </div>
+      </div>
+      <!-- for picker test will be deleted-->
+      <div id="pageDays" class="pagebody">
+         <div class="generalBoard">
+            <h2> Days </h2>
+            <div id="daysBoard">
+            </div>
+         </div>
+         <!-- End of Junkyard - - - - - - - - - - - - - - - - - - - - - - - -->
+      </div>
+      <!-- for picker test will be deleted-->
+      <div id="pageDayTest" class="pagebody" aria-owns="addToolbar">
+         <header>
+            <button class="icon back" onclick="deleteShowTable('dayBoardTest');deleteShowTable('daysBoard');showGlobalDays();revealPage(previousPages.pop());"></button>
+            <h2>Day</h2>
+         </header>
+         <div class="generalBoard">
+            <div id="dayBoardTest">
+            </div>
+         </div>
+      </div>
+
+      <footer class="toolbar">
+         <menu id="addToolbar" type="toolbar">
+            <li id="addMealButton" aria-controls="pageMealsToAdd">addMeal</li>
+            <li id="addExerciseButton" aria-controls="pageExercisesToAdd">addExercise</li>
+         </menu>
+         <menu id="saveToolbar" type="toolbar">
+            <li id="saveButton" class="icon add" ></li>
+         </menu>
+         <menu id="addNewMeal" type="toolbar">
+            <li id="addNewMealButton" class="icon add" > Add new meal</li>
+         </menu>
+         <menu id="addNewExercise" type="toolbar">
+            <li id="addNewExerciseButton" class="icon add" > Add new exercise</li>
+         </menu>
+         <menu id="backupRestore" type="toolbar">
+            <li class="icon mail_reply" onclick="document.getElementById('upJsonFile').click();">
+               <input id="upJsonFile" type="file" onchange="loadFromFile(this.files)" style="display: none;">
+               Import
+            </li>
+            <li class="icon mail_forward" onclick="saveJSON()">Export</li>
+            <li class="icon delete" onclick="deleteLocal()"></li>
+         </menu>
+         <menu id="editToolbar" type="toolbar">
+            <li id="deleteIconEdit" class="icon delete">Delete</li>
+            <li id="updateIconEdit" class="icon move_file">Update</li>
+         </menu>
+      </footer>
+   </section>
+
+   <section class="sidebar">
+      <header style="text-align: center">
+         <h2>Menu</h2>
+      </header>
+      <div class="menulist">
+         <menu>
+            <menuitem aria-controls="homePage" type="command" label="HOME" onclick="deleteShowTable('homeBoard');previousPages=[];previousPages.push('homePage');showHomepage()"></menuitem>
+            <menuitem aria-controls="pageMeals" type="command" label="Meals" onclick="deleteShowTable('mealsBoard');previousPages=[];previousPages.push('pageMeals');showGlobalMeals(false);"></menuitem>
+            <menuitem aria-controls="pageExercises" type="command" label="Exercises" onclick="deleteShowTable('exercisesBoard');previousPages=[];previousPages.push('pageExercises');showGlobalExercises(false);"></menuitem>
+            <menuitem aria-controls="pageDay" type="command" label="History" onclick="deleteShowTable('dayBoard');previousPages=[];previousPages.push('pageDay');showDay();"></menuitem>
+            <menuitem aria-controls="pageGraphs" type="command" label="Graph"></menuitem>
+            <menuitem aria-controls="pageNotes" type="command" label="Notes"></menuitem>
+            <menuitem aria-controls="pageBackup" type="command" label="Backup/Restore"></menuitem>
+            <menuitem aria-controls="pageAbout" type="command" label="About"></menuitem>
+            <!-- <menuitem aria-controls="pageDays" type="command" label="All Days(test,NOT USE!)" onclick="deleteShowTable('daysBoard');showGlobalDays();"></menuitem> -->
+         </menu>
+         <p style="text-align: center;">Version 0.1</p>
+      </div>
+   </section>
+</body>
 </html>

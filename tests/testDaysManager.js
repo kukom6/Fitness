@@ -1,6 +1,3 @@
-/**
- * Created by mkralik on 2/24/16.
- */
 QUnit.test( "test add day", function( assert ) {
     assert.ok(globalDaysManager.isEmpty(),"days array is empty");
     globalDaysManager.addDay(new Day(new Date()));
@@ -17,16 +14,19 @@ QUnit.test( "add with incorrect date", function( assert ) {
     assert.throws(function() {globalDaysManager.addDay(new Date());},"throws, day is already in the db");
 });
 QUnit.test( "test add meal to day", function( assert ) {
-    globalDaysManager.addMealToDay(new Date("2015-03-25"),new Meal("steak",10,10,10,null,"100g"));
+    globalDaysManager.addMealToDay(new Date("2015-03-25"),new Meal("steak",10,10,10,null,"100g","lunch"));
     var day = globalDaysManager.getDayByDate(new Date("2015-03-25"));
     assert.notOk(day.mealsManager.isEmpty(),"Meals array is not empty");
     var getMeal = day.mealsManager.getMealByID(1);
     assert.equal("steak",getMeal.name);
+    assert.equal("lunch",getMeal.partOfDay);
 });
 QUnit.test( "add meal with incorrect date", function( assert ) {
     assert.throws(function() {globalDaysManager.addMealToDay("",new Meal("steak",10,10,10,null,"100g"));},"throws, date have invalid form");
     assert.throws(function() {globalDaysManager.addMealToDay(null,new Meal("steak",10,10,10,null,"100g"));},"throws, date have invalid form");
     assert.throws(function() {globalDaysManager.addMealToDay(new Date("2015-03-24"),new Meal("steak",10,10,10,null,"100g"));},"throws, day is not in the db");
+    assert.throws(function() {globalDaysManager.addMealToDay(new Date("2015-03-25"),new Meal("steak",10,10,10,null,"100g"));},"throws, meal haven't part of day");
+    assert.throws(function() {globalDaysManager.addMealToDay(new Date("2015-03-25"),new Meal("steak",10,10,10,null,"100g","night"));},"throws, meal have incorrect part of day");
 });
 QUnit.test( "test add exercise to day", function( assert ) {
     globalDaysManager.addExerciseToDay(new Date("2015-03-25"),new Exercise("run",300));
@@ -53,12 +53,28 @@ QUnit.test( "update meal in the day", function( assert ) {
     updateMeal.name = "test1";
     updateMeal.carbohydrate = 30;
     updateMeal.fat = 20;
-    day.mealsManager.updateMeal(updateMeal);
+    updateMeal.partOfDay = "snack";
+    globalDaysManager.updateMealInDay(new Date("2015-03-25"),updateMeal);
     var updatedMeal = day.mealsManager.getMealByID(1);
     assert.notDeepEqual(originalMeal,updatedMeal,"original and updated meal are not same");
     assert.deepEqual(updateMeal,updatedMeal,"updated meals was successfully ");
     day = globalDaysManager.getDayByDate(new Date("2015-03-25"));
     assert.equal(1,day.mealsManager.getAllMeals().length,"one meal in the day");
+    assert.equal("snack",updatedMeal.partOfDay,"meal was been updated");
+
+});
+QUnit.test( "update meal with incorrect date", function( assert ) {
+    assert.throws(function() {globalDaysManager.updateMealInDay("","");},"throws, date have invalid form");
+    assert.throws(function() {globalDaysManager.updateMealInDay(null,null);},"throws, date have invalid form");
+    assert.throws(function() {globalDaysManager.updateMealInDay(new Date("2015-03-24"),new Meal("steak",10,10,10,null,"100g"));},"throws, day is not in the db");
+    assert.throws(function() {globalDaysManager.updateMealInDay(new Date("2015-03-25"),new Meal("steak",10,10,10,null,"100g"));},"throws, meal is not in the day");
+    var tempMeal = globalDaysManager.getDayByDate(new Date("2015-03-25")).mealsManager.getMealByID(1);
+    tempMeal.partOfDay="";
+    assert.throws(function() {globalDaysManager.updateMealInDay(new Date("2015-03-25"),tempMeal);},"throws, meal have incorrect part of day");
+    tempMeal.partOfDay="night";
+    assert.throws(function() {globalDaysManager.updateMealInDay(new Date("2015-03-25"),tempMeal);},"throws, meal have incorrect part of day");
+    assert.equal("snack",globalDaysManager.getDayByDate(new Date("2015-03-25")).mealsManager.getMealByID(1).partOfDay,"meal wasn't been updated");
+
 });
 QUnit.test( "update exercise in the day", function( assert ) {
     var day = globalDaysManager.getDayByDate(new Date("2015-03-25"));
@@ -67,12 +83,18 @@ QUnit.test( "update exercise in the day", function( assert ) {
     var updateExercise = day.exercisesManager.getExerciseByID(1);
     updateExercise.name = "test1";
     updateExercise.kcal = 20;
-    day.exercisesManager.updateExercise(updateExercise);
+    globalDaysManager.updateExerciseInDay(new Date("2015-03-25"),updateExercise);
     var updatedExercise = day.exercisesManager.getExerciseByID(1);
     assert.notDeepEqual(originalExercise,updatedExercise,"original and updated exercise are not same");
     assert.deepEqual(updateExercise,updatedExercise,"updated exercises was successfully ");
     day = globalDaysManager.getDayByDate(new Date("2015-03-25"));
     assert.equal(1,day.exercisesManager.getAllExercises().length,"one exercise in the day");
+});
+QUnit.test( "update exercise with incorrect date", function( assert ) {
+    assert.throws(function() {globalDaysManager.updateExerciseInDay("","");},"throws, date have invalid form");
+    assert.throws(function() {globalDaysManager.updateExerciseInDay(null,null);},"throws, date have invalid form");
+    assert.throws(function() {globalDaysManager.updateExerciseInDay(new Date("2015-03-24"),new Exercise("run",300));},"throws, day is not in the db");
+    assert.throws(function() {globalDaysManager.updateExerciseInDay(new Date("2015-03-25"),new Exercise("run",300));},"throws, exercise is not in the day");
 });
 QUnit.test( "deleted meal from the day", function( assert ) {
     var day = globalDaysManager.getDayByDate(new Date("2015-03-25"));
