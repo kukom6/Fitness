@@ -8,10 +8,12 @@ window.addEventListener(
         }
         if(localStorage.getItem('isInLocal')){
             loadLocal();
-            alert("load from local"); //TODO temp
+            alert("load from local storage"); //TODO temp
         }
         picker = new Pikaday({ field: document.getElementById('datepicker')});
         picker.setDate(new Date());
+        showHomepage();
+        revealPageSave('homePage')
     }
 );
 var picker = null;

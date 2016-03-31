@@ -42,12 +42,12 @@
         <button id="sidebar_trigger" class="icon menu"></button>
         <h1>Fitness</h1>
         <ul>
-           <li class="icon star_on" onclick="generatedData()">rand.</li>
+           <!-- <li class="icon star_on" onclick="generatedData()">rand.</li> -->
            <!-- <li id="install">Install</li> -->
         </ul>
       </header>
 
-      <div id="homePage" class="pagebody" aria-owns="addToolbar" >
+      <div id="homePage" class="pagebody" aria-owns="addToolbar" aria-expanded="true" >
           <div class="generalBoard" >
               <h2> Today </h2>
               <div id="homeBoard">
@@ -90,40 +90,40 @@
          </div>
          <!-- End of Junkyard - - - - - - - - - - - - - - - - - - - - - - - -->
       </div>
-      <div id="pageAbout" class="pagebody" aria-expanded="true">
+      <div id="pageAbout" class="pagebody" >
          <!-- Junkyard, only for the sake of the example - NOT for real use -->
-         <div style="margin:0.5rem 1rem 0.5rem 1rem">
+         <div style="margin:0.5rem 1rem 0.5rem 1rem; overflow-y: auto; height: 99%;">
             <h3 style="text-align: center">About (DR_1)</h3>
-             <p>After first start you might load either template or from JSON file (backup/restore page). You can
-                 generate random data by button on the homepage (rand.) (time-consuming !)</p>
              <p>What is already implemented?</p>
              <ol style="text-align:left">
                  <li><b>Meals page</b>
                      <ul>
-                         <li>Show table with all meals in localDB</li>
-                         <li>Click to the meals will open meals editor</li>
-                         <li>Delete meal via meals editor</li>
-                         <li>Update meal via meals editor</li>
-                         <li>Add meal to the database</li>
+                        <li>Show table with all meals in localDB</li>
+                        <li>Click to the meals will open meals editor</li>
+                        <li>Click on the table header sort values</li>
+                        <li>Add meal to the database</li>
+                        <li>Delete meal via meals editor</li>
+                        <li>Update meal via meals editor</li>
                      </ul>
                  </li>
                  <li><b>Exercises page</b>
                      <ul>
-                         <li>Show table with all exercises in localDB</li>
-                         <li>Click to the exercises will open exercises editor</li>
-                         <li>Delete exercise via exercises editor</li>
-                         <li>Update exercise via exercises editor</li>
-                         <li>Add exercise to the database</li>
+                        <li>Show table with all exercises in localDB</li>
+                        <li>Click to the exercises will open exercises editor</li>
+                        <li>Click on the table header sort values</li>
+                        <li>Add exercise to the database</li>
+                        <li>Delete exercise via exercises editor</li>
+                        <li>Update exercise via exercises editor</li>
                      </ul>
                  </li>
-                 <li><b>Day page</b>
+                 <li><b>History page</b>
                      <ul>
-                         <li>By data picker you can choose the day</li>
-                         <li>Show meals and exercises table in the day</li>
-                         <li>Click to the exercise or meal will open theirs editor</li>
-                         <li>Delete meal/exercise from the day</li>
-                         <li>Update meal/exercise from the day</li>
-                         <li>Add meal/exercise to the day either set from database or set new values</li>
+                        <li>By data picker you can choose the day</li>
+                        <li>Show meals and exercises table in the day</li>
+                        <li>Click to the exercise or meal will open theirs editor</li>
+                        <li>Add meal/exercise to the day either set from database or set new values</li>
+                        <li>Delete meal/exercise from the day</li>
+                        <li>Update meal/exercise from the day</li>
                      </ul>
                  </li>
                  <li><b>Backup/Restore</b>
@@ -351,17 +351,18 @@
          <h2>Menu</h2>
       </header>
       <div class="menulist">
-        <menu>
+         <menu>
             <menuitem aria-controls="homePage" type="command" label="HOME" onclick="deleteShowTable('homeBoard');previousPages=[];previousPages.push('homePage');showHomepage()"></menuitem>
             <menuitem aria-controls="pageMeals" type="command" label="Meals" onclick="deleteShowTable('mealsBoard');previousPages=[];previousPages.push('pageMeals');showGlobalMeals(false);"></menuitem>
             <menuitem aria-controls="pageExercises" type="command" label="Exercises" onclick="deleteShowTable('exercisesBoard');previousPages=[];previousPages.push('pageExercises');showGlobalExercises(false);"></menuitem>
-           <menuitem aria-controls="pageDay" type="command" label="History" onclick="deleteShowTable('dayBoard');previousPages=[];previousPages.push('pageDay');showDay();"></menuitem>
-           <menuitem aria-controls="pageGraphs" type="command" label="Graph"></menuitem>
+            <menuitem aria-controls="pageDay" type="command" label="History" onclick="deleteShowTable('dayBoard');previousPages=[];previousPages.push('pageDay');showDay();"></menuitem>
+            <menuitem aria-controls="pageGraphs" type="command" label="Graph"></menuitem>
             <menuitem aria-controls="pageNotes" type="command" label="Notes"></menuitem>
             <menuitem aria-controls="pageBackup" type="command" label="Backup/Restore"></menuitem>
             <menuitem aria-controls="pageAbout" type="command" label="About"></menuitem>
-           <menuitem aria-controls="pageDays" type="command" label="All Days(test,NOT USE!)" onclick="deleteShowTable('daysBoard');showGlobalDays();"></menuitem>
-        </menu>
+            <!-- <menuitem aria-controls="pageDays" type="command" label="All Days(test,NOT USE!)" onclick="deleteShowTable('daysBoard');showGlobalDays();"></menuitem> -->
+         </menu>
+         <p style="text-align: center;">Version 0.1</p>
       </div>
    </section>
 </body>
