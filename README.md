@@ -1,7 +1,7 @@
 # Health and Fitness
 Health and fitness is a web application to monitor the nutritional value of meals and tracking exercises during the day.
 
-<a href="https://htmlpreview.github.io/?https://github.com/kukom6/Fitness/blob/master/testPage.html"> Version 0.1 </a> <br>
+<a href="https://htmlpreview.github.io/?https://github.com/kukom6/Fitness/blob/master/index.html"> Version 0.1 </a> <br>
 <p>What is already implemented?</p>
 <ol style="text-align:left">
      <li><b>Meals page</b>
