@@ -298,13 +298,23 @@ function createGlobalMealsTable(homePage,date){
         if(commonSort=="asc"){
             globalMealsManager.sortByNameFromA();
             commonSort = "desc";
-            deleteShowTable("mealsBoard");
-            showGlobalMeals(homePage);
+            if(date){
+                deleteShowTable("addFromMealsBoard");
+                showAddMealsBoard(homePage,date);
+            }else{
+                deleteShowTable("mealsBoard");
+                showGlobalMeals(homePage);
+            }
         }else{
             globalMealsManager.sortByNameFromZ();
             commonSort = "asc";
-            deleteShowTable("mealsBoard");
-            showGlobalMeals(homePage);
+            if(date){
+                deleteShowTable("addFromMealsBoard");
+                showAddMealsBoard(homePage,date);
+            }else{
+                deleteShowTable("mealsBoard");
+                showGlobalMeals(homePage);
+            }
         }
     };
     tr.appendChild(node);
@@ -314,13 +324,23 @@ function createGlobalMealsTable(homePage,date){
         if(commonSort=="asc"){
             globalMealsManager.sortByProteinAscending();
             commonSort = "desc";
-            deleteShowTable("mealsBoard");
-            showGlobalMeals(homePage);
+            if(date){
+                deleteShowTable("addFromMealsBoard");
+                showAddMealsBoard(homePage,date);
+            }else{
+                deleteShowTable("mealsBoard");
+                showGlobalMeals(homePage);
+            }
         }else{
             globalMealsManager.sortByProteinDescending();
             commonSort = "asc";
-            deleteShowTable("mealsBoard");
-            showGlobalMeals(homePage);
+            if(date){
+                deleteShowTable("addFromMealsBoard");
+                showAddMealsBoard(homePage,date);
+            }else{
+                deleteShowTable("mealsBoard");
+                showGlobalMeals(homePage);
+            }
         }
     };
     tr.appendChild(node);
@@ -330,13 +350,23 @@ function createGlobalMealsTable(homePage,date){
         if(commonSort=="asc"){
             globalMealsManager.sortByCarbohydrateAscending();
             commonSort = "desc";
-            deleteShowTable("mealsBoard");
-            showGlobalMeals(homePage);
+            if(date){
+                deleteShowTable("addFromMealsBoard");
+                showAddMealsBoard(homePage,date);
+            }else{
+                deleteShowTable("mealsBoard");
+                showGlobalMeals(homePage);
+            }
         }else{
             globalMealsManager.sortByCarbohydrateDescending();
             commonSort = "asc";
-            deleteShowTable("mealsBoard");
-            showGlobalMeals(homePage);
+            if(date){
+                deleteShowTable("addFromMealsBoard");
+                showAddMealsBoard(homePage,date);
+            }else{
+                deleteShowTable("mealsBoard");
+                showGlobalMeals(homePage);
+            }
         }
     };
     tr.appendChild(node);
@@ -346,13 +376,23 @@ function createGlobalMealsTable(homePage,date){
         if(commonSort=="asc"){
             globalMealsManager.sortByFatAscending();
             commonSort = "desc";
-            deleteShowTable("mealsBoard");
-            showGlobalMeals(homePage);
+            if(date){
+                deleteShowTable("addFromMealsBoard");
+                showAddMealsBoard(homePage,date);
+            }else{
+                deleteShowTable("mealsBoard");
+                showGlobalMeals(homePage);
+            }
         }else{
             globalMealsManager.sortByFatDescending();
             commonSort = "asc";
-            deleteShowTable("mealsBoard");
-            showGlobalMeals(homePage);
+            if(date){
+                deleteShowTable("addFromMealsBoard");
+                showAddMealsBoard(homePage,date);
+            }else{
+                deleteShowTable("mealsBoard");
+                showGlobalMeals(homePage);
+            }
         }
     };
     tr.appendChild(node);
@@ -362,13 +402,23 @@ function createGlobalMealsTable(homePage,date){
         if(commonSort=="asc"){
             globalMealsManager.sortByKcalAscending();
             commonSort = "desc";
-            deleteShowTable("mealsBoard");
-            showGlobalMeals(homePage);
+            if(date){
+                deleteShowTable("addFromMealsBoard");
+                showAddMealsBoard(homePage,date);
+            }else{
+                deleteShowTable("mealsBoard");
+                showGlobalMeals(homePage);
+            }
         }else{
             globalMealsManager.sortByKcalDescending();
             commonSort = "asc";
-            deleteShowTable("mealsBoard");
-            showGlobalMeals(homePage);
+            if(date){
+                deleteShowTable("addFromMealsBoard");
+                showAddMealsBoard(homePage,date);
+            }else{
+                deleteShowTable("mealsBoard");
+                showGlobalMeals(homePage);
+            }
         }
     };
     tr.appendChild(node);
@@ -496,13 +546,23 @@ function createGlobalExercisesTable(homePage,date){
         if(commonSort=="asc"){
             globalExercisesManager.sortByNameFromA();
             commonSort = "desc";
-            deleteShowTable("exercisesBoard");
-            showGlobalExercises(homePage);
+            if(date){
+                deleteShowTable("addFromExercisesBoard");
+                showAddExercisesBoard(homePage,date);
+            }else{
+                deleteShowTable("exercisesBoard");
+                showGlobalExercises(homePage);
+            }
         }else{
             globalExercisesManager.sortByNameFromZ();
             commonSort = "asc";
-            deleteShowTable("exercisesBoard");
-            showGlobalExercises(homePage);
+            if(date){
+                deleteShowTable("addFromExercisesBoard");
+                showAddExercisesBoard(homePage,date);
+            }else{
+                deleteShowTable("exercisesBoard");
+                showGlobalExercises(homePage);
+            }
         }
     };
     tr.appendChild(node);
@@ -512,13 +572,23 @@ function createGlobalExercisesTable(homePage,date){
         if(commonSort=="asc"){
             globalExercisesManager.sortByKcalAscending();
             commonSort = "desc";
-            deleteShowTable("exercisesBoard");
-            showGlobalExercises(homePage);
+            if(date){
+                deleteShowTable("addFromExercisesBoard");
+                showAddExercisesBoard(homePage,date);
+            }else{
+                deleteShowTable("exercisesBoard");
+                showGlobalExercises(homePage);
+            }
         }else{
             globalExercisesManager.sortByKcalDescending();
             commonSort = "asc";
-            deleteShowTable("exercisesBoard");
-            showGlobalExercises(homePage);
+            if(date){
+                deleteShowTable("addFromExercisesBoard");
+                showAddExercisesBoard(homePage,date);
+            }else{
+                deleteShowTable("exercisesBoard");
+                showGlobalExercises(homePage);
+            }
         }
     };
     tr.appendChild(node);
