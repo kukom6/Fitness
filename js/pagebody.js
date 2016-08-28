@@ -135,6 +135,18 @@ function showHomepage(){
     }catch(ex){ //if day is not in the DB manager will create new empty day and show it
         globalDaysManager.addDay(new Day(new Date()));
         emptyDay("homeBoard");
+        var addB = document.getElementById("addMealButton");
+        addB.setAttribute("date",String(new Date()));
+        addB.onclick = function() {
+            deleteShowTable("addFromMealsBoard");
+            showAddMealsBoard(true,this.getAttribute("date"));
+        };
+        addB = document.getElementById("addExerciseButton");
+        addB.setAttribute("date",String(new Date()));
+        addB.onclick = function() {
+            deleteShowTable("addFromExercisesBoard");
+            showAddExercisesBoard(true,this.getAttribute("date"));
+        };
     }
 }
 /**
