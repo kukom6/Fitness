@@ -14,15 +14,15 @@ function generatedData(){
         if(i>30){
             var h=i-29;
             if(h<10){
-                date=new Date("2016-04-0"+h);
+                date=new Date("2016-08-0"+h);
             }else{
-                date=new Date("2016-04-"+h);
+                date=new Date("2016-08-"+h);
             }
         }else{
             if(i<10){
-                date=new Date("2016-03-0"+i);
+                date=new Date("2016-08-0"+i);
             }else{
-                date=new Date("2016-03-"+i);
+                date=new Date("2016-08-"+i);
             }
         }
         day = new Day(date);

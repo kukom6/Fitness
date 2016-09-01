@@ -23,15 +23,18 @@
    <script type="text/javascript" src="js/backupRestore.js"></script>
    <script type="text/javascript" src="js/createTables.js"></script>
    <script type="text/javascript" src="js/fillForms.js"></script>
-   <script type="text/javascript" src="js/pikaday.js"></script>
-   <script src="js_managers/exercise.js"></script>
-   <script src="js_managers/exercisesManager.js"></script>
-   <script src="js_managers/meal.js"></script>
-   <script src="js_managers/mealsManager.js"></script>
-   <script src="js_managers/day.js"></script>
-   <script src="js_managers/daysManager.js"></script>
-   <script src="js_managers/localDB.js"></script>
-   <script src="js_managers/testPageFunctions.js"></script>
+   <script type="text/javascript" src="js/showGraph.js"></script>
+   <script type="text/javascript" src="js/externalLib/pikaday.js"></script>
+   <script type="text/javascript" src="js/externalLib/canvasjs.min.js"></script>
+   <script src="js/managers/exercise.js"></script>
+   <script src="js/managers/exercisesManager.js"></script>
+   <script src="js/managers/meal.js"></script>
+   <script src="js/managers/mealsManager.js"></script>
+   <script src="js/managers/day.js"></script>
+   <script src="js/managers/daysManager.js"></script>
+   <script src="js/managers/localDB.js"></script>
+   <script src="js/managers/testPageFunctions.js"></script>
+
    <script src="generatedData.js"></script>
    <title>Fitness</title>
 </head>
@@ -42,7 +45,7 @@
         <button id="sidebar_trigger" class="icon menu"></button>
         <h1>Fitness</h1>
         <ul>
-           <!-- <li class="icon star_on" onclick="generatedData()">rand.</li> -->
+           <li class="icon star_on" onclick="generatedData()">rand.</li>
            <!-- <li id="install">Install</li> -->
         </ul>
       </header>
@@ -78,8 +81,23 @@
       </div>
       <div id="pageGraphs" class="pagebody">
          <!-- Junkyard, only for the sake of the example - NOT for real use -->
-         <div style="margin:0.5rem 1rem 0.5rem 1rem">
+         <div class="generalBoard">
             <h3 style="text-align: center">Graphs</h3>
+            <br>Period<br>
+            <select id="graphNumberOfDay" title="NumberOfDay" style="text-align: center;width:50%" onchange="showGraph(document.getElementById('graphType'),this)">
+                  <option value="7">7</option>
+                  <option value="14">14</option>
+                  <option value="30">30</option>
+                  <option value="60">60</option>
+            </select>
+            <br>Value<br>
+            <select id="graphType" title="Type" style="text-align: center;width:50%" onchange="showGraph(this,document.getElementById('graphNumberOfDay'))">
+                  <option value="protein">Protein</option>
+                  <option value="carbohydrate">Carbohydrate</option>
+                  <option value="fat">Fat</option>
+                  <option value="kcal">Kcal</option>
+            </select>
+            <div id="chartContainer" style="height: 80%; width: 100%;"></div>
          </div>
          <!-- End of Junkyard - - - - - - - - - - - - - - - - - - - - - - - -->
       </div>
@@ -167,7 +185,7 @@
                   <option value="100g">100g</option>
                   <option value="one piece">one piece</option>
                </select> <br>
-               Part of day: <br><select title="partOfDay">
+               Part of day: <br><select title="partOfDay" >
                <option value="breakfast">Breakfast</option>
                <option value="lunch">Lunch</option>
                <option value="dinner">Dinner</option>
@@ -356,13 +374,13 @@
             <menuitem aria-controls="pageMeals" type="command" label="Meals" onclick="deleteShowTable('mealsBoard');previousPages=[];previousPages.push('pageMeals');showGlobalMeals(false);"></menuitem>
             <menuitem aria-controls="pageExercises" type="command" label="Exercises" onclick="deleteShowTable('exercisesBoard');previousPages=[];previousPages.push('pageExercises');showGlobalExercises(false);"></menuitem>
             <menuitem aria-controls="pageDay" type="command" label="History" onclick="deleteShowTable('dayBoard');previousPages=[];previousPages.push('pageDay');showDay();"></menuitem>
-            <menuitem aria-controls="pageGraphs" type="command" label="Graph"></menuitem>
+            <menuitem aria-controls="pageGraphs" type="command" label="Graph" onclick="showGraph(document.getElementById('graphType'),document.getElementById('graphNumberOfDay'))"></menuitem>
             <menuitem aria-controls="pageNotes" type="command" label="Notes"></menuitem>
             <menuitem aria-controls="pageBackup" type="command" label="Backup/Restore"></menuitem>
             <menuitem aria-controls="pageAbout" type="command" label="About"></menuitem>
             <!-- <menuitem aria-controls="pageDays" type="command" label="All Days(test,NOT USE!)" onclick="deleteShowTable('daysBoard');showGlobalDays();"></menuitem> -->
          </menu>
-         <p style="text-align: center;">Version 0.1.1</p>
+         <p style="text-align: center;">Version 0.2 Alpha</p>
       </div>
    </section>
 </body>
