@@ -26,6 +26,7 @@
    <script type="text/javascript" src="js/showGraph.js"></script>
    <script type="text/javascript" src="js/externalLib/pikaday.js"></script>
    <script type="text/javascript" src="js/externalLib/canvasjs.min.js"></script>
+   <script type="text/javascript" src="js/externalLib/hammer.min.js"></script>
    <script src="js/managers/exercise.js"></script>
    <script src="js/managers/exercisesManager.js"></script>
    <script src="js/managers/meal.js"></script>
@@ -40,7 +41,7 @@
 </head>
 <body>
    <div id="downloadVisible"></div>
-   <section class="principal">
+   <section id="allPage" class="principal">
       <header>
         <button id="sidebar_trigger" class="icon menu"></button>
         <h1>Fitness</h1>
@@ -364,7 +365,7 @@
       </footer>
    </section>
 
-   <section class="sidebar">
+   <section id="sidebar" class="sidebar">
       <header style="text-align: center">
          <h2>Menu</h2>
       </header>
