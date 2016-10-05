@@ -91,7 +91,7 @@ function saveLocal(){
         exercises : globalExercisesManager.getAllExercises(),
         days : globalDaysManager.getAllDays()
     };
-    var data = JSON.stringify(saveJSON);   //TODO save as only one a JSON type or each of them as a separated JSON type (meals,exercises,days)?
+    var data = JSON.stringify(saveJSON);
     localStorage.setItem('jsonData',data);
     var days = globalDaysManager.getAllDays();
     var         currentDate= null;
@@ -111,7 +111,7 @@ function saveLocal(){
 /**
  * Export global managers to JSON file
  */
-function saveJSON(){ //TODO download file, right way ?
+function saveJSON(){
     var saveJSON = {
         meals : globalMealsManager.getAllMeals(),
         exercises : globalExercisesManager.getAllExercises(),

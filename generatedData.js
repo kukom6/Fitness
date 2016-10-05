@@ -14,9 +14,9 @@ function generatedData(){
         if(i>30){
             var h=i-29;
             if(h<10){
-                date=new Date("2016-08-0"+h);
+                date=new Date("2016-09-0"+h);
             }else{
-                date=new Date("2016-08-"+h);
+                date=new Date("2016-09-"+h);
             }
         }else{
             if(i<10){

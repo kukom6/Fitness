@@ -13,8 +13,6 @@ window.addEventListener(
        }
         var myElement = document.getElementById('allPage');
 
-        // create a simple instance
-        // by default, it only adds horizontal recognizers
         var sidebarOn = new Hammer(myElement);
         sidebarOn.on("swiperight swipeleft", function(ev) {
             if(ev.type=="swipeleft") {

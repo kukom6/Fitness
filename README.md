@@ -1,7 +1,8 @@
 # Health and Fitness
 Health and fitness is a web application to monitor the nutritional value of meals and tracking exercises during the day.
 
-<a href="https://htmlpreview.github.io/?https://github.com/kukom6/Fitness/blob/master/index.html"> Version 0.1 </a> <br>
+<a href="https://htmlpreview.github.io/?https://github.com/kukom6/Fitness/blob/Version_0.2/index.html"> Version 0.2 </a> <br>
+<p>If you find any bug, feel free and report it on the <a href="https://github.com/kukom6/Fitness/issues">GitHub</a></p>
 <p>What is already implemented?</p>
 <ol style="text-align:left">
      <li><b>Meals page</b>
@@ -34,7 +35,19 @@ Health and fitness is a web application to monitor the nutritional value of meal
             <li>Update meal/exercise from the day</li>
          </ul>
      </li>
-     <li><b>Backup/Restore</b>
+     <li><b>Graph</b>
+          <ul>
+              <li>Show graph according to value</li>
+              <li>Show graph according to days</li>
+              <li>Show all values</li>
+          </ul>
+      </li>
+      <li><b>BMI Calculator</b>
+            <ul>
+                <li>BMI calculator</li>
+            </ul>
+        </li>
+     <li><b>Settings</b>
          <ul>
              <li>Import local DB as JSON</li>
              <li>Export local DB as JSON (issue on windows phone browser and firefox os simulator)</li>
@@ -51,7 +64,6 @@ Application will contain: <br>
 <li>Each of the days will be show notification for deficit or excess nutritional values which set user.</li>
 <li>Each of the days is divided in categories (breakfast, lunch, dinner, snack)</li>
 <li>Application views statistic values in the graph.</li>
-<li>The user can enter your weight, height and goals at the first start.</li>
 <li>Backup or restore database with foods and exercises.</li>
 </ul>
 <br>

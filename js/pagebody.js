@@ -186,27 +186,6 @@ function deleteShowTable(name){
     }
 }
 /**
- * Show global days page , only test function
- */
-function showGlobalDays(){
-    var manager = globalDaysManager.getAllDays();
-    var daysBoard = document.getElementById('daysBoard');
-    var ul = document.createElement('ul');
-    var li = null;
-    for(var i=0;i<manager.length;i++){
-        li=document.createElement('li');
-        li.setAttribute("idDay","GD#"+manager[i].date);
-        li.onclick = function(){
-            var id = this.getAttribute("idDay").split("#");
-            revealPageSave("pageDayTest");
-            document.getElementById("dayBoardTest").appendChild(createDayTable(false,id[1]));
-        };
-        li.appendChild(document.createTextNode(manager[i].date.toDateString()));
-        ul.appendChild(li);
-    }
-    daysBoard.appendChild(ul);
-}
-/**
  * Show message to the empty day
  * @param nameElement name of element for whom message will be appended
  */
