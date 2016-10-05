@@ -76,26 +76,25 @@
          </div>
         </div>
         <div id="pageGraphs" class="pagebody">
-         <div class="generalBoard">
-            <h3 style="text-align: center">Graphs</h3>
-            Period<br>
-            <select id="graphNumberOfDay" title="NumberOfDay"  onchange="showGraph(document.getElementById('graphType'),this)">
-                  <option value="7">7</option>
-                  <option value="14">14</option>
-                  <option value="30">30</option>
-                  <option value="60">60</option>
-            </select>
-            <br>Value<br>
-            <select id="graphType" title="Type"  onchange="showGraph(this,document.getElementById('graphNumberOfDay'))">
-                  <option value="protein">Protein</option>
-                  <option value="carbohydrate">Carbohydrate</option>
-                  <option value="fat">Fat</option>
-                  <option value="kcal">Kcal</option>
-                  <option value="multi">Multi</option>
-            </select>
-             <canvas id="myChart" style="height: 80%; width: 100%;"></canvas>
+            <div class="generalBoard" style="height: 98%">
+                Value
+                <select id="graphType" title="Type"  onchange="showGraph(this,document.getElementById('graphNumberOfDay'))">
+                    <option value="protein">Protein</option>
+                    <option value="carbohydrate">Carbohydrate</option>
+                    <option value="fat">Fat</option>
+                    <option value="kcal">Kcal</option>
+                    <option value="multi">Multi</option>
+                </select>
+                Period
+                <select id="graphNumberOfDay" title="NumberOfDay"  onchange="showGraph(document.getElementById('graphType'),this)">
+                    <option value="7">7</option>
+                    <option value="14">14</option>
+                    <option value="30">30</option>
+                    <option value="60">60</option>
+                </select> days
 
-         </div>
+                <canvas id="myChart" height="80%" style="width: 100%;"></canvas>
+            </div>
         </div>
         <div id="pageBMI" class="pagebody" aria-owns="calculateToolbar">
           <div class="generalBoard" >

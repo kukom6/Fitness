@@ -1,7 +1,3 @@
-/**
- * Created by mkralik on 9/1/16.
- */
-
 var globalChart = null;
 
 function showGraph(type, numberOfDaySelection){
@@ -15,23 +11,23 @@ function showGraph(type, numberOfDaySelection){
 function showTypeOfGraph(type, numberOfDaySelection){
     console.log("Show graph with type: '" + type.value + "' and number of day is: " + numberOfDaySelection.value);
     var title = "Undefined type of meal";
-    var color="blue";
+    var color='rgba(153, 102, 255, 0.7)';
     switch (type.value) {
         case "protein":
             title = "Protein";
-            color = "blue";
+            color = 'rgba(54, 162, 235, 0.7)';
             break;
         case "carbohydrate":
             title = "Carbohydrate";
-            color = "red";
+            color = 'rgba(255, 99, 132, 0.7)';
             break;
         case "fat":
             title = "Fat";
-            color = "green";
+            color = 'rgba(75, 192, 192, 0.7)';
             break;
         case "kcal":
             title = "Kcal";
-            color = "orange";
+            color = 'rgba(255, 159, 64, 0.7)';
             break;
     }
     var today = new Date();
@@ -79,15 +75,16 @@ function showTypeOfGraph(type, numberOfDaySelection){
         type: 'bar',
         data: {
             labels: dates,
-            backgroundColor: color,
             datasets: [{
                 label: title,
+                backgroundColor: color,
                 data: data,
                 borderWidth: 1
             }]
         },
         options: {
             responsive: true,
+            maintainAspectRatio: false,
             scales: {
                 yAxes: [{
                     ticks: {
@@ -139,17 +136,17 @@ function showMultipleGraph(numberOfDaySelection) {
         datasets: [
             {
                 label: "Protein",
-                backgroundColor: "blue",
+                backgroundColor: 'rgba(54, 162, 235, 0.7)',
                 data: proteins
             },
             {
                 label: "Carbohydrate",
-                backgroundColor: "red",
+                backgroundColor: 'rgba(255, 99, 132, 0.7)',
                 data: carbohydrates
             },
             {
                 label: "Fat",
-                backgroundColor: "green",
+                backgroundColor: 'rgba(75, 192, 192, 0.7)',
                 data: fats
             }
         ]
@@ -159,6 +156,7 @@ function showMultipleGraph(numberOfDaySelection) {
         data: data,
         options: {
             responsive: true,
+            maintainAspectRatio: false,
             scales: {
                 yAxes: [{
                     ticks: {
