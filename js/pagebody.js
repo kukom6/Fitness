@@ -10,6 +10,9 @@ window.addEventListener(
     }
 );
 
+/**
+ * Loading data after start
+ */
 function loading(){
     picker = new Pikaday({ field: document.getElementById('datepicker')});
     picker.setDate(new Date());
@@ -209,5 +212,4 @@ function emptyDay(nameElement){
     text.appendChild(document.createTextNode("Day is empty! You should eat something"));
     text.style.font = "italic bold 20px arial,serif";
     element.appendChild(text);
-
 }
