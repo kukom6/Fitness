@@ -4,18 +4,28 @@ window.addEventListener(
         var elt = document.querySelector(".principal > div.pagebody[aria-expanded=true]");
         if (elt) {
             var toolbarId = elt.getAttribute("aria-owns");
-        if (toolbarId) showToolbar(toolbarId);
+            if (toolbarId) showToolbar(toolbarId);
         }
-        if(localStorage.getItem('isInLocal')){
-            loadLocal();
-            alert("load from local storage"); //TODO temp
-        }
-        picker = new Pikaday({ field: document.getElementById('datepicker')});
-        picker.setDate(new Date());
-        showHomepage();
-        revealPageSave('homePage')
+        loading();
     }
 );
+
+function loading(){
+    picker = new Pikaday({ field: document.getElementById('datepicker')});
+    picker.setDate(new Date());
+    if(localStorage.getItem('isInLocal')){
+        loadLocal();
+        alert("load from local storage");
+    }
+    showHomepage();
+    previousPages.push('homePage');
+    var loader = document.getElementById("loadingBoard");
+    while (loader.firstChild) {
+        loader.removeChild(loader.firstChild);
+    }
+    revealPage('homePage');
+}
+
 var picker = null;
 /**
  * Save previous pages (for back button)

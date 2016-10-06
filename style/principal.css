@@ -27,3 +27,55 @@ section.principal > header {
   border-bottom: 0.1rem solid #323232;
 }
 
+.loadLogo{
+    top: 20%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -50px;
+    position: absolute;
+}
+
+.loadTitle{
+    top: 55%;
+    left: 50%;
+    right: 10%;
+    margin-top: -50px;
+    margin-left: -50px;
+    position: absolute;
+    font-size: large;
+    color: white;
+}
+
+.loader {
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #3498db;
+    width: 100px;
+    height: 100px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -50px
+}
+
+@-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loadingTitle{
+    top: 76%;
+    left: 49%;
+    margin-top: -50px;
+    position: absolute;
+    margin-left: -10px;
+    font-size: large;
+}

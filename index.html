@@ -47,7 +47,16 @@
                <li class="icon star_on" onclick="generatedData()">rand.</li>
             </ul>
         </header>
-        <div id="homePage" class="pagebody" aria-owns="addToolbar" aria-expanded="true" >
+        <div id="loadingPage" class="pagebody" aria-expanded="true" >
+                <div id="loadingBoard">
+                    <img class="loadLogo" src="logos/icon128.png"/>
+                    <br><p class="loadTitle">Health and Fitness</p>
+                    <div id="loadingCircle" class="loader"></div>
+                    <br><p class="loadingTitle">Loading</p>
+                </div>
+        </div>
+
+        <div id="homePage" class="pagebody" aria-owns="addToolbar"  >
           <div class="generalBoard" >
               <h2> Today </h2>
               <div id="homeBoard">
