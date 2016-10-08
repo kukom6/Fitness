@@ -16,6 +16,9 @@ window.addEventListener(
 function loading(){
     picker = new Pikaday({ field: document.getElementById('datepicker')});
     picker.setDate(new Date());
+    if (!storageAvailable('localStorage')) {
+        alert("local storage is not supported, please update your browser.");
+    }
     if(localStorage.getItem('isInLocal')){
         loadLocal();
         alert("load from local storage");
