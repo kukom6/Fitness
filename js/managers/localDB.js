@@ -32,42 +32,6 @@ function loadJSONasFile(jsonFiles){
     reader.readAsText(jsonFiles[0]);
 }
 /**
- * load JSON with template DB
- */
-function loadTemplate() { //TODO temp function ?
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function () {
-        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-            var tempArr = JSON.parse(xmlhttp.responseText);
-            var saveJSON = {
-                meals : tempArr['meals'],
-                exercises : tempArr['exercises'],
-                days : tempArr['days']
-            };
-            var data = JSON.stringify(saveJSON);
-            localStorage.setItem('jsonData',data);
-            var days = tempArr['daysContent'];
-            var currentDate= null;
-            for(var i= 0;i<days.length;i++){
-                currentDate=days[i]['date'];
-                saveJSON={
-                    date : currentDate,
-                    dayMeals : days[i]['dayMeals'],
-                    dayExercises : days[i]['dayExercises']
-                };
-                data = JSON.stringify(saveJSON);
-                localStorage.setItem(currentDate,data);
-            }
-            localStorage.setItem('isInLocal',true);
-            loadLocal();
-            console.log("db was add from template JSON file to local storage and loaded");
-            alert("DB was successfully loaded from template JSON");
-        }
-    };
-    xmlhttp.open("GET", "data.json", true);
-    xmlhttp.send();
-}
-/**
  * Load all global managers from local storage
  */
 function loadLocal(){
@@ -221,22 +185,3 @@ function storageAvailable(type) {
  * Test how many items will fit into the local storage
  * (don't forget to delete the database after test!)
  */
-function storageTest(){
-    var data = null;
-    var count = 0;
-    while(true) {
-        try {
-            data = new Meal(100,"steak with potatoes",100,100,100,1000);
-            localStorage.setItem('TEST'+count,data);
-            count++;
-        } catch (e) {
-            alert("Memory is full! Count of record: " +count+"\n " +
-                "(meal(100,\"steak with potatoes\",100,100,100,1000)) \n" +
-                "Number of days with 100 global meals and 15 meals in the every day: " + ((count/15) - 100) + " days.");
-            break;
-        }
-    }
-    if (confirm("Clear storage?") == true) {
-        localStorage.clear();
-    }
-}

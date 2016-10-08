@@ -33,9 +33,7 @@
     <script type="text/javascript" src="js/managers/day.js"></script>
     <script type="text/javascript" src="js/managers/daysManager.js"></script>
     <script type="text/javascript" src="js/managers/localDB.js"></script>
-    <script type="text/javascript" src="js/managers/testPageFunctions.js"></script>
 
-    <script src="generatedData.js"></script>
    <title>Health and Fitness</title>
 </head>
 <body>
@@ -43,10 +41,6 @@
         <header>
             <button id="sidebar_trigger" class="icon menu"></button>
             <h1>Fitness</h1>
-            <!-- generate random data-->
-            <ul>
-               <li class="icon star_on" onclick="generatedData()">rand.</li>
-            </ul>
         </header>
         <div id="loadingPage" class="pagebody" aria-expanded="true" >
                 <div id="loadingBoard">
@@ -131,9 +125,8 @@
          </header>
          <div style="margin:0.5rem 1rem 0.5rem 1rem">
             <h3 style="text-align: center">Restore/Backup</h3>
+             <p style="text-align: center">Backup json correctly work only on the web browsers and partly works on the android!</p>
              <div id="downloadVisible"></div>
-            <br>
-            <button onclick="deleteLocal();loadTemplate();">Load template (test)</button><br>
             <br>
          </div>
         </div>
