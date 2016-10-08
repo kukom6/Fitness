@@ -1,7 +1,7 @@
 # Health and Fitness
 Health and fitness is a web application to monitor the nutritional value of meals and tracking exercises during the day.
 
-<a href="https://htmlpreview.github.io/?https://github.com/kukom6/Fitness/blob/Version_0.2/index.html"> Version 0.2 </a> <br>
+<a href="https://cdn.rawgit.com/kukom6/Fitness/master/index.html"> Version 1.0 </a> <br>
 <p>If you find any bug, feel free and report it on the <a href="https://github.com/kukom6/Fitness/issues">GitHub</a></p>
 <p>What is already implemented?</p>
 <ol style="text-align:left">
@@ -50,7 +50,7 @@ Health and fitness is a web application to monitor the nutritional value of meal
      <li><b>Settings</b>
          <ul>
              <li>Import local DB as JSON</li>
-             <li>Export local DB as JSON (issue on windows phone browser and firefox os simulator)</li>
+             <li>Export local DB as JSON (Correctly work only on the web browsers and partly works on the android (save json to app directory))</li>
              <li>Delete local storage</li>
          </ul>
      </li>
@@ -67,6 +67,17 @@ Application will contain: <br>
 <li>Backup or restore database with foods and exercises.</li>
 </ul>
 <br>
+
+<h1>Support platform</h1> [WIP] the link will be added
+<ul>
+<li>All web browser in the PC or mobile (these which support web storage)</li>
+<li>Android</li>
+<li>iOS</li>
+<li>Windows phone</li>
+<li>Addon for firefox</li>
+<li>Addon for chrome</li>
+</ul>
+
 Test functions page:
 <a href="https://htmlpreview.github.io/?https://github.com/kukom6/Fitness/blob/master/testPage.html"> Test functions page</a> <br>
 Page with tests: 

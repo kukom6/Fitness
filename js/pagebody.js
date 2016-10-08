@@ -208,7 +208,7 @@ function deleteShowTable(name){
 function emptyDay(nameElement){
     var element=document.getElementById(nameElement);
     var icon = document.createElement("img");
-    icon.src = "style/images/hungry.png";
+    icon.src = "css/images/hungry.png";
     icon.style.width = "90%";
     element.appendChild(icon);
     var text=document.createElement("p");

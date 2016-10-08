@@ -1,8 +1,8 @@
 {
   "name": "Health and fitness",
-  "version": "0.2",
+  "version": "1.0",
   "description": "Health and fitness",
-  "launch_path": "/intro.html",
+  "launch_path": "/index.html",
   "icons": {
     "32": "/logos/icon16.png",
     "48": "/logos/icon32.png",
