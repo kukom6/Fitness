@@ -69,15 +69,10 @@ Application will contain: <br>
 
 <h1>Support platform</h1> [WIP] the link will be added
 <ul>
-<li>All web browser in the PC or mobile (these which support web storage)</li>
+<li><a href="https://fitnessApplication.github.io"> All web browser in the PC or mobile (these which support web storage)</a></li> 
 <li>Android</li>
 <li>iOS</li>
 <li>Windows phone</li>
-<li>Addon for firefox</li>
-<li>Addon for chrome</li>
+<li><a href="https://addons.mozilla.org/cs/firefox/addon/health-and-fitness/"> Addon for firefox</a></li> 
+<li><a href="https://chrome.google.com/webstore/detail/health-and-fitness/famfklfcpjmoicmdhakofiabnfhgllfd"> Addon for chrome</a></li>
 </ul>
-
-Test functions page:
-<a href="https://htmlpreview.github.io/?https://github.com/kukom6/Fitness/blob/master/testPage.html"> Test functions page</a> <br>
-Page with tests: 
-<a href="https://htmlpreview.github.io/?https://github.com/kukom6/Fitness/blob/master/AllTests.html"> All tests</a>
