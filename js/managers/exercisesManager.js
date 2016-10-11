@@ -118,9 +118,12 @@ function ExercisesManager(){
      * @return {number} index exercise in the array
      */
     this.indexExerciseInArrayById = function(id){
-        return exercises.findIndex(function(exercise){
-            return id==exercise.id;
-        });
+        for (var i = 0; i < exercises.length; i++) {
+            if (exercises[i].id == id) {
+                return i;
+            }
+        }
+        return -1;
     };
     /**
      * Check if the arguments are correct
@@ -148,22 +151,6 @@ function ExercisesManager(){
             sum+=Number(exercises[i].kcal);
         }
         return sum;
-    };
-    /**
-     * Sort exercises in the exercise manager by Id - descending
-     */
-    this.sortByIdDescending = function(){
-        exercises.sort(function(exercise1, exercise2) {
-            return exercise1.id - exercise2.id;
-        });
-    };
-    /**
-     * Sort exercises in the exercise manager by Id - ascending
-     */
-    this.sortByIdAscending = function(){
-        exercises.sort(function(exercise1, exercise2) {
-            return exercise2.id - exercise1.id;
-        });
     };
     /**
      * Sort exercises in the exercise manager by name - from A

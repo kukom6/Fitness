@@ -177,9 +177,12 @@ function MealsManager(){
      * @return {number} index meal in the array
      */
     this.indexMealInArrayById = function(id){
-        return meals.findIndex(function(meal){
-            return id==meal.id;
-        });
+        for (var i = 0; i < meals.length; i++) {
+            if (meals[i].id == id) {
+                return i;
+            }
+        }
+        return -1;
     };
     /**
      * Check if the arguments are correct
@@ -266,22 +269,6 @@ function MealsManager(){
             sum+=Number(meals[i].kcal);
         }
         return sum;
-    };
-    /**
-     * Sort meals in the meal manager by Id - descending
-     */
-    this.sortByIdDescending = function(){
-        meals.sort(function(meal1, meal2) {
-            return meal1.id - meal2.id;
-        });
-    };
-    /**
-     * Sort meals in the meal manager by Id - ascending
-     */
-    this.sortByIdAscending = function(){
-        meals.sort(function(meal1, meal2) {
-            return meal2.id - meal1.id;
-        });
     };
     /**
      * Sort meals in the meal manager by name - from A

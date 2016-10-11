@@ -182,13 +182,16 @@ function DaysManager(){
     };
     /**
      * index particular date in the days manager
-     * @param date
+     * @param dateIn
      * @returns {number}
      */
-    this.indexDayInArrayById = function(date){
-        return days.findIndex(function(day){
-            return date.toDateString()==day.date.toDateString();
-        });
+    this.indexDayInArrayById = function(dateIn){
+        for (var i = 0; i < days.length; i++) {
+            if (days[i].date.toDateString() == dateIn.toDateString()) {
+                return i;
+            }
+        }
+        return -1;
     };
     /**
      * Return total kcal in the particular date
