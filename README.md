@@ -2,7 +2,20 @@
 Health and fitness is a web application to monitor the nutritional value of meals and tracking exercises during the day.
 
 <p>If you find any bug, feel free and report it on the <a href="https://github.com/kukom6/Fitness/issues">GitHub</a></p>
-<p>What is already implemented?</p>
+
+<h2>Support platform</h2> [WIP] the link will be added
+<ul>
+<li><a href="https://fitnessApplication.github.io"> All web browser in the PC or mobile (these which support web storage)</a></li> 
+<li><a href="https://play.google.com/store/apps/details?id=org.fitness"> Android </a></li> 
+<li><a href="https://addons.mozilla.org/cs/firefox/addon/health-and-fitness/"> Addon for firefox</a></li> 
+<li><a href="https://chrome.google.com/webstore/detail/health-and-fitness/famfklfcpjmoicmdhakofiabnfhgllfd"> Addon for chrome</a></li>
+<li><a href="https://addons.opera.com/cs/extensions/details/health-and-fitness"> Addon for opera</a></li>
+<li>Windows phone  - [WIP] will be added with version 2</li>
+<li>iOS -[deffered, sorry but I really don't have free 100$ for developer license]</li>
+</ul>
+
+<h2>What is already implemented?</h2>
+<p>Now you can open the menu through swipe a finger to right/left.</p>
 <ol style="text-align:left">
      <li><b>Meals page</b>
          <ul>
@@ -66,13 +79,3 @@ Application will contain: <br>
 <li>Backup or restore database with foods and exercises.</li>
 </ul>
 <br>
-
-<h1>Support platform</h1> [WIP] the link will be added
-<ul>
-<li><a href="https://fitnessApplication.github.io"> All web browser in the PC or mobile (these which support web storage)</a></li> 
-<li>Android</li>
-<li>iOS</li>
-<li>Windows phone</li>
-<li><a href="https://addons.mozilla.org/cs/firefox/addon/health-and-fitness/"> Addon for firefox</a></li> 
-<li><a href="https://chrome.google.com/webstore/detail/health-and-fitness/famfklfcpjmoicmdhakofiabnfhgllfd"> Addon for chrome</a></li>
-</ul>
