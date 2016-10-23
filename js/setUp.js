@@ -15,6 +15,7 @@ function registerButton(){
     document.getElementById('backSettings').onclick = function() {deleteShowTable('homeBoard');revealPage('homePage');showHomepage();};
     document.getElementById('backEditMeal').onclick = function() {revealPage(previousPages.pop())};
     document.getElementById('backMealsToAdd').onclick = function() {revealPage(previousPages.pop())};
+    document.getElementById('backEditExercise').onclick = function() {revealPage(previousPages.pop())};
     document.getElementById('backExercisesToAdd').onclick = function() {revealPage(previousPages.pop())};
     document.getElementById('backNewMealToGlobalPage').onclick = function() {document.getElementById('addNewMealToGlobalForm').reset();revealPage(previousPages.pop())};
     document.getElementById('backMealFromGlobalPage').onclick = function() {document.getElementById('addMealFromGlobalForm').reset();revealPage(previousPages.pop())};
