@@ -6,7 +6,7 @@ window.addEventListener(
             var toolbarId = elt.getAttribute("aria-owns");
             if (toolbarId) showToolbar(toolbarId);
         }
-        loading();
+ //       loading();
     }
 );
 

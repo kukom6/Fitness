@@ -94,25 +94,89 @@ function saveJSON(){
         saveJSON.daysContent.push(day);
     }
     var data = 'data:text/json;charser=utf8,'+ encodeURIComponent(JSON.stringify(saveJSON));
-    var a = document.createElement('a');
-    a.style="display: none;";
-    a.href = data;
-    a.download = 'data.json';
-    document.getElementById("downloadVisible").appendChild(a);
-    a.click();
+    var local = null;
+    if(device.platform=="Android") {
+        checkPermission();
+        if (cordova.file.externalRootDirectory == null) {
+            local = cordova.file.dataDirectory;
+        } else {
+            local = cordova.file.externalRootDirectory;
+
+        }
+        var fileTransfer = new FileTransfer();
+        fileTransfer.download(
+            data,
+            local + 'data.json',
+            function (theFile) {
+                alert("download complete: " + theFile.toURL());
+                console.log("download complete: " + theFile.toURL());
+            },
+            function (error) {
+                console.log("download error source " + error.source);
+                console.log("download error target " + error.target);
+                console.log("upload error code: " + error.code);
+            },
+            true
+        );
+    }else if(device.platform=="windows"){
+        alert("Windows version doesn't support download yet");
+    }else{//browser
+        var a = document.createElement('a');
+        a.style="display: none;";
+        a.href = data;
+        a.download = 'data.json';
+        document.getElementById("downloadVisible").appendChild(a);
+        a.click();
+    }
+}
+
+function checkPermission(){
+	var permissions = cordova.plugins.permissions;
+	permissions.hasPermission(permissions.WRITE_EXTERNAL_STORAGE, checkPermissionCallback, null);
+
+	function checkPermissionCallback(status) {
+	if(!status.hasPermission) {
+	var errorCallback = function() {
+	  console.warn('Camera permission is not turned on');
+	}
+
+	permissions.requestPermission(
+	  permissions.WRITE_EXTERNAL_STORAGE,
+	  function(status) {
+		if(!status.hasPermission) errorCallback();
+	  },
+	  errorCallback);
+	}
+}
 }
 /**
  * delete all data in the local storage and clean global managers
  */
 function deleteLocal(){
-    if (confirm("Delete local storage! Are you sure?") == true) {
+    if(device.platform!="windows"){
+        if (confirm("Delete local storage! Are you sure?") == true) {
+            onConfirm(1);
+        }
+    }else {
+        confirm(
+            'Are you sure?',
+            onConfirm,
+            'Delete local storage!',
+            ['Yes', 'No']
+        );
+    }
+}
+
+function onConfirm(buttonIndex) {
+    if(buttonIndex==1){
         localStorage.clear();
         globalDaysManager = new DaysManager();
         globalExercisesManager = new ExercisesManager();
         globalMealsManager = new MealsManager();
-        console.log("Local storage was been deleted");
+        alert("Local storage was been deleted");
     }
 }
+
 /**
  * Parsing JSON to the local objects
  * @param tempArr - parse JSON
@@ -177,11 +241,7 @@ function storageAvailable(type) {
         storage.removeItem(x);
         return true;
     }
-    catch(e) {
+    catch (e) {
         return false;
     }
 }
-/**
- * Test how many items will fit into the local storage
- * (don't forget to delete the database after test!)
- */
