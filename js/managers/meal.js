@@ -20,7 +20,7 @@ function Meal(name,protein,carbohydrate,fat,kcal,method,partOfDay){
     this.partOfDay=partOfDay;
 
     this.toString = function () {
-        var res = "Meal " + this.name + " have: "+ this.protein + "g proteins," +
+        var res = "Meal " + this.name + " has: "+ this.protein + "g proteins," +
             " " + this.carbohydrate + "g carbohydrates, " + this.fat + "g fats and " + this.kcal + "kcal for "+ this.method +".";
         if(this.partOfDay==null){
             res += "Part of day is not set yet.";

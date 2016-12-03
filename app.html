@@ -13,7 +13,7 @@
     <link rel="stylesheet" type="text/css" href="css/menulist.css"/>
     <link rel="stylesheet" type="text/css" href="css/pagebody.css"/>
     <link rel="stylesheet" type="text/css" href="css/table.css"/>
-    <link rel="stylesheet" type="text/css" href="css/pikaday.css"/>
+    <link rel="stylesheet" type="text/css" href="css/externalLib/pikaday.css"/>
     <script type="text/javascript" src="js/setUp.js"></script>
     <script type="text/javascript" src="js/toolbar.js"></script>
     <script type="text/javascript" src="js/sidebar.js"></script>
@@ -34,6 +34,7 @@
     <script type="text/javascript" src="js/managers/day.js"></script>
     <script type="text/javascript" src="js/managers/daysManager.js"></script>
     <script type="text/javascript" src="js/managers/localDB.js"></script>
+    <script type="text/javascript" src="js/managers/restriction.js"></script>
 
     <title>Health and Fitness</title>
 </head>
@@ -60,14 +61,12 @@
     </div>
     <div id="pageMeals" class="pagebody" aria-owns="addNewMeal">
         <div class="generalBoard" >
-            <h2> Meals </h2>
             <div id="mealsBoard">
             </div>
         </div>
     </div>
     <div id="pageExercises" class="pagebody" aria-owns="addNewExercise">
         <div class="generalBoard" >
-            <h2> Exercises </h2>
             <div id="exercisesBoard">
             </div>
         </div>
@@ -332,7 +331,6 @@
             </ol>
         </div>
     </div>
-
     <footer class="toolbar">
         <menu id="addToolbar" type="toolbar">
             <li id="addMealButton" aria-controls="pageMealsToAdd">addMeal</li>

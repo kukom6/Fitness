@@ -54,6 +54,7 @@ function refreshWeightPlaceholder(){
         form[2].placeholder='75';
     }
 }
+
 function validateBmiForm(value){
     var isOnlyNumber = function(value){ //test if value from form is only number
         return (/^[0-9.]*$/).test(value) ;

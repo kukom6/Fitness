@@ -1,48 +1,3 @@
-window.addEventListener(
-    "load",
-    function() {
-        var elt = document.querySelector(".principal > div.pagebody[aria-expanded=true]");
-        if (elt) {
-            var toolbarId = elt.getAttribute("aria-owns");
-            if (toolbarId) showToolbar(toolbarId);
-        }
-        loading();
-    }
-);
-
-/**
- * Loading data after start
- */
-function loading(){
-    picker = new Pikaday({ field: document.getElementById('datepicker')});
-    picker.setDate(new Date());
-    if (!storageAvailable('localStorage')) {
-        alert("local storage is not supported, please update your browser.");
-    }
-    if(localStorage.getItem('isInLocal')){
-        loadLocal();
-        alert("load from local storage");
-    }
-    showHomepage();
-    previousPages.push('homePage');
-    var loader = document.getElementById("loadingBoard");
-    while (loader.firstChild) {
-        loader.removeChild(loader.firstChild);
-    }
-    revealPage('homePage');
-}
-
-var picker = null;
-/**
- * Save previous pages (for back button)
- * @type {Array}
- */
-var previousPages =[];
-/**
- * Start sorting by 
- * @type {string}
- */
-var commonSort = "asc";
 /**
  * Save page which is activated (expanded) to the previous pages array
  */
@@ -175,7 +130,6 @@ function showAddMealsBoard(homePage,date){
     document.getElementById("addNewMealButton").onclick = function(){
         fillAddMeal(homePage,date);
     }
-
 }
 /**
  * Show global exercise board for add exercise to the particular day

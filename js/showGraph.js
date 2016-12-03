@@ -1,4 +1,3 @@
-var globalChart = null;
 
 function showGraph(type, numberOfDaySelection){
     if (type.value === 'multi') {

@@ -11,8 +11,8 @@ window.addEventListener(
               }
           );
        }
+       /*set up hammer.js for support gestures*/
         var myElement = document.getElementById('allPage');
-
         var sidebarOn = new Hammer(myElement);
         sidebarOn.on("swiperight swipeleft", function(ev) {
             if(ev.type=="swipeleft") {

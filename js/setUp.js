@@ -7,11 +7,65 @@ window.addEventListener(
             if (toolbarId) showToolbar(toolbarId);
         }
         registerButton();
-//        loading();
+        loading();
     }
 );
 
+/**
+ * All global managers
+ */
+var globalMealsManager, globalDaysManager, globalExercisesManager;
+/**
+ * Data picker
+ */
+var picker = null;
+/**
+ * Graph in the graph page
+ */
+var globalChart = null;
+/**
+ * Save previous pages (for back button)
+ * @type {Array}
+ */
+var previousPages =[];
+/**
+ * Start sorting by
+ * @type {string}
+ */
+var commonSort = "asc";
+
+
+/**
+ * Loading data after start
+ */
+function loading(){
+    globalMealsManager = new MealsManager();
+    globalDaysManager = new DaysManager();
+    globalExercisesManager = new ExercisesManager();
+
+    picker = new Pikaday({ field: document.getElementById('datepicker')});
+    picker.setDate(new Date());
+    if (!storageAvailable('localStorage')) {
+        alert("local storage is not supported, please update your browser.");
+    }
+    if(localStorage.getItem('isInLocal')){
+        loadLocal();
+        alert("load from local storage");
+    }
+    showHomepage();
+    previousPages.push('homePage');
+    var loader = document.getElementById("loadingBoard");
+    while (loader.firstChild) {
+        loader.removeChild(loader.firstChild);
+    }
+    revealPage('homePage');
+}
+
+/**
+ * Add events for all elements
+ */
 function registerButton(){
+    document.getElementById('sidebar_trigger').onclick = function() { toggleSidebarView() };
     document.getElementById('backSettings').onclick = function() {deleteShowTable('homeBoard');revealPage('homePage');showHomepage();};
     document.getElementById('backEditMeal').onclick = function() {revealPage(previousPages.pop())};
     document.getElementById('backMealsToAdd').onclick = function() {revealPage(previousPages.pop())};

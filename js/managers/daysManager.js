@@ -1,5 +1,3 @@
-var globalDaysManager = new DaysManager();
-
 function DaysManager(){
     var days = [];
     /**
@@ -12,7 +10,7 @@ function DaysManager(){
             throw "date: "+day.data+" is already in db, please update exist day";
         }
         days.push(day);
-        saveLocal();
+        saveDaysManager();
         console.log("Day: "+day.date+" was added to DB");
     };
     /**
@@ -158,8 +156,8 @@ function DaysManager(){
             throw "Day with " + date + " date is not in the DB" ;
         }
         days.splice(index,1);
+        saveDaysManager();
         console.log("Day was deleted from DB");
-        saveLocal();
     };
     /**
      * If day is in day manager
@@ -202,20 +200,53 @@ function DaysManager(){
         var day = this.getDayByDate(date);
         return day.mealsManager.sumKcal() - day.exercisesManager.sumKcal();
     };
-    /**
-     * Sort days in the day manager by data - descending
-     */
-    this.sortByDataDescending = function(){
-        days.sort(function(day1, day2) {
-            return day1.date - day2.date;
-        });
+
+    this.addRestrictionToDay = function(date, restriction){
+        if(date==""||date==null){
+            console.error("invalid date");
+            throw "invalid argument exception";
+        }
+        if(restriction==""||restriction==null){
+            console.error("invalid restriction");
+            throw "invalid argument exception";
+        }
+        if(!this.checkValidityRestriction(restriction)){
+            throw "invalid argument exception";
+        }
+        var day=this.getDayByDate(date);
+        day.restriction = new Restriction(restriction.protein,restriction.carbohydrate,restriction.fat,restriction.kcal);
+        console.log("Restriction: "+restriction+" was added to day: "+day.date.toDateString());
     };
-    /**
-     * Sort days in the day manager by data - ascending
-     */
-    this.sortByDataAscending = function(){
-        days.sort(function(day1, day2) {
-            return day2.date - day1.date;
-        });
+
+    this.deleteRestriction = function(date){
+        if(date==""||date==null){
+            console.error("invalid date");
+            throw "invalid argument exception";
+        }
+        var day=this.getDayByDate(date);
+        day.restriction=null;
+        console.log("Restriction was deleted from day: "+day.date.toDateString());
     };
+
+    this.checkValidityRestriction = function(restriction) {
+        var isOnlyNumber = function(str){ //test if value from form is only number
+            return (/^[0-9.]*$/).test(str) ;
+        };
+
+        if(!isOnlyNumber(restriction.protein)&&restriction.protein!=null&&restriction.protein!=""){
+            console.error("Invalid protein restriction: "+restriction.protein);
+            return false;
+        }
+        if(!isOnlyNumber(restriction.carbohydrate)&&restriction.carbohydrate!=null&&restriction.carbohydrate!=""){
+            console.error("Invalid carbohydrate restriction: "+restriction.carbohydrate);
+            return false;
+        }if(!isOnlyNumber(restriction.fat)&&restriction.fat!=null&&restriction.fat!=""){
+            console.error("Invalid fat restriction: "+restriction.fat);
+            return false;
+        }if(!isOnlyNumber(restriction.kcal)&&restriction.kcal!=null&&restriction.kcal!=""){
+            console.error("Invalid kcal restriction: "+restriction.kcal);
+            return false;
+        }
+        return true;
+    }
 }

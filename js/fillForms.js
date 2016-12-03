@@ -138,7 +138,6 @@ function fillEditExercise(homePage,id){
         }else{
             globalExercisesManager.deleteExerciseByID(ids[1]);
         }
-        saveLocal();
         if(ids[0]=="LE"){
             if(homePage){
                 deleteShowTable("homeBoard");
@@ -172,7 +171,6 @@ function fillEditExercise(homePage,id){
             saveExercise.kcal = parseFloat(form[1].value).toFixed(2);
             globalExercisesManager.updateExercise(saveExercise);
         }
-        saveLocal();
         alert("Exercise was been updated");
         form.reset();
         if(ids[0]=="LE"){

@@ -1,5 +1,3 @@
-var globalExercisesManager = new ExercisesManager();
-
 function ExercisesManager(){
     var exercises = [];
     /**
@@ -14,7 +12,7 @@ function ExercisesManager(){
         var pushExercise = new Exercise(exercise.name,exercise.kcal);
         pushExercise.id = this.nextExerciseId();
         exercises.push(pushExercise);
-        saveLocal();
+        saveExecisesManager();
         console.log("Exercise : \n" + exercise + "\n was been added to DB");
     };
     /**
@@ -34,7 +32,7 @@ function ExercisesManager(){
         exercises[result].name=exercise.name;
         exercises[result].protein=exercise.protein;
         exercises[result].kcal=exercise.kcal;
-        saveLocal();
+        saveExecisesManager();
         console.log("Exercise : \n" + exercise + "\n was been updated DB");
     };
     /**
@@ -49,7 +47,7 @@ function ExercisesManager(){
             throw "Exercise with " + id + " id is not in the DB" ;
         }
         exercises.splice(index,1);
-        saveLocal();
+        saveExecisesManager();
         console.log("Exercise was deleted from DB");
     };
     /**

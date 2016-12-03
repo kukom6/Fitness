@@ -15,12 +15,9 @@ function createDayTable(homePage,inDate){
     var tabDay = document.createElement("table"); //create day table
     tabDay.style.width = "100%";
     tabDay.id = currentDate.date;
-    var caption = document.createElement("caption");
     var date = currentDate.date.toDateString();
-    caption.appendChild(document.createTextNode(date));
-    caption.style.fontWeight = "bold";
-    tabDay.appendChild(caption);
     tabDay.appendChild(createDayMealsTable(homePage,currentDate));
+    tabDay.appendChild(createRestriction(currentDate));
     tabDay.appendChild(createDayExerciseTable(homePage,currentDate));
 
     var tabfoot = document.createElement("table");
@@ -58,7 +55,7 @@ function createDayTable(homePage,inDate){
             revealPage("dayPage");
         }
     };
-    deleteB.appendChild(document.createTextNode("Delete day"+date));
+    deleteB.appendChild(document.createTextNode("Delete day"));
     tabDay.appendChild(deleteB);
 
     var addB = document.getElementById("addMealButton");
@@ -619,4 +616,51 @@ function createGlobalExercisesTable(homePage,date){
     }
     tabExercises.appendChild(tbody);
     return tabExercises;
+}
+
+function createRestriction(day){
+    var restriction = day.restriction;
+    if(restriction==null){
+        restriction = new Restriction(null,null,null,null);
+    }
+    var tabRes = document.createElement("table");
+    tabRes.style.width = "100%";
+    tabRes.className = "dayTable" ;
+
+    var thead = document.createElement("thead");
+    var tr = document.createElement("tr");
+    var node = document.createElement("th");
+    node.appendChild(document.createTextNode("Restriction"));
+    tr.appendChild(node);
+    node = document.createElement("th");
+    if(restriction.protein==null||restriction.protein==""){
+        node.appendChild(document.createTextNode("-"));
+    }else{
+        node.appendChild(document.createTextNode(restriction.protein));
+    }
+    tr.appendChild(node);
+    node = document.createElement("th");
+    if(restriction.carbohydrate==null||restriction.carbohydrate==""){
+        node.appendChild(document.createTextNode("-"));
+    }else{
+        node.appendChild(document.createTextNode(restriction.carbohydrate));
+    }
+    tr.appendChild(node);
+    node = document.createElement("th");
+    if(restriction.fat==null||restriction.fat==""){
+        node.appendChild(document.createTextNode("-"));
+    }else{
+        node.appendChild(document.createTextNode(restriction.fat));
+    }
+    tr.appendChild(node);
+    node = document.createElement("th");
+    if(restriction.kcal==null||restriction.kcal==""){
+        node.appendChild(document.createTextNode("-"));
+    }else{
+        node.appendChild(document.createTextNode(restriction.kcal));
+    }
+    tr.appendChild(node);
+    thead.appendChild(tr);
+    tabRes.appendChild(thead);
+    return tabRes;
 }
