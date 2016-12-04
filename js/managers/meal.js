@@ -10,7 +10,7 @@
  * @constructor
  */
 function Meal(name,protein,carbohydrate,fat,kcal,method,partOfDay){
-    this.id=null; //TODO or var id = null; get+set
+    this.id=null;
     this.name=name;
     this.protein=protein;
     this.carbohydrate=carbohydrate;

@@ -16,8 +16,21 @@ function createDayTable(homePage,inDate){
     tabDay.style.width = "100%";
     tabDay.id = currentDate.date;
     var date = currentDate.date.toDateString();
+    var notification = null;
+    if(homePage){
+        notification=document.getElementById("notificationHome");
+    }else{
+        notification=document.getElementById("notificationHistory");
+    }
+    if(globalDaysManager.getDayByDate(dayDate).restriction==null){
+        notification.innerHTML="You don't set any restriction.If you can set it, click on the total meal row.";
+        notification.style.color = "red";
+    }else{
+        notification.innerHTML="Restriction for some columns is set.";
+        notification.style.color = "green";
+    }
+
     tabDay.appendChild(createDayMealsTable(homePage,currentDate));
-    tabDay.appendChild(createRestriction(currentDate));
     tabDay.appendChild(createDayExerciseTable(homePage,currentDate));
 
     var tabfoot = document.createElement("table");
@@ -247,28 +260,9 @@ function createDayMealsTable(homePage,day){
         tr.appendChild(node);
         tbody.appendChild(tr);
     }
-
     tabMeals.appendChild(tbody);
 
-    var tfoot = document.createElement("tfoot");
-    tr = document.createElement("tr");
-    node = document.createElement("td");
-    node.appendChild(document.createTextNode("Total"));
-    tr.appendChild(node);
-    node = document.createElement("td");
-    node.appendChild(document.createTextNode(manager.sumProtein().toFixed(1)));
-    tr.appendChild(node);
-    node = document.createElement("td");
-    node.appendChild(document.createTextNode(manager.sumCarbohydrate().toFixed(1)));
-    tr.appendChild(node);
-    node = document.createElement("td");
-    node.appendChild(document.createTextNode(manager.sumFat().toFixed(1)));
-    tr.appendChild(node);
-    node = document.createElement("td");
-    node.appendChild(document.createTextNode(manager.sumKcal().toFixed(1)));
-    tr.appendChild(node);
-    tfoot.appendChild(tr);
-    tabMeals.appendChild(tfoot);
+    tabMeals.appendChild(createFootWithRestriction(homePage,day,manager));
     return tabMeals;
 }
 /**
@@ -617,50 +611,81 @@ function createGlobalExercisesTable(homePage,date){
     tabExercises.appendChild(tbody);
     return tabExercises;
 }
-
-function createRestriction(day){
+/**
+ * Create foot element for meal table in the day. Element can contains restrictions
+ * @param homePage - if is true, table will be on homePage
+ * @param day - Object day
+ * @param manager - Manager for show values
+ * @returns {Element}
+ */
+function createFootWithRestriction(homePage,day,manager){
+    var notification = null;
+    if(homePage){
+        notification=document.getElementById("notificationHome");
+    }else{
+        notification=document.getElementById("notificationHistory");
+    }
     var restriction = day.restriction;
     if(restriction==null){
         restriction = new Restriction(null,null,null,null);
     }
-    var tabRes = document.createElement("table");
-    tabRes.style.width = "100%";
-    tabRes.className = "dayTable" ;
-
-    var thead = document.createElement("thead");
+    var tfoot = document.createElement("tfoot");
     var tr = document.createElement("tr");
+    tr.setAttribute("idRes",day.date);
+    tr.onclick = function () {
+        fillEditRestriction(homePage,this.getAttribute("idRes"));
+    };
     var node = document.createElement("th");
-    node.appendChild(document.createTextNode("Restriction"));
+    node.appendChild(document.createTextNode("Total"));
     tr.appendChild(node);
     node = document.createElement("th");
     if(restriction.protein==null||restriction.protein==""){
-        node.appendChild(document.createTextNode("-"));
+        node.appendChild(document.createTextNode(manager.sumProtein().toFixed(0)));
     }else{
-        node.appendChild(document.createTextNode(restriction.protein));
+        node.appendChild(document.createTextNode(manager.sumProtein().toFixed(0)+"/"+Number(restriction.protein).toFixed(0)));
+        if(manager.sumProtein()>Number(restriction.protein)){
+            node.style.color="red";
+            notification.innerHTML="Protein for this day was exceeded!";
+            notification.style.color="red";
+        }
     }
     tr.appendChild(node);
     node = document.createElement("th");
     if(restriction.carbohydrate==null||restriction.carbohydrate==""){
-        node.appendChild(document.createTextNode("-"));
+        node.appendChild(document.createTextNode(manager.sumCarbohydrate().toFixed(0)));
     }else{
-        node.appendChild(document.createTextNode(restriction.carbohydrate));
+        node.appendChild(document.createTextNode(manager.sumCarbohydrate().toFixed(0)+"/"+Number(restriction.carbohydrate).toFixed(0)));
+        if(manager.sumCarbohydrate()>Number(restriction.carbohydrate)){
+            node.style.color="red";
+            notification.innerHTML="Carbohydrate for this day was exceeded!";
+            notification.style.color="red";
+        }
     }
     tr.appendChild(node);
     node = document.createElement("th");
     if(restriction.fat==null||restriction.fat==""){
-        node.appendChild(document.createTextNode("-"));
+        node.appendChild(document.createTextNode(manager.sumFat().toFixed(0)));
     }else{
-        node.appendChild(document.createTextNode(restriction.fat));
+        node.appendChild(document.createTextNode(manager.sumFat().toFixed(0)+"/"+Number(restriction.fat).toFixed(0)));
+        if(manager.sumFat()>Number(restriction.fat)){
+            node.style.color="red";
+            notification.innerHTML="Fat for this day was exceeded!";
+            notification.style.color="red";
+        }
     }
     tr.appendChild(node);
     node = document.createElement("th");
     if(restriction.kcal==null||restriction.kcal==""){
-        node.appendChild(document.createTextNode("-"));
+        node.appendChild(document.createTextNode(manager.sumKcal().toFixed(0)));
     }else{
-        node.appendChild(document.createTextNode(restriction.kcal));
+        node.appendChild(document.createTextNode(manager.sumKcal().toFixed(0)+"/"+Number(restriction.kcal).toFixed(0)));
+        if(manager.sumKcal()>Number(restriction.kcal)){
+            node.style.color="red";
+            notification.innerHTML="Kcal for this day was exceeded!";
+            notification.style.color="red";
+        }
     }
     tr.appendChild(node);
-    thead.appendChild(tr);
-    tabRes.appendChild(thead);
-    return tabRes;
+    tfoot.appendChild(tr);
+    return tfoot;
 }

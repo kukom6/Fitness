@@ -29,6 +29,7 @@ function DaysManager(){
         }
         var day=this.getDayByDate(date);
         day.mealsManager.addMeal(meal);
+        saveDaysManager();
         console.log("Meal: "+meal+" was added to day: "+day.date.toDateString());
     };
     /**
@@ -43,6 +44,7 @@ function DaysManager(){
         }
         var day=this.getDayByDate(date);
         day.exercisesManager.addExercise(exercise);
+        saveDaysManager();
         console.log("Exercise: "+exercise+" was added to day: "+day.date.toDateString());
     };
     /**
@@ -58,6 +60,7 @@ function DaysManager(){
         var day=this.getDayByDate(date);
         day.mealsManager.deleteMealByID(idMeal);
         console.log("Meal was deleted from day: "+day.date.toDateString());
+        saveDaysManager();
     };
     /**
      * Delete exercise from particular date
@@ -72,6 +75,7 @@ function DaysManager(){
         var day=this.getDayByDate(date);
         day.exercisesManager.deleteExerciseByID(idExercise);
         console.log("Exercise was deleted from day: "+day.date.toDateString());
+        saveDaysManager();
     };
     /**
      * Update meal in the particular date
@@ -94,6 +98,7 @@ function DaysManager(){
         var day=this.getDayByDate(date);
         day.mealsManager.updateMeal(meal);
         console.log("Meal was updated in day: "+day.date.toDateString());
+        saveDaysManager();
     };
     /**
      * Update exercise in the particular date
@@ -112,6 +117,7 @@ function DaysManager(){
         var day=this.getDayByDate(date);
         day.exercisesManager.updateExercise(exercise);
         console.log("Exercise was updated in day: "+day.date.toDateString());
+        saveDaysManager();
     };
     /**
      * Get day by date
@@ -200,7 +206,11 @@ function DaysManager(){
         var day = this.getDayByDate(date);
         return day.mealsManager.sumKcal() - day.exercisesManager.sumKcal();
     };
-
+    /**
+     * Add restriction to day
+     * @param date
+     * @param restriction
+     */
     this.addRestrictionToDay = function(date, restriction){
         if(date==""||date==null){
             console.error("invalid date");
@@ -215,9 +225,13 @@ function DaysManager(){
         }
         var day=this.getDayByDate(date);
         day.restriction = new Restriction(restriction.protein,restriction.carbohydrate,restriction.fat,restriction.kcal);
+        saveDaysManager();
         console.log("Restriction: "+restriction+" was added to day: "+day.date.toDateString());
     };
-
+    /**
+     * Delete restriction from date
+     * @param date
+     */
     this.deleteRestriction = function(date){
         if(date==""||date==null){
             console.error("invalid date");
@@ -227,22 +241,32 @@ function DaysManager(){
         day.restriction=null;
         console.log("Restriction was deleted from day: "+day.date.toDateString());
     };
-
+    /**
+     * Check if restriction is valid
+     * @param restriction
+     * @returns {boolean}
+     */
     this.checkValidityRestriction = function(restriction) {
         var isOnlyNumber = function(str){ //test if value from form is only number
             return (/^[0-9.]*$/).test(str) ;
         };
-
-        if(!isOnlyNumber(restriction.protein)&&restriction.protein!=null&&restriction.protein!=""){
+        if(restriction.protein=="NaN"){
+            restriction.protein=null;
+        }if(!isOnlyNumber(restriction.protein)&&restriction.protein!=null&&restriction.protein!=""){
             console.error("Invalid protein restriction: "+restriction.protein);
             return false;
-        }
-        if(!isOnlyNumber(restriction.carbohydrate)&&restriction.carbohydrate!=null&&restriction.carbohydrate!=""){
-            console.error("Invalid carbohydrate restriction: "+restriction.carbohydrate);
+        }if(restriction.carbohydrate=="NaN"){
+            restriction.carbohydrate=null;
+        }if(!isOnlyNumber(restriction.carbohydrate)&&restriction.carbohydrate!=null&&restriction.carbohydrate!="") {
+            console.error("Invalid carbohydrate restriction: " + restriction.carbohydrate);
             return false;
-        }if(!isOnlyNumber(restriction.fat)&&restriction.fat!=null&&restriction.fat!=""){
-            console.error("Invalid fat restriction: "+restriction.fat);
+        }if(restriction.fat=="NaN"){
+            restriction.fat=null;
+        }if(!isOnlyNumber(restriction.fat)&&restriction.fat!=null&&restriction.fat!="") {
+            console.error("Invalid fat restriction: " + restriction.fat);
             return false;
+        }if(restriction.kcal=="NaN"){
+            restriction.kcal=null;
         }if(!isOnlyNumber(restriction.kcal)&&restriction.kcal!=null&&restriction.kcal!=""){
             console.error("Invalid kcal restriction: "+restriction.kcal);
             return false;

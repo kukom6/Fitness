@@ -33,8 +33,6 @@ var previousPages =[];
  * @type {string}
  */
 var commonSort = "asc";
-
-
 /**
  * Loading data after start
  */
@@ -75,6 +73,7 @@ function registerButton(){
     document.getElementById('backMealFromGlobalPage').onclick = function() {document.getElementById('addMealFromGlobalForm').reset();revealPage(previousPages.pop())};
     document.getElementById('backNewMealPage').onclick = function() {document.getElementById('addNewMealForm').reset();revealPage(previousPages.pop())};
     document.getElementById('backExercisePage').onclick = function() {document.getElementById('addExerciseForm').reset();revealPage(previousPages.pop())};
+    document.getElementById('backFromRestriction').onclick = function() {document.getElementById('editRestrictionForm').reset();revealPage(previousPages.pop())};
     document.getElementById('uploadButton').onclick = function() {document.getElementById('upJsonFile').click();};
     document.getElementById('saveJsonButton').onclick = function() {saveJSON()};
     document.getElementById('deleteLocalButton').onclick = function() {deleteLocal()};

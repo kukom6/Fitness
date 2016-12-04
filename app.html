@@ -55,6 +55,7 @@
     <div id="homePage" class="pagebody" aria-owns="addToolbar"  >
         <div class="generalBoard" >
             <h2> Today </h2>
+            <p id="notificationHome"></p>
             <div id="homeBoard">
             </div>
         </div>
@@ -74,6 +75,7 @@
     <div id="pageDay" class="pagebody" aria-owns="addToolbar">
         <div class="generalBoard">
             <input style="width: 240px;" type="text" id="datepicker" value="Choose day" title="datePicker">
+            <p id="notificationHistory"></p>
             <div id="dayBoard">
             </div>
         </div>
@@ -164,6 +166,20 @@
             <form id="editExerciseForm">
                 Name:<br> <input type="text" name="nameE" title="NameE"/> <br>
                 Kcal:<br> <input type="text" name="kcal" title="kcal"/> <br>
+            </form>
+        </div>
+    </div>
+    <div id="editRestrictionPage" class="pagebody" aria-owns="editToolbar">
+        <header>
+            <button id='backFromRestriction' class="icon back"></button>
+            <h2>Edit Restriction</h2>
+        </header>
+        <div class="generalBoard" >
+            <form id="editRestrictionForm">
+                Protein: <br><input type="text" name="protein" title="Protein"/> <br>
+                Carbohydrate: <br><input type="text" name="carbohydrate" title="Carbohydrate"/> <br>
+                Fat:<br><input type="text" name="fat" title="Fat"/> <br>
+                Kcal: <br><input type="text" name="kcal" title="kcal" style="width:72%"/>
             </form>
         </div>
     </div>

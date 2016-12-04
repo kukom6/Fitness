@@ -2,7 +2,6 @@
  * Bmi calculator
  */
 function calculateBmi(){
-
     var form=document.getElementById("bmiForm");
     var showNumber=document.getElementById("resultBMI");
     if(showNumber.firstChild){
@@ -34,7 +33,9 @@ function calculateBmi(){
     else if(result>18.5)  showNumber.style.color='greenyellow';
     else if(result<18.5)  showNumber.style.color='red';
 }
-
+/**
+ * Refresh form according to unit
+ */
 function refreshHeightPlaceholder() {
     var form = document.getElementById("bmiForm");
     form[0].value=null;
@@ -44,7 +45,9 @@ function refreshHeightPlaceholder() {
         form[0].placeholder='180';
     }
 }
-
+/**
+ * Refresh form according to unit
+ */
 function refreshWeightPlaceholder(){
     var form=document.getElementById("bmiForm");
     form[2].value=null;
@@ -54,7 +57,11 @@ function refreshWeightPlaceholder(){
         form[2].placeholder='75';
     }
 }
-
+/**
+ * Validate form in the BMI calculator
+ * @param value
+ * @returns {boolean}
+ */
 function validateBmiForm(value){
     var isOnlyNumber = function(value){ //test if value from form is only number
         return (/^[0-9.]*$/).test(value) ;

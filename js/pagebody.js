@@ -84,11 +84,12 @@ function showDay(){
  * Show homepage, if today is empty, show message
  */
 function showHomepage(){
-    try{
+    var addB = null;
+    if(globalDaysManager.isDayInDB(new Date())){
         var empty = globalDaysManager.getDayByDate(new Date()).isEmpty();
         if(empty){
             emptyDay("homeBoard");
-            var addB = document.getElementById("addMealButton");
+            addB = document.getElementById("addMealButton");
             addB.setAttribute("date",String(new Date()));
             addB.onclick = function() {
                 deleteShowTable("addFromMealsBoard");
@@ -103,10 +104,10 @@ function showHomepage(){
         }else{
             document.getElementById("homeBoard").appendChild(createDayTable(true,new Date()));
         }
-    }catch(ex){ //if day is not in the DB manager will create new empty day and show it
+    }else{ //if day is not in the DB manager will create new empty day and show it
         globalDaysManager.addDay(new Day(new Date()));
         emptyDay("homeBoard");
-        var addB = document.getElementById("addMealButton");
+        addB = document.getElementById("addMealButton");
         addB.setAttribute("date",String(new Date()));
         addB.onclick = function() {
             deleteShowTable("addFromMealsBoard");
