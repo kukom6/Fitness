@@ -7,7 +7,7 @@ window.addEventListener(
             if (toolbarId) showToolbar(toolbarId);
         }
         registerButton();
-        loading();
+//        loading();
     }
 );
 
