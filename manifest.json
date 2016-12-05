@@ -1,9 +1,9 @@
 {
 
   "description": "Health and fitness is a web application to monitor the nutritional value of meals and tracking exercises during the day",
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "Health and Fitness",
-  "version": "1.0",
+  "version": "2.0",
   "homepage_url": "https://github.com/kukom6/Fitness",
   "icons": {
     "48": "logos/icon48.png"
