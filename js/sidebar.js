@@ -1,10 +1,3 @@
-window.addEventListener(
-   "load",
-   function() {
-      document.getElementById('sidebar_trigger').onclick = toggleSidebarView;
-   }
-);
-
 function toggleSidebarView() {
    expandSidebarView(0);
 }

@@ -138,7 +138,6 @@ function fillEditExercise(homePage,id){
         }else{
             globalExercisesManager.deleteExerciseByID(ids[1]);
         }
-        saveLocal();
         if(ids[0]=="LE"){
             if(homePage){
                 deleteShowTable("homeBoard");
@@ -172,7 +171,6 @@ function fillEditExercise(homePage,id){
             saveExercise.kcal = parseFloat(form[1].value).toFixed(2);
             globalExercisesManager.updateExercise(saveExercise);
         }
-        saveLocal();
         alert("Exercise was been updated");
         form.reset();
         if(ids[0]=="LE"){
@@ -524,6 +522,98 @@ function validateForm(form,type){
         }
     }else{
         console.error("form with type "+type+" is not supported");
+        return false;
+    }
+    return true;
+}
+/**
+ * Fill form for restriction
+ * @param homePage - if is true,form will be on homePage
+ * @param date
+ */
+function fillEditRestriction(homePage,date){
+    revealPageSave("editRestrictionPage");
+
+    var form = document.getElementById("editRestrictionForm");
+    var restriction = globalDaysManager.getDayByDate(new Date(date)).restriction;
+    if(restriction==null){
+        restriction = new Restriction(null,null,null,null);
+    }
+    form[0].value=restriction.protein;
+    form[1].value=restriction.carbohydrate;
+    form[2].value=restriction.fat;
+    form[3].value=restriction.kcal;
+
+    var toolbarButton = document.getElementById("deleteIconEdit");
+    toolbarButton.onclick = function(){
+        if (confirm("Reset restriction. Are you sure ?") == false) {
+            return;
+        }
+        globalDaysManager.deleteRestriction(new Date(date));
+        if(homePage){
+            deleteShowTable("homeBoard");
+            revealPage("homePage");
+            showHomepage();
+        }else{
+            deleteShowTable("dayBoard");
+            showDay(new Date(date));
+        }
+        revealPage(previousPages.pop());
+    };
+    toolbarButton = document.getElementById("updateIconEdit");
+    toolbarButton.onclick = function(){
+        var form = document.getElementById("editRestrictionForm");
+        if(!validateFormRestriction(form)){
+            return;
+        }
+        globalDaysManager.addRestrictionToDay(new Date(date),new Restriction(parseFloat(form[0].value).toFixed(2),
+                    parseFloat(form[1].value).toFixed(2),
+                    parseFloat(form[2].value).toFixed(2),
+                    parseFloat(form[3].value).toFixed(2)));
+        alert("Restriction was been updated");
+        form.reset();
+        if(homePage){
+            deleteShowTable("homeBoard");
+            revealPage("homePage");
+            showHomepage();
+        }else{
+            deleteShowTable("dayBoard");
+            showDay(new Date(date));
+        }
+        revealPage(previousPages.pop());
+    };
+}
+/**
+ * Validate form for restriction
+ * @param form
+ * @returns {boolean}
+ */
+function validateFormRestriction(form){
+    var isOnlyNumber = function(str){ //test if value from form is only number
+        return (/^[0-9.]*$/).test(str) ;
+    };
+    var containsComma = function(str){
+        return str.indexOf(',') !== -1;
+
+    };
+    if(containsComma(form[0].value) || containsComma(form[1].value) || containsComma(form[2].value) || containsComma(form[3].value)){
+        alert("Please use a period instead of comma in the decimal numbers!");
+        return false;
+    }
+    if(!isOnlyNumber(form[0].value)&&form[0].value!=null&&form[0].value!=""){
+        alert("Protein must contains only numbers or empty value");
+        return false;
+    }
+    if(!isOnlyNumber(form[1].value)&&form[1].value!=null&&form[1].value!=""){
+        alert("Carbohydrate must contains only numbers or empty value");
+        return false;
+    }
+    if(!isOnlyNumber(form[2].value)&&form[2].value!=null&&form[2].value!=""){
+        alert("Fat must contains only numbers or empty value");
+        return false;
+    }
+    if(!isOnlyNumber(form[3].value)&&form[3].value!=null&&form[3].value!=""){
+        alert("Kcal must contains only numbers or empty value");
         return false;
     }
     return true;

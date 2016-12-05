@@ -1,5 +1,8 @@
-var globalChart = null;
-
+/**
+ * Show graph
+ * @param type - type of graph according to value
+ * @param numberOfDaySelection
+ */
 function showGraph(type, numberOfDaySelection){
     if (type.value === 'multi') {
         showMultipleGraph(numberOfDaySelection);
@@ -7,7 +10,11 @@ function showGraph(type, numberOfDaySelection){
         showTypeOfGraph(type, numberOfDaySelection);
     }
 }
-
+/**
+ * Show graph for single value
+ * @param type - type of graph according to value (protein, carbohydrate, fat, kcal)
+ * @param numberOfDaySelection
+ */
 function showTypeOfGraph(type, numberOfDaySelection){
     console.log("Show graph with type: '" + type.value + "' and number of day is: " + numberOfDaySelection.value);
     var title = "Undefined type of meal";
@@ -95,7 +102,10 @@ function showTypeOfGraph(type, numberOfDaySelection){
         }
     });
 }
-
+/**
+ * Show graph for multi value (all values in the common graph)
+ * @param numberOfDaySelection
+ */
 function showMultipleGraph(numberOfDaySelection) {
     var today = new Date();
     var dates = [];

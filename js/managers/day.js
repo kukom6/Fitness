@@ -5,6 +5,7 @@
  */
 function Day(date){
     this.date=date;
+    this.restriction=null;
     this.mealsManager = new MealsManager();
     this.exercisesManager = new ExercisesManager();
 
@@ -15,6 +16,7 @@ function Day(date){
     this.toString = function () {
         var result = "";
         result += "Date " +this.date.toLocaleString()+ ":\n";
+        result += "Restriction " +this.restriction+ ":\n";
         result += "Meals: \n";
         var dayMeals = this.mealsManager.getAllMeals();
         for(var j=0;j<dayMeals.length;j++){

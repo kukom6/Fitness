@@ -9,7 +9,7 @@ div.pagebody {
   left: 0;
   right: 0;
   top: 5rem;
-  bottom: 0rem;
+  bottom: 0;
   opacity: 0;
   z-index: -1;
   border: none;
@@ -21,4 +21,14 @@ div.pagebody {
 div.pagebody[aria-expanded=true] {
    opacity: 1;
    z-index: 1;
+}
+
+p#notificationHome {
+   -webkit-margin-before: 0;
+   -webkit-margin-after: 0;
+}
+
+p#notificationHistory {
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0;
 }
