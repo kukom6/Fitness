@@ -1,5 +1,3 @@
-var globalMealsManager = new MealsManager(); 
-
 function MealsManager(){
     var meals = [];
     /**
@@ -15,7 +13,7 @@ function MealsManager(){
         var pushMeal = new Meal(meal.name,meal.protein,meal.carbohydrate,meal.fat,meal.kcal,meal.method,meal.partOfDay); //safe ?
         pushMeal.id=this.nextMealId();
         meals.push(pushMeal);
-        saveLocal();
+        saveMealsManager();
         console.log("Meal : \n" + meal + "\n was been added to DB");
     };
     /**
@@ -40,7 +38,7 @@ function MealsManager(){
         meals[result].kcal=meal.kcal;
         meals[result].method=meal.method;
         meals[result].partOfDay=meal.partOfDay;
-        saveLocal();
+        saveMealsManager();
         console.log("Meal : \n" + meal + "\n was been updated DB");
     };
     /**
@@ -55,7 +53,7 @@ function MealsManager(){
             throw "Meal with " + id + " id is not in the DB" ;
         }
         meals.splice(index,1);
-        saveLocal();
+        saveMealsManager();
         console.log("Meal was deleted from DB");
     };
     /**

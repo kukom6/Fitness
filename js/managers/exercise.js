@@ -10,6 +10,6 @@ function Exercise(name,kcal){
     this.kcal=kcal;
 
     this.toString = function () {
-        return "Exercise " + this.name + " have " +this.kcal+ "kcal per minute.";
+        return "Exercise " + this.name + " has " +this.kcal+ "kcal per minute.";
     }
 }

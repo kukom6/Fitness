@@ -1,15 +1,16 @@
 window.addEventListener(
-   "load",
-   function() {
-      var revealers = document.querySelectorAll("footer.toolbar > menu > li[aria-controls]");
-      for (var i=0, max=revealers.length; i < max; ++i) {
-         revealers[i].addEventListener(
-            "click",
-            function() { revealPageSave(this.getAttribute("aria-controls")); }
-         );
-      }
-   }
+    "load",
+    function() {
+        var revealers = document.querySelectorAll("footer.toolbar > menu > li[aria-controls]");
+        for (var i=0, max=revealers.length; i < max; ++i) {
+            revealers[i].addEventListener(
+                "click",
+                function() { revealPageSave(this.getAttribute("aria-controls")); }
+            );
+        }
+    }
 );
+
 function showToolbar(barId) {
    var menus = document.querySelectorAll("footer.toolbar > menu");
    var container = menus[0].parentNode;
@@ -24,6 +25,7 @@ function showToolbar(barId) {
       }
    }
 }
+
 function closeAllToolbar(){
     var menus = document.querySelectorAll("footer.toolbar > menu");
     var container = menus[0].parentNode;

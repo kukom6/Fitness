@@ -1,48 +1,3 @@
-window.addEventListener(
-    "load",
-    function() {
-        var elt = document.querySelector(".principal > div.pagebody[aria-expanded=true]");
-        if (elt) {
-            var toolbarId = elt.getAttribute("aria-owns");
-            if (toolbarId) showToolbar(toolbarId);
-        }
- //       loading();
-    }
-);
-
-/**
- * Loading data after start
- */
-function loading(){
-    picker = new Pikaday({ field: document.getElementById('datepicker')});
-    picker.setDate(new Date());
-    if (!storageAvailable('localStorage')) {
-        alert("local storage is not supported, please update your browser.");
-    }
-    if(localStorage.getItem('isInLocal')){
-        loadLocal();
-        alert("load from local storage");
-    }
-    showHomepage();
-    previousPages.push('homePage');
-    var loader = document.getElementById("loadingBoard");
-    while (loader.firstChild) {
-        loader.removeChild(loader.firstChild);
-    }
-    revealPage('homePage');
-}
-
-var picker = null;
-/**
- * Save previous pages (for back button)
- * @type {Array}
- */
-var previousPages =[];
-/**
- * Start sorting by 
- * @type {string}
- */
-var commonSort = "asc";
 /**
  * Save page which is activated (expanded) to the previous pages array
  */
@@ -129,11 +84,12 @@ function showDay(){
  * Show homepage, if today is empty, show message
  */
 function showHomepage(){
-    try{
+    var addB = null;
+    if(globalDaysManager.isDayInDB(new Date())){
         var empty = globalDaysManager.getDayByDate(new Date()).isEmpty();
         if(empty){
             emptyDay("homeBoard");
-            var addB = document.getElementById("addMealButton");
+            addB = document.getElementById("addMealButton");
             addB.setAttribute("date",String(new Date()));
             addB.onclick = function() {
                 deleteShowTable("addFromMealsBoard");
@@ -148,10 +104,10 @@ function showHomepage(){
         }else{
             document.getElementById("homeBoard").appendChild(createDayTable(true,new Date()));
         }
-    }catch(ex){ //if day is not in the DB manager will create new empty day and show it
+    }else{ //if day is not in the DB manager will create new empty day and show it
         globalDaysManager.addDay(new Day(new Date()));
         emptyDay("homeBoard");
-        var addB = document.getElementById("addMealButton");
+        addB = document.getElementById("addMealButton");
         addB.setAttribute("date",String(new Date()));
         addB.onclick = function() {
             deleteShowTable("addFromMealsBoard");
@@ -175,7 +131,6 @@ function showAddMealsBoard(homePage,date){
     document.getElementById("addNewMealButton").onclick = function(){
         fillAddMeal(homePage,date);
     }
-
 }
 /**
  * Show global exercise board for add exercise to the particular day
