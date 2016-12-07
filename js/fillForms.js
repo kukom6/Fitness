@@ -40,8 +40,10 @@ function fillEditMeal(homePage,id) {
     }
     var toolbarButton = document.getElementById("deleteIconEdit");
     toolbarButton.onclick = function(){
-        if (confirm("Delete meal. Are you sure ?") == false) {
-            return;
+        if(device.platform!="windows"){
+            if (confirm("Delete meal. Are you sure ?") == false) {
+                return;
+            }
         }
         if(ids[0]=="LM"){
             globalDaysManager.deleteMealInDay(new Date(ids[1]),ids[2]);
@@ -130,8 +132,10 @@ function fillEditExercise(homePage,id){
     form[1].value=exercise.kcal;
     var toolbarButton = document.getElementById("deleteIconEdit");
     toolbarButton.onclick = function(){
-        if (confirm("Delete exercise. Are you sure ?") == false) {
-            return;
+        if(device.platform!="windows"){
+            if (confirm("Delete exercise. Are you sure ?") == false) {
+                return;
+            }
         }
         if(ids[0]=="LE"){
             globalDaysManager.deleteExerciseInDay(new Date(ids[1]),ids[2]);
@@ -546,8 +550,10 @@ function fillEditRestriction(homePage,date){
 
     var toolbarButton = document.getElementById("deleteIconEdit");
     toolbarButton.onclick = function(){
-        if (confirm("Reset restriction. Are you sure ?") == false) {
-            return;
+        if(device.platform!="windows"){
+            if (confirm("Reset restriction. Are you sure ?") == false) {
+                return;
+            }
         }
         globalDaysManager.deleteRestriction(new Date(date));
         if(homePage){

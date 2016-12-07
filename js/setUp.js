@@ -116,7 +116,7 @@ var app = {
             window.confirm=navigator.notification.confirm;
         }
         loading();
-    },
+    }
 
 };
 app.initialize();

@@ -52,8 +52,10 @@ function createDayTable(homePage,inDate){
     var deleteB = document.createElement("button");
     deleteB.id = date;
     deleteB.onclick = function() {
-        if (confirm("Are you sure ?") == false) {
-            return;
+        if(device.platform!="windows"){
+            if (confirm("Are you sure ?") == false) {
+                return;
+            }
         }
         var date=this.id;
         globalDaysManager.deleteDayByDate(new Date(date));
