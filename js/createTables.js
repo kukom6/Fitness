@@ -65,7 +65,7 @@ function createDayTable(homePage,inDate){
             deleteShowTable("dayBoard");
             deleteShowTable("daysBoard");
             showDay();
-            revealPage("dayPage");
+            revealPage("pageDay");
         }
     };
     deleteB.appendChild(document.createTextNode("Delete day"));
