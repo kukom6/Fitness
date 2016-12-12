@@ -74,7 +74,7 @@ QUnit.test( "update meal in the day", function( assert ) {
     assert.deepEqual(updateMeal,updatedMeal,"updated meals was successfully ");
     day = globalDaysManager.getDayByDate(new Date());
     assert.equal(1,day.mealsManager.getAllMeals().length,"one meal in the day");
-    assert.equal("snack",updatedMeal.partOfDay,"meal was been updated");
+    assert.equal("snack",updatedMeal.partOfDay,"meal updated");
 
 });
 QUnit.test( "update meal with incorrect date", function( assert ) {
@@ -89,7 +89,7 @@ QUnit.test( "update meal with incorrect date", function( assert ) {
     assert.throws(function() {globalDaysManager.updateMealInDay(new Date(),tempMeal);},"throws, meal have incorrect part of day");
     tempMeal.partOfDay="night";
     assert.throws(function() {globalDaysManager.updateMealInDay(new Date(),tempMeal);},"throws, meal have incorrect part of day");
-    assert.equal("lunch",globalDaysManager.getDayByDate(new Date()).mealsManager.getMealByID(1).partOfDay,"meal wasn't been updated");
+    assert.equal("lunch",globalDaysManager.getDayByDate(new Date()).mealsManager.getMealByID(1).partOfDay,"meal wasn't updated");
 
 });
 QUnit.test( "update exercise in the day", function( assert ) {

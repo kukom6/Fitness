@@ -93,7 +93,7 @@ function fillEditMeal(homePage,id) {
             saveMeal.partOfDay = form[7].value;
             globalMealsManager.updateMeal(saveMeal);
         }
-        alert("Meal was been updated");
+        alert("Meal updated");
         form.reset();
         if(ids[0]=="LM"){
             if(homePage){
@@ -175,7 +175,7 @@ function fillEditExercise(homePage,id){
             saveExercise.kcal = parseFloat(form[1].value).toFixed(2);
             globalExercisesManager.updateExercise(saveExercise);
         }
-        alert("Exercise was been updated");
+        alert("Exercise updated");
         form.reset();
         if(ids[0]=="LE"){
             if(homePage){
@@ -260,7 +260,7 @@ function fillAddMeal(homePage,date,id){
                 form[9].value,
                 form[7].value);
             globalDaysManager.addMealToDay(new Date(date),saveMeal);
-            alert("Meal was been added!");
+            alert("Meal added");
             form.reset();
             previousPages.pop();
             previousPages.pop();
@@ -298,7 +298,7 @@ function fillAddMeal(homePage,date,id){
                 "one piece",
                 form[6].value);
             globalDaysManager.addMealToDay(new Date(date),saveMeal);
-            alert("Meal was been added!");
+            alert("Meal added");
             form.reset();
             previousPages.pop();
             previousPages.pop();
@@ -335,7 +335,7 @@ function fillAddMeal(homePage,date,id){
                 parseFloat(form[4].value).toFixed(1),
                 form[6].value);
             globalMealsManager.addMeal(saveMeal);
-            alert("Meal was been added!");
+            alert("Meal added");
             form.reset();
             previousPages.pop();
             deleteShowTable("mealsBoard");
@@ -375,7 +375,7 @@ function fillAddExercise(homePage,date,id){
             }
             var saveExercise = new Exercise(form[0].value, parseFloat(form[1].value).toFixed(1));
             globalDaysManager.addExerciseToDay(new Date(date),saveExercise);
-            alert("Exercise was been added!");
+            alert("Exercise added");
             form.reset();
             previousPages.pop();
             previousPages.pop();
@@ -400,7 +400,7 @@ function fillAddExercise(homePage,date,id){
             }
             var saveExercise = new Exercise(form[0].value, parseFloat(form[1].value).toFixed(1));
             globalDaysManager.addExerciseToDay(new Date(date),saveExercise);
-            alert("Exercise was been added!");
+            alert("Exercise added");
             form.reset();
             previousPages.pop();
             previousPages.pop();
@@ -425,7 +425,7 @@ function fillAddExercise(homePage,date,id){
             }
             var saveExercise = new Exercise(form[0].value, parseFloat(form[1].value).toFixed(1));
             globalExercisesManager.addExercise(saveExercise);
-            alert("Exercise was been added!");
+            alert("Exercise added");
             form.reset();
             previousPages.pop();
             deleteShowTable("exercisesBoard");
@@ -576,7 +576,7 @@ function fillEditRestriction(homePage,date){
                     parseFloat(form[1].value).toFixed(2),
                     parseFloat(form[2].value).toFixed(2),
                     parseFloat(form[3].value).toFixed(2)));
-        alert("Restriction was been updated");
+        alert("Restriction updated");
         form.reset();
         if(homePage){
             deleteShowTable("homeBoard");

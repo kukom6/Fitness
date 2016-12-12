@@ -1,0 +1,7 @@
+/*Tests erase all data in the application!*/
+Open Selenium IDE in the Mozilla Firefox
+In the selenium IDE import testSuit from this folder (All test case will be imported)
+Set base URL (path to the index.html f.e. file:///C:/Users/matej/IdeaProjects/Fitness/index.html)
+Open this .html in the new window of Mozilla firefox
+Make sure that application (Health and Fitness) doesn't contain any data (otherwise go to Setting and delete all data)
+Run all test cases

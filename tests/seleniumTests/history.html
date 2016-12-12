@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="file:///C:/Users/matej/IdeaProjects/Fitness/app.html" />
+<title>history</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">history</td></tr>
+</thead><tbody>
+<tr>
+	<td>click</td>
+	<td>id=sidebar_trigger</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=execisesPageMenu</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=addNewExerciseButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=#addExerciseForm &gt; input[name=&quot;nameE&quot;]</td>
+	<td>testGlobal1</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=#addExerciseForm &gt; input[name=&quot;kcal&quot;]</td>
+	<td>100</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=saveButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForAlert</td>
+	<td>Exercise added</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=sidebar_trigger</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=mealsPageMenu</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=addNewMealButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=#addNewMealToGlobalForm &gt; input[name=&quot;nameM&quot;]</td>
+	<td>globaMeal1</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=#addNewMealToGlobalForm &gt; input[name=&quot;protein&quot;]</td>
+	<td>10</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=#addNewMealToGlobalForm &gt; input[name=&quot;carbohydrate&quot;]</td>
+	<td>10</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=#addNewMealToGlobalForm &gt; input[name=&quot;fat&quot;]</td>
+	<td>10</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#addNewMealToGlobalForm &gt; button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=saveButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertAlert</td>
+	<td>Meal added</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=sidebar_trigger</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=homePageMenu</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=#homeBoard &gt; p</td>
+	<td>Day is empty! You should eat something</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=addExerciseButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#addFromExercisesBoard &gt; table.dayTable &gt; tbody &gt; tr &gt; td</td>
+	<td></td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>css=#addExerciseForm &gt; input[name=&quot;count&quot;]</td>
+	<td>2</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=saveButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForAlert</td>
+	<td>Exercise added</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=addMealButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#addFromMealsBoard &gt; table.dayTable &gt; tbody &gt; tr &gt; td</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>css=#addMealFromGlobalForm &gt; select[title=&quot;partOfDay&quot;]</td>
+	<td>label=Breakfast</td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>css=#addMealFromGlobalForm &gt; input[name=&quot;count&quot;]</td>
+	<td>2</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=count</td>
+	<td>12</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=saveButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertAlert</td>
+	<td>Meal added</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=sidebar_trigger</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=daysPageMenu</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//div[@id='dayBoard']/table/table/tbody/tr[2]/td</td>
+	<td>globaMeal1</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//div[@id='dayBoard']/table/table[2]/tbody/tr/td</td>
+	<td>testGlobal1</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//div[@id='dayBoard']/table/table/tfoot/tr/th[5]</td>
+	<td>2040</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//div[@id='dayBoard']/table/table[3]/tfoot/tr/td[2]</td>
+	<td>840.0</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='dayBoard']/table/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForConfirmation</td>
+	<td>Are you sure ?</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertNotText</td>
+	<td>xpath=(//table[@id='Sat Dec 10 2016 19:56:43 GMT+0100']/table/tbody/tr[2]/td)[6]</td>
+	<td>globaMeal1</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=sidebar_trigger</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=mealsPageMenu</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#mealsBoard &gt; table.dayTable &gt; tbody &gt; tr &gt; td</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=deleteIconEdit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertConfirmation</td>
+	<td>Delete meal. Are you sure ?</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=sidebar_trigger</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=execisesPageMenu</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#exercisesBoard &gt; table.dayTable &gt; tbody &gt; tr &gt; td</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=deleteIconEdit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertConfirmation</td>
+	<td>Delete exercise. Are you sure ?</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

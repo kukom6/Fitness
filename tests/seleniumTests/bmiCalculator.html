@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="file:///C:/Users/matej/IdeaProjects/Fitness/app.html" />
+<title>bmiCalculator</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">bmiCalculator</td></tr>
+</thead><tbody>
+<tr>
+	<td>click</td>
+	<td>id=sidebar_trigger</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=pageBMIMenu</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=heightTitle</td>
+	<td>label=Metric(cm)</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=height</td>
+	<td>180</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=weightTitle</td>
+	<td>label=Metric(kg)</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=weight</td>
+	<td>75</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=calculateButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>id=resultBMI</td>
+	<td>23.1</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=heightTitle</td>
+	<td>label=Imperial(feet)</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=height</td>
+	<td>5.9</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=weightTitle</td>
+	<td>label=Imperial(lbs)</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=weight</td>
+	<td>165</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=calculateButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>id=resultBMI</td>
+	<td>23.2</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=height</td>
+	<td>validate</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=calculateButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertAlert</td>
+	<td>Height/weight must contains only numbers!</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=height</td>
+	<td>5.9</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=weight</td>
+	<td>validate</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=calculateButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertAlert</td>
+	<td>Height/weight must contains only numbers!</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=weight</td>
+	<td>165</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=calculateButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>id=resultBMI</td>
+	<td>23.2</td>
+</tr>
+</tbody></table>
+</body>
+</html>
