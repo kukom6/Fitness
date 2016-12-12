@@ -16,12 +16,6 @@ body {
   overflow: hidden;
 }
 
-* {
-   user-select: none;
-   -webkit-user-select: none;
-   -moz-user-select: none;
-}
-
 section.principal > header {
   background-image: url("images/header.png");
   border-bottom: 0.1rem solid #323232;

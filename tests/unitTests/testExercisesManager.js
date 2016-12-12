@@ -65,10 +65,10 @@ QUnit.test( "update exercise", function( assert ) {
     var updateExercise = globalExercisesManager.getExerciseByID(1);
     updateExercise.name="2run";
     globalExercisesManager.updateExercise(updateExercise);
-    assert.equal(updateExercise.name,globalExercisesManager.getExerciseByID(1).name,"Name was been updated");
+    assert.equal(updateExercise.name,globalExercisesManager.getExerciseByID(1).name,"Name was  updated");
     updateExercise.kcal="400";
     globalExercisesManager.updateExercise(updateExercise);
-    assert.equal(updateExercise.kcal,globalExercisesManager.getExerciseByID(1).kcal,"Kcal was been updated");
+    assert.equal(updateExercise.kcal,globalExercisesManager.getExerciseByID(1).kcal,"Kcal was  updated");
     assert.deepEqual(updateExercise, globalExercisesManager.getExerciseByID(1) , "exercises are equal" );
 });
 QUnit.test( "update exercise with incorrect parameter", function( assert ) {

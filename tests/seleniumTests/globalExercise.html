@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="https://fitnessapplication.github.io/" />
+<title>globalExerciseDay</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">globalExerciseDay</td></tr>
+</thead><tbody>
+<tr>
+	<td>click</td>
+	<td>id=sidebar_trigger</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=execisesPageMenu</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=addNewExerciseButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=#addExerciseForm &gt; input[name=&quot;nameE&quot;]</td>
+	<td>globalExercise</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=#addExerciseForm &gt; input[name=&quot;kcal&quot;]</td>
+	<td>oo</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=saveButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertAlert</td>
+	<td>Name must contains only numbers!</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=#addExerciseForm &gt; input[name=&quot;kcal&quot;]</td>
+	<td>100</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=saveButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForAlert</td>
+	<td>Exercise added</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//div[@id='exercisesBoard']/table/tbody/tr/td[1]</td>
+	<td>globalExercise</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//div[@id='exercisesBoard']/table/tbody/tr/td[2]</td>
+	<td>100.0</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#exercisesBoard &gt; table.dayTable &gt; tbody &gt; tr &gt; td</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=nameE</td>
+	<td>globalExerciseEdited</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=#editExerciseForm &gt; input[name=&quot;kcal&quot;]</td>
+	<td>120.0</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=updateIconEdit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertAlert</td>
+	<td>Exercise updated</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//div[@id='exercisesBoard']/table/tbody/tr/td[1]</td>
+	<td>globalExerciseEdited</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//div[@id='exercisesBoard']/table/tbody/tr/td[2]</td>
+	<td>120.00</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#exercisesBoard &gt; table.dayTable &gt; tbody &gt; tr &gt; td</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=deleteIconEdit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertConfirmation</td>
+	<td>Delete exercise. Are you sure ?</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertNotText</td>
+	<td>//div[@id='exercisesBoard']/table/tbody/tr/td[1]</td>
+	<td>globalExercise2</td>
+</tr>
+</tbody></table>
+</body>
+</html>

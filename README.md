@@ -3,18 +3,20 @@ Health and fitness is a web application to monitor the nutritional value of meal
 
 <p>If you find any bug, feel free and report it on the <a href="https://github.com/kukom6/Fitness/issues">GitHub</a></p>
 
-<h2>Support platform</h2> [WIP] the link will be added
+<h2>Support platform</h2>
 <ul>
 <li><a href="https://fitnessApplication.github.io"> All web browser in the PC or mobile (these which support web storage)</a></li> 
 <li><a href="https://play.google.com/store/apps/details?id=org.fitness"> Android </a></li> 
 <li><a href="https://addons.mozilla.org/cs/firefox/addon/health-and-fitness/"> Addon for firefox</a></li> 
 <li><a href="https://chrome.google.com/webstore/detail/health-and-fitness/famfklfcpjmoicmdhakofiabnfhgllfd"> Addon for chrome</a></li>
 <li><a href="https://addons.opera.com/cs/extensions/details/health-and-fitness"> Addon for opera</a></li>
-<li>Windows phone  - [WIP] will be added with version 2</li>
+<li>Windows phone  - [WIP] will be added with version 3</li>
+<li>Firefox OS - archive is in the release on the GitHub
 <li>iOS -[deffered, sorry but I really don't have free 100$ for developer license]</li>
 </ul>
 
 <h2>What is already implemented?</h2>
+<p>Now you can add restriction for nutrition values in the day.</p>
 <p>Now you can open the menu through swipe a finger to right/left.</p>
 <ol style="text-align:left">
      <li><b>Meals page</b>

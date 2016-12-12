@@ -33,7 +33,7 @@ function ExercisesManager(){
         exercises[result].protein=exercise.protein;
         exercises[result].kcal=exercise.kcal;
         saveExecisesManager();
-        console.log("Exercise : \n" + exercise + "\n was been updated DB");
+        console.log("Exercise : \n" + exercise + "\n updated in the DB");
     };
     /**
      * Delete exercise from exercise manager

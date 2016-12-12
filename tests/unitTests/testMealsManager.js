@@ -93,22 +93,22 @@ QUnit.test( "update meal", function( assert ) {
     var updateMeal = globalMealsManager.getMealByID(1);
     updateMeal.name="2steak2";
     globalMealsManager.updateMeal(updateMeal);
-    assert.equal(updateMeal.name,globalMealsManager.getMealByID(1).name,"Name was been updated");
+    assert.equal(updateMeal.name,globalMealsManager.getMealByID(1).name,"Name was updated");
     updateMeal.protein="40";
     globalMealsManager.updateMeal(updateMeal);
-    assert.equal(updateMeal.protein,globalMealsManager.getMealByID(1).protein,"Protein was been updated");
+    assert.equal(updateMeal.protein,globalMealsManager.getMealByID(1).protein,"Protein was updated");
     updateMeal.carbohydrate="100";
     globalMealsManager.updateMeal(updateMeal);
-    assert.equal(updateMeal.carbohydrate,globalMealsManager.getMealByID(1).carbohydrate,"Carbohydrate was been updated");
+    assert.equal(updateMeal.carbohydrate,globalMealsManager.getMealByID(1).carbohydrate,"Carbohydrate was updated");
     updateMeal.fat="20";
     globalMealsManager.updateMeal(updateMeal);
-    assert.equal(updateMeal.fat,globalMealsManager.getMealByID(1).fat,"Fat was been updated");
+    assert.equal(updateMeal.fat,globalMealsManager.getMealByID(1).fat,"Fat was updated");
     updateMeal.kcal="400";
     globalMealsManager.updateMeal(updateMeal);
-    assert.equal(updateMeal.kcal,globalMealsManager.getMealByID(1).kcal,"Kcal was been updated");
+    assert.equal(updateMeal.kcal,globalMealsManager.getMealByID(1).kcal,"Kcal was updated");
     updateMeal.method="one piece";
     globalMealsManager.updateMeal(updateMeal);
-    assert.equal(updateMeal.method,globalMealsManager.getMealByID(1).method,"Method was been updated");
+    assert.equal(updateMeal.method,globalMealsManager.getMealByID(1).method,"Method was updated");
     assert.deepEqual(updateMeal, globalMealsManager.getMealByID(1) , "meals are equal" );
 });
 QUnit.test( "update meal with incorrect parameter", function( assert ) {

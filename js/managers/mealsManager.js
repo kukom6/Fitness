@@ -39,7 +39,7 @@ function MealsManager(){
         meals[result].method=meal.method;
         meals[result].partOfDay=meal.partOfDay;
         saveMealsManager();
-        console.log("Meal : \n" + meal + "\n was been updated DB");
+        console.log("Meal : \n" + meal + "\n updated in the DB");
     };
     /**
      * Delete meal from meal manager
