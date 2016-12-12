@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Test Suite</title>
+</head>
+<body>
+<table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium"><tbody>
+<tr><td><b>Test Suite</b></td></tr>
+<tr><td><a href="globalExercise.html">globalExercise</a></td></tr>
+<tr><td><a href="globalMeal.html">globalMeal</a></td></tr>
+<tr><td><a href="tempExerciseInDay.html">tempExerciseInDay</a></td></tr>
+<tr><td><a href="tempMealInDay.html">tempMealInDay</a></td></tr>
+<tr><td><a href="globalExerciseInDay.html">globalExerciseInDay</a></td></tr>
+<tr><td><a href="globalMealInDay.html">globalMealInDay</a></td></tr>
+<tr><td><a href="restriction.html">restriction</a></td></tr>
+<tr><td><a href="history.html">history</a></td></tr>
+<tr><td><a href="bmiCalculator.html">bmiCalculator</a></td></tr>
+</tbody></table>
+</body>
+</html>

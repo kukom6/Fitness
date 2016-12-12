@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="https://fitnessapplication.github.io/" />
+<title>globalExerciseDay</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">globalExerciseDay</td></tr>
+</thead><tbody>
+<tr>
+	<td>click</td>
+	<td>id=sidebar_trigger</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=homePageMenu</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=#homeBoard &gt; p</td>
+	<td>Day is empty! You should eat something</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=addMealButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=addNewMealButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=#addNewMealForm &gt; input[name=&quot;nameM&quot;]</td>
+	<td>tempMeal</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=#addNewMealForm &gt; input[name=&quot;nameM&quot;]</td>
+	<td>testMeal</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=#addNewMealForm &gt; input[name=&quot;protein&quot;]</td>
+	<td>testValidity</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=saveButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertAlert</td>
+	<td>Protein must contains only numbers!</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=#addNewMealForm &gt; input[name=&quot;protein&quot;]</td>
+	<td>10</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=#addNewMealForm &gt; input[name=&quot;carbohydrate&quot;]</td>
+	<td>testValidity</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=saveButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertAlert</td>
+	<td>Carbohydrate must contains only numbers!</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=#addNewMealForm &gt; input[name=&quot;carbohydrate&quot;]</td>
+	<td>10</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=#addNewMealForm &gt; input[name=&quot;fat&quot;]</td>
+	<td>testValidity</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=saveButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertAlert</td>
+	<td>Fat must contains only numbers!</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=#addNewMealForm &gt; input[name=&quot;fat&quot;]</td>
+	<td>10</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=#addNewMealForm &gt; input[name=&quot;kcal&quot;]</td>
+	<td>testValidity</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=saveButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertAlert</td>
+	<td>Kcal must contains only numbers!</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=#addNewMealForm &gt; input[name=&quot;kcal&quot;]</td>
+	<td>testValidit</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#addNewMealForm &gt; button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=saveButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertAlert</td>
+	<td>Meal added</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//div[@id='homeBoard']/table/table/tbody/tr[2]/td</td>
+	<td>testMeal</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//div[@id='homeBoard']/table/table/tbody/tr[2]/td[2]</td>
+	<td>10.0</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//div[@id='homeBoard']/table/table/tbody/tr[2]/td[3]</td>
+	<td>10.0</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//div[@id='homeBoard']/table/table/tbody/tr[2]/td[4]</td>
+	<td>10.0</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//div[@id='homeBoard']/table/table/tbody/tr[2]/td[5]</td>
+	<td>170.0</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//div[@id='homeBoard']/table/table/tfoot/tr/th[5]</td>
+	<td>170</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//div[@id='homeBoard']/table/table[3]/tfoot/tr/td[2]</td>
+	<td>170.0</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='homeBoard']/table/table/tbody/tr[2]/td</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=nameM</td>
+	<td>globalMealEdited</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=protein</td>
+	<td>12.0</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=carbohydrate</td>
+	<td>12.0</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=fat</td>
+	<td>12.0</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#editMealForm &gt; button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>css=select[title=&quot;method&quot;]</td>
+	<td>label=one piece</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=updateIconEdit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertAlert</td>
+	<td>Meal updated</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//div[@id='homeBoard']/table/table/tbody/tr[2]/td</td>
+	<td>globalMealEdited</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//div[@id='homeBoard']/table/table/tbody/tr[2]/td[2]</td>
+	<td>12.00</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//div[@id='homeBoard']/table/table/tbody/tr[2]/td[3]</td>
+	<td>12.00</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//div[@id='homeBoard']/table/table/tbody/tr[2]/td[4]</td>
+	<td>12.00</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//div[@id='homeBoard']/table/table/tbody/tr[2]/td[5]</td>
+	<td>204.00</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//div[@id='homeBoard']/table/table/tfoot/tr/th[5]</td>
+	<td>204</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//div[@id='homeBoard']/table/table[3]/tfoot/tr/td[2]</td>
+	<td>204.0</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='homeBoard']/table/table/tbody/tr[2]/td</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=deleteIconEdit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertConfirmation</td>
+	<td>Delete meal. Are you sure ?</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=#homeBoard &gt; p</td>
+	<td>Day is empty! You should eat something</td>
+</tr>
+</tbody></table>
+</body>
+</html>
